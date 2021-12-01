@@ -1,0 +1,2072 @@
+<!DOCTYPE html><html latestURL="https://randomcode.run/randomLevelGen" version="1.0" lang="en"><title>Random Level Gen</title><meta charset="utf-8"><link rel="icon" type="image/x-icon" href="images/favicon.ico"><script>const version="1.00",baseURL="randomcode.run",contactMail="mattbird@randomcode.run";function HEADER(name){console.log.apply(console,["\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c MADE WITH:"+("                                   v"+version).slice((version+"".length))+" %c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n"+"%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u2590\u2588\u2580\u2584\u00A0\u2584\u2580\u2580\u2584\u00A0\u2588\u2584\u00A0\u00A0\u2588\u2590\u2588\u2580\u2588\u00A0\u2584\u2580\u2580\u2584\u00A0\u2588\u2584\u00A0\u2584\u2588\u00A0\u2584\u2580\u2580\u2584\u00A0\u2584\u2580\u2580\u2584\u2590\u2588\u2580\u2588\u00A0\u2588\u2580\u2580\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u2590\u2588\u2584\u2580\u00A0\u2588\u2584\u2584\u2588\u00A0\u2588\u00A0\u2588\u00A0\u2588\u2590\u2588\u00A0\u2590\u258C\u2588\u00A0\u00A0\u2588\u00A0\u2588\u00A0\u2588\u00A0\u2588\u00A0\u2588\u00A0\u00A0\u00A0\u00A0\u2588\u00A0\u00A0\u2588\u2590\u2588\u00A0\u2590\u258C\u2588\u2580\u00A0\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u2590\u2588\u00A0\u2588\u00A0\u2588\u00A0\u00A0\u2588\u00A0\u2588\u00A0\u00A0\u2580\u2588\u2590\u2588\u2584\u2588\u00A0\u2580\u2584\u2584\u2580\u00A0\u2588\u00A0\u00A0\u00A0\u2588\u00A0\u2580\u2584\u2584\u2580\u00A0\u2580\u2584\u2584\u2580\u2590\u2588\u2584\u2588\u00A0\u2588\u2584\u2584\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c https://"+baseURL+"/ | "+contactMail+" %c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c run(\""+name+"\");                                  ".slice(-10-name+"".length)+"%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n",...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600']])};/*
+randomcodode.run/
+░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓ ▐█▀▄ ▄▀▀▄ █▄  █▐█▀█ ▄▀▀▄ █▄ ▄█ ▄▀▀▄ ▄▀▀▄▐█▀█ █▀▀ ▓▓▓▒▒░░
+░░▒▒▓▓▓ ▐█▄▀ █▄▄█ █ █ █▐█ ▐▌█  █ █ █ █ █    █  █▐█ ▐▌█▀  ▓▓▓▒▒░░
+░░▒▒▓▓▓ ▐█ █ █  █ █  ▀█▐█▄█ ▀▄▄▀ █   █ ▀▄▄▀ ▀▄▄▀▐█▄█ █▄▄ ▓▓▓▒▒░░
+░░▒▒▓▓▓ https://randomcode.run | mattbird@randomcode.run ▓▓▓▒▒░░
+░░▒▒▓▓▓             	 randomLevelGen v1.0	 	   		     ▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
+<script>
+var content;
+const t=true,f=false,n=null,run={};
+function onLoad(func){
+	if(document.readyState==='complete'){func();}
+	else{window.onload=((oldLoad,func)=>{
+		return function(){
+			oldLoad && oldLoad();
+			func();
+		}	})(window.onload,func);
+}	}
+onLoad(e=>{
+	content=ACE(document.body,"main");
+	var url = window.location.pathname,
+			filename = url.substring(url.lastIndexOf('/')+1);
+	filename=filename.substring(0,filename.lastIndexOf('.'));
+	HEADER(filename);
+	run[filename]();
+});
+function AE(element,parent=content){
+	var origElement=element;
+	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
+	else if(isDefined(element.DOM)){
+		while(element.DOM!=null){
+			element=element.DOM;
+		}
+	}
+	parent.appendChild(element);
+	if("appended" in origElement){origElement.appended();}
+	return origElement;
+}
+function ACE(parent=content){
+	var args=ArgToArr(arguments);
+	args.shift();
+	var element=CE(...args);
+	AE(element,parent);
+	return element;
+}
+function CE(){
+	var info=ArgToArr(arguments),type,element,fields;
+	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
+		fields=cElement[info[0]];
+	}else{
+		fields=[info[0],"generic"];
+	}
+	element=document.createElement(fields[0]);
+	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
+	if(fields[1]=="generic"){fields=cElement["generic"];}
+	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
+	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
+	for(let index=1;index<fields.length;index++){
+		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
+		else if(info[index]==null){}
+		else if(fields[index]=="content"){
+			if(info[index]!=null){
+				if(info[index] instanceof Array){
+					for(let innerdex=0;innerdex<info[index].length;innerdex++){
+						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
+						AE(info[index][innerdex],element);
+					}
+				}else{element.innerText=info[index];}
+		}	}
+		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
+		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
+		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
+		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
+		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
+		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
+	}
+	return element;
+}
+function addCE(){
+	let args=ArgsToArr(arguments);
+	cElement[args.pop()]=args;
+}
+const cElement={
+	'cvs':["canvas","id","class","onclick","left","top","width","height"],//Canvas
+	'generic':["","content","id","class","onclick","keySet"]
+};
+
+class DOMObj{
+	constructor(parent){
+		var fields=ArgToArr(arguments);
+		if(fields[0] instanceof ExtendedObj){
+			fields[0].expand(this);
+			fields.shift();
+		}
+		for(let index=0;index<fields.length;index++){
+			this[fields[index++]]=fields[index];
+		}
+		this.DOM=CE("div");
+		if(isDefined(this.preGen)){this.preGen();}
+		this.boundEvents={};
+		let keywords=[
+	    	//Keyboard Events
+	    	["keyUp","keyup"],["keyDown","keydown"],
+	    	//Mouse Events
+	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
+	    	//Element Events
+	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
+	    	//Drag/Drop Events
+		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
+		
+		];
+
+		this.generate();
+		
+		for(let id=0; id<keywords.length;id++){
+			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
+		}
+		if(isDefined(this.postGen)){this.postGen();}
+	}
+	addListener(listener,func,DOM=this.DOM){
+		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
+		this.boundEvents[listener]=func.bind(this);
+		DOM.addEventListener(listener,this.boundEvents[listener],false);
+	}
+	shareVars() {
+		let r = [],
+			s = ArgToArr(arguments).map(s => {
+				let e = this;
+				if (isArray(s))
+					if (isArray(s[0]) ? s[0].map(r => e = e[r]) : e = this[s[0]], isArray(s[1])) {
+						r.push(...e.shareVars(...s[1].slice(1))), s = s[1].shift()
+					} else s = s[1];
+				return isFunc(e[s]) ? r => r[s] = e[s].bind(e) : r => {
+					Object.defineProperty(r, s, {
+						get: (() => e[s]).bind(e),
+						set: (r => {
+							e[s] = r
+						}).bind(e),
+						configurable: t
+					})
+				}
+			});
+		return s.push(...r), s
+	}
+	set sharedVars(args){args.map(a=>a(this));}
+	removeListener(listener,DOM=this.DOM){
+		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
+			delete this.boundEvents[listener];
+		}catch(e){}
+	}
+	preventDefault(e){
+		if(e.preventDefault){e.preventDefault();}
+		if(e.stopPropagation){e.stopPropagation();}
+	}
+	generate(parent){return null;}
+	insertChild(parent,index){
+		var DOM=this;
+		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
+		while(parent.DOM!=null){parent=parent.DOM;}
+		if(index>=parent.children.length){AE(DOM,parent);}
+		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
+	}
+	insertAfter(element){
+		var DOM=this;
+		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
+		while(!isDOM(element)){element=element.DOM;}
+			element.parentNode.insertBefore(DOM, element.nextSibling);
+	}
+	appendChild(object){
+		while(object.DOM!=null){object=object.DOM;}
+		this.DOM.appendChild(object);
+	}
+	removeChild(object){this.DOM.removeChild(object);}
+	remove(){
+		if(this.parentNode!=null){
+			var object=this.DOM;
+			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
+			this.parentNode.removeChild(object);
+	}	}
+	toggleCSS(rule,DOM=this.DOM){
+		if(!DOM.classList.contains(rule)){
+			DOM.classList.add(rule);
+		}else{
+			DOM.classList.remove(rule);
+		}
+	}
+	overlaps(elem){
+		return !((this.bottom < elem.top) ||
+						(this.top > elem.bottom) ||
+						(this.right < elem.left) ||
+						(this.left > elem.right))
+	}
+	setProperty(name,getter,setter){
+		let property={};
+		if(getter!=null){property.get=getter;}
+		if(setter!=null){property.set=setter;}
+		Object.defineProperty(this,name,property);
+	}
+	get height(){return this.DOM.offsetHeight;}
+	get width(){return this.DOM.offsetWidth;}
+	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
+	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
+	get top(){return this.DOM.offsetTop;}
+	get classList(){return this.DOM.classList;}
+	get left(){return this.DOM.offsetLeft;}
+	get right(){return this.left+this.width;}
+	get bottom(){return this.top+this.height;}
+	get innerHTML(){return this.DOM.innerHtml;}
+	set hidden(hidden){
+		if(hidden&&!this.DOM.classList.contains("hidden")){
+			this.DOM.classList.add("hidden");
+		}else if(!hidden&&this.DOM.classList.contains("hidden")){
+			this.DOM.classList.remove("hidden");
+		}
+	}
+	get innerText(){return this.DOM.innerText;}
+	set innerText(text){this.DOM.innerText=text;}
+	get className(){return this.DOM.className;}
+	set className(className){this.DOM.className=className;}
+	get childNodes(){return this.DOM.childNodes;}
+	get children(){return this.DOM.children;}
+	clearChildren(){
+		this.DOM.innerHTML="";
+	}
+	get parentNode(){
+		var node=this.DOM;
+		while(node.DOM!=null){node=node.DOM;}
+		return node.parentNode;
+	}
+	replaceDOM(object){
+		while(object.DOM!=null){object=object.DOM;}
+		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+		this.DOM=object;
+	}
+}
+class ExtendedObj extends DOMObj{
+	constructor(args){super("args",args);}
+	expand(object){
+		for(let index=0;index<this.args.length;index++){
+			object[this.args[index++]]=this.args[index];
+		}
+	}
+}
+function ArgToArr(arg){return Array.prototype.slice.call(arg);}
+function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
+
+function isDefined(object){return typeof object!='undefined';}
+
+class Obj{
+	constructor(){
+		var fields=ArgToArr(arguments);
+		if(fields[0] instanceof ExtendedObj){
+			fields[0].expand(this);
+			fields.shift();
+		}
+		for(let index=0;index<fields.length;index++){
+			this[fields[index++]]=fields[index];
+		}
+	}
+	static null(){
+		var object=new Obj(), fields=arguments;
+		for(let index=0;index<fields.length;index++){
+			object[fields[index]]=null;
+		}
+		return object;
+	}
+	static extendable(variableCount,args){
+		return new ExtendedObj(ArgToArr(args).slice(variableCount));
+	}
+	shareVars(){
+		let args=ArgToArr(arguments).map((arg)=>{
+			if(isFunc(this[arg])){
+				return (obj)=>{obj[arg]=this[arg].bind(this);}
+			}else{
+				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
+			}
+		});
+		return args;
+	}
+	set sharedVars(args){args.map(a=>a(this));}
+	setProperty(name,getter,setter){
+		let property={};
+		if(getter!=null){property.get=getter;}
+		if(setter!=null){property.set=setter;}
+		Object.defineProperty(this,name,property);
+	}
+}
+class SimpleLoader extends Obj{
+	constructor(finishedLoading,items){super("finishedLoading",finishedLoading,"items",items||0);}
+	addItem(){this.items++;}
+	addItems(ammount=0){this.items+=ammount;}
+	removeItem(){this.items--;this.checkLoader();}
+	checkLoader(){
+		//console.log("Item count is",this.items);
+		if(this.items!=0){
+			this.load();
+		}else if(this.finishedLoading!=null){this.finishedLoading();}
+	}
+	load(){
+	//	this.timeout=setTimeout((()=>{
+		//	log.arg("this.items",this.items);
+		//console.log("Item count is",this.items);
+			if(this.items==0){
+				this.finishedLoading();}
+		//}).bind(this),100);
+	}
+}
+function isArray(array){return array instanceof Array;}
+function hasKey(object,key){return object.hasOwnProperty(key);}
+function isFunc(object){return typeof object === "function";}
+Array.generate=(size,action)=>{return ([...Array(size).keys()]).map(action);}
+</script>
+<script>
+class NodeGen extends DOMObj{
+	constructor(){super("keysToPlace",[
+		[5,f,NodeGen.KEY],
+		[5,f,NodeGen.KEY],
+		[4,t,NodeGen.ITEM,0],
+		[1,f,NodeGen.BIGKEY],
+	],"locks",[],"nodes");}
+	generate(){
+		this.ENTRANCE={type:NodeGen.ENTRANCE,path:[]};
+		let root={type:NodeGen.BRANCH,path:[],from:this.ENTRANCE};
+		this.ENTRANCE.path.push(root);
+		let requresPath=[root];
+		while(this.keysToPlace.length>0){
+			let node=n;
+			if(Math.random()>0.5){
+				node={type:NodeGen.BRANCH,path:[],from:current};
+				current.path.push(node);
+				current=node;
+			}else{
+				node=this.keysToPlace.splice(Math.floor(Math.random()*this.keysToPlace.length),1)[0];
+				this.locks.push(node);
+				if(Math.random()>0.33){//Has a lock
+					node.locks=[];
+				}
+				
+			}
+		}
+	}
+	get keyWeights(){
+		let total=0,
+				weight=0;
+		this.keysToPlace.map((a)=>total+=a[0]);
+		return this.keysToPlace.map(e=>weight+=e[0]/total);
+	}
+	makeNode(type){
+		
+	}
+	makeKeyPair(type){
+		
+	}
+}
+NodeGen.ENTRANCE=0
+NodeGen.BRANCH=1;
+NodeGen.KEY=2;
+NodeGen.ITEM=3;
+NodeGen.A=4;
+NodeGen.B=5;
+NodeGen.C=6;
+NodeGen.D=7;
+NodeGen.E=8;
+NodeGen.F=9;
+NodeGen.G=10;
+NodeGen.H=11;
+NodeGen.FAN=12;
+NodeGen.PERSON=13;
+NodeGen.BIGKEY=14;
+NodeGen.BOSS=15;
+NodeGen.BEAK=-1;
+NodeGen.COMPASS=-1;
+NodeGen.MAP=-1;
+NodeGen.NAMES=["NULL","ENTRANCE","BRANCH","KEY","ITEM","A","B","C","D","E","F","G","H","FAN","PERSON","BOSSKEY","BOSS"];
+
+const level=[
+	{
+		name:"UCL",
+		theme:0,
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,4],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[3],lock:[]},
+			{id:3,type:NodeGen.BIGKEY,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:4,type:NodeGen.BRANCH,from:1,path:[5,6],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.ITEM,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BOSS,from:4,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"palaceOfDarkness(lttp)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,4],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[3],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:1,path:[5,15],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,8],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[7],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.BRANCH,from:5,path:[9,14],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,11],lock:[]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:9,path:[12,13],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.ITEM,from:11,path:[],lock:[NodeGen.BIGKEY]},
+			{id:14,type:NodeGen.BOSS,from:8,path:[],lock:[NodeGen.ITEM,NodeGen.KEY]},
+			{id:15,type:NodeGen.BIGKEY,from:4,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"SwampPalace(LTTP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:1,path:[2,4],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,6],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,9],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.A,from:6,path:[],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:5,path:[10,19],lock:[NodeGen.A]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,18],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:10,path:[12,17],lock:[]},
+			{id:12,type:NodeGen.BRANCH,from:11,path:[13,16],lock:[]},
+			{id:13,type:NodeGen.BRANCH,from:12,path:[14,15],lock:[]},
+			{id:14,type:NodeGen.KEY,from:13,path:[],lock:[]},
+			{id:15,type:NodeGen.B,from:13,path:[],lock:[NodeGen.KEY]},
+			{id:16,type:NodeGen.BIGKEY,from:12,path:[],lock:[NodeGen.B]},
+			{id:17,type:NodeGen.ITEM,from:11,path:[],lock:[NodeGen.BIGKEY]},
+			{id:18,type:NodeGen.KEY,from:10,path:[],lock:[NodeGen.ITEM]},
+			{id:19,type:NodeGen.BRANCH,from:9,path:[20,21],lock:[NodeGen.ITEM,NodeGen.KEY]},
+			{id:20,type:NodeGen.KEY,from:19,path:[],lock:[]},
+			{id:21,type:NodeGen.BOSS,from:19,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"BottleGrotto(LA)",
+		nodes:[
+			{id:1,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:0,path:[2,13],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[3,12],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[4,11],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[5,10],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:4,path:[6,9],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:8,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:10,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:11,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:12,type:NodeGen.BEAK,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.COMPASS,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.BRANCH,from:1,path:[14,15],lock:[NodeGen.KEY]},
+			{id:15,type:NodeGen.ITEM,from:13,path:[],lock:[NodeGen.KEY]},
+			{id:16,type:NodeGen.BRANCH,from:13,path:[16,18],lock:[NodeGen.ITEM]},
+			{id:17,type:NodeGen.KEY,from:15,path:[17],lock:[]},
+			{id:18,type:NodeGen.BIGKEY,from:16,path:[],lock:[]},
+			{id:19,type:NodeGen.BOSS,from:15,path:[],lock:[NodeGen.KEY,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"FaceShrine(LA)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,6],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,5],lock:[]},
+			{id:3,type:NodeGen.ITEM,from:2,path:[4],lock:[]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:6,type:NodeGen.BRANCH,from:1,path:[7,10],lock:[NodeGen.KEY,NodeGen.ITEM]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BIGKEY,from:7,path:[],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.BOSS,from:8,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TailCave(LA)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,8],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.KEY,from:3,path:[5],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[6],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.ITEM,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BIGKEY,from:2,path:[],lock:[NodeGen.ITEM,NodeGen.KEY]},
+			{id:9,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"AncientTomb(OoA)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,11],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,10],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:10,type:NodeGen.ITEM,from:6,path:[],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.BRANCH,from:5,path:[12,23],lock:[NodeGen.KEY,NodeGen.ITEM]},
+			{id:12,type:NodeGen.BRANCH,from:11,path:[13,22],lock:[]},
+			{id:13,type:NodeGen.BRANCH,from:12,path:[14,21],lock:[]},
+			{id:14,type:NodeGen.BRANCH,from:13,path:[15,20],lock:[]},
+			{id:15,type:NodeGen.BRANCH,from:14,path:[16,19],lock:[]},
+			{id:16,type:NodeGen.BRANCH,from:15,path:[17,18],lock:[]},
+			{id:17,type:NodeGen.BIGKEY,from:16,path:[],lock:[]},
+			{id:18,type:NodeGen.KEY,from:16,path:[],lock:[]},
+			{id:19,type:NodeGen.A,from:15,path:[],lock:[]},
+			{id:20,type:NodeGen.B,from:14,path:[],lock:[]},
+			{id:21,type:NodeGen.C,from:13,path:[],lock:[]},
+			{id:22,type:NodeGen.D,from:12,path:[],lock:[NodeGen.KEY]},
+			{id:23,type:NodeGen.BOSS,from:11,path:[],lock:[NodeGen.A,NodeGen.B,NodeGen.C,NodeGen.D,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"CrownDungeon(OoA)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,17],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,16],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,13],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,8],lock:[]},
+			{id:5,type:NodeGen.A,from:4,path:[6],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[7],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.BRANCH,from:4,path:[9,12],lock:[NodeGen.A]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,11],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.ITEM,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.KEY,from:9,path:[],lock:[NodeGen.ITEM]},
+			{id:12,type:NodeGen.KEY,from:8,path:[],lock:[NodeGen.ITEM]},
+			{id:13,type:NodeGen.BRANCH,from:3,path:[14,15],lock:[NodeGen.KEY,NodeGen.ITEM,NodeGen.KEY]},
+			{id:14,type:NodeGen.B,from:13,path:[],lock:[NodeGen.KEY]},
+			{id:15,type:NodeGen.BIGKEY,from:13,path:[],lock:[NodeGen.B,NodeGen.KEY]},
+			{id:16,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:17,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"UnicornsCave(Oo)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,11],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,10],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,9],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,8],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,7],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:8,type:NodeGen.ITEM,from:4,path:[],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.KEY,from:3,path:[],lock:[NodeGen.ITEM]},
+			{id:10,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:11,type:NodeGen.BRANCH,from:1,path:[12,13],lock:[NodeGen.ITEM]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.BRANCH,from:11,path:[14,17],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.BRANCH,from:13,path:[15,16],lock:[]},
+			{id:15,type:NodeGen.A,from:14,path:[],lock:[]},
+			{id:16,type:NodeGen.BIGKEY,from:14,path:[],lock:[NodeGen.KEY,NodeGen.A,NodeGen.KEY]},
+			{id:17,type:NodeGen.BOSS,from:13,path:[],lock:[NodeGen.KEY,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"GnarledRootDungeon(OoS)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[5,8],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,7],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.ITEM,from:5,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BIGKEY,from:4,path:[],lock:[NodeGen.ITEM]},
+			{id:9,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"SwordAndShield(Oo)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,4],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[3],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:1,path:[5,11],lock:[NodeGen.KEY,NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,10],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,9],lock:[]},
+			{id:7,type:NodeGen.A,from:6,path:[8],lock:[]},
+			{id:8,type:NodeGen.ITEM,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:6,path:[],lock:[NodeGen.A]},
+			{id:10,type:NodeGen.KEY,from:5,path:[],lock:[NodeGen.ITEM]},
+			{id:11,type:NodeGen.BRANCH,from:5,path:[12,13],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.BIGKEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.BRANCH,from:11,path:[14,25],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.BRANCH,from:13,path:[15,24],lock:[]},
+			{id:15,type:NodeGen.BRANCH,from:14,path:[16,23],lock:[]},
+			{id:16,type:NodeGen.BRANCH,from:15,path:[17,22],lock:[]},
+			{id:17,type:NodeGen.BRANCH,from:16,path:[18,21],lock:[]},
+			{id:18,type:NodeGen.KEY,from:17,path:[19],lock:[]},
+			{id:19,type:NodeGen.B,from:18,path:[20],lock:[]},
+			{id:20,type:NodeGen.A,from:19,path:[],lock:[]},
+			{id:21,type:NodeGen.C,from:17,path:[],lock:[NodeGen.KEY]},
+			{id:22,type:NodeGen.KEY,from:16,path:[],lock:[NodeGen.A]},
+			{id:23,type:NodeGen.KEY,from:15,path:[],lock:[NodeGen.B]},
+			{id:24,type:NodeGen.D,from:14,path:[],lock:[NodeGen.KEY]},
+			{id:25,type:NodeGen.BOSS,from:13,path:[],lock:[NodeGen.C,NodeGen.D,NodeGen.KEY,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"CaveOfFlames(MC)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.A,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.ITEM,from:1,path:[6],lock:[NodeGen.A]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.BRANCH,from:6,path:[9,10],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BIGKEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.BOSS,from:8,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"DarkHyruleCastle(MC)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,17],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,16],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,15],lock:[]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,14],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,13],lock:[]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,12],lock:[]},
+			{id:11,type:NodeGen.A,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.KEY,from:10,path:[],lock:[NodeGen.A]},
+			{id:13,type:NodeGen.KEY,from:9,path:[],lock:[NodeGen.A]},
+			{id:14,type:NodeGen.KEY,from:8,path:[],lock:[NodeGen.A]},
+			{id:15,type:NodeGen.KEY,from:7,path:[],lock:[NodeGen.A]},
+			{id:16,type:NodeGen.BIGKEY,from:6,path:[],lock:[NodeGen.KEY,NodeGen.KEY,NodeGen.KEY,NodeGen.KEY]},
+			{id:17,type:NodeGen.BOSS,from:5,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"DeepWoodShrine(MC)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,16],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[5,7],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.A,from:4,path:[6],lock:[]},
+			{id:6,type:NodeGen.B,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:4,path:[8,13],lock:[NodeGen.A,NodeGen.B]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.BRANCH,from:8,path:[11,12],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.ITEM,from:10,path:[],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BRANCH,from:7,path:[14,15],lock:[NodeGen.ITEM]},
+			{id:14,type:NodeGen.KEY,from:13,path:[],lock:[]},
+			{id:15,type:NodeGen.BIGKEY,from:13,path:[],lock:[NodeGen.KEY]},
+			{id:16,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"FortressOfWinds(MC)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,15],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,14],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:3,path:[8,11],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.A,from:8,path:[],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:7,path:[12,13],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[NodeGen.ITEM,NodeGen.A]},
+			{id:13,type:NodeGen.BIGKEY,from:11,path:[],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.ITEM,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:15,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"SkyPalace(MC)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.ITEM,from:0,path:[2],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[NodeGen.ITEM]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[5,6],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:4,path:[7,10],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BIGKEY,from:7,path:[],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.BRANCH,from:6,path:[11,14],lock:[NodeGen.BIGKEY]},
+			{id:11,type:NodeGen.BRANCH,from:10,path:[12,13],lock:[]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:14,type:NodeGen.BRANCH,from:10,path:[15,16],lock:[NodeGen.KEY,NodeGen.KEY]},
+			{id:15,type:NodeGen.KEY,from:14,path:[],lock:[]},
+			{id:16,type:NodeGen.BOSS,from:14,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"TempleOfDroplets(MC)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BIGKEY,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,17],lock:[NodeGen.BIGKEY]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,10],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.A,from:7,path:[],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.BRANCH,from:6,path:[11,14],lock:[NodeGen.A]},
+			{id:11,type:NodeGen.BRANCH,from:10,path:[12,13],lock:[]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.ITEM,from:11,path:[],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.BRANCH,from:10,path:[15,16],lock:[NodeGen.ITEM]},
+			{id:15,type:NodeGen.KEY,from:14,path:[],lock:[]},
+			{id:16,type:NodeGen.B,from:14,path:[],lock:[NodeGen.KEY]},
+			{id:17,type:NodeGen.BOSS,from:5,path:[],lock:[NodeGen.B]}
+		]
+	},{
+		name:"DesertPalace(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,8],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.A,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.KEY,from:4,path:[],lock:[NodeGen.A]},
+			{id:7,type:NodeGen.ITEM,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:9,type:NodeGen.BRANCH,from:1,path:[10,15],lock:[NodeGen.ITEM,NodeGen.KEY]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,14],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:10,path:[12,13],lock:[]},
+			{id:12,type:NodeGen.B,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.BIGKEY,from:11,path:[],lock:[NodeGen.B]},
+			{id:14,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:15,type:NodeGen.BRANCH,from:9,path:[16,17],lock:[]},
+			{id:16,type:NodeGen.KEY,from:15,path:[],lock:[]},
+			{id:17,type:NodeGen.BRANCH,from:15,path:[18,21],lock:[NodeGen.KEY]},
+			{id:18,type:NodeGen.BRANCH,from:17,path:[19,20],lock:[]},
+			{id:19,type:NodeGen.KEY,from:18,path:[],lock:[]},
+			{id:20,type:NodeGen.C,from:18,path:[],lock:[NodeGen.KEY]},
+			{id:21,type:NodeGen.BOSS,from:17,path:[],lock:[NodeGen.C,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"EasternPalace(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,7],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BIGKEY,from:4,path:[],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BOSS,from:3,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"HouseOfGales(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.FAN,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,9],lock:[NodeGen.FAN]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.BIGKEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:5,path:[10,11],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:9,path:[12,13],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.BOSS,from:11,path:[],lock:[NodeGen.KEY,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"IceRuins(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,6],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,5],lock:[]},
+			{id:4,type:NodeGen.BIGKEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:2,path:[7,8],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.A,from:6,path:[],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:1,path:[10,17],lock:[NodeGen.A]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,16],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:10,path:[12,15],lock:[]},
+			{id:12,type:NodeGen.BRANCH,from:11,path:[13,14],lock:[]},
+			{id:13,type:NodeGen.B,from:12,path:[],lock:[]},
+			{id:14,type:NodeGen.C,from:12,path:[],lock:[NodeGen.B]},
+			{id:15,type:NodeGen.D,from:11,path:[],lock:[NodeGen.C]},
+			{id:16,type:NodeGen.KEY,from:10,path:[],lock:[NodeGen.D]},
+			{id:17,type:NodeGen.BOSS,from:9,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"SkullWoods(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:5,path:[8,9],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BIGKEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BOSS,from:7,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"SwampPalace(LWB)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,13],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,12],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,11],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:4,path:[7,10],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.A,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.B,from:6,path:[],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:12,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.A]},
+			{id:13,type:NodeGen.BRANCH,from:1,path:[14,15],lock:[NodeGen.B]},
+			{id:14,type:NodeGen.BIGKEY,from:13,path:[],lock:[]},
+			{id:15,type:NodeGen.BOSS,from:13,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"ThievesHideout(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,7],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,6],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,5],lock:[]},
+			{id:4,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:5,type:NodeGen.PERSON,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BIGKEY,from:2,path:[],lock:[NodeGen.PERSON]},
+			{id:7,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TowerOfHera(LBW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BIGKEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BOSS,from:5,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TurtleRock(LWB)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,11],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,10],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,9],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,8],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,7],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:8,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:9,type:NodeGen.BIGKEY,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.A,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.BRANCH,from:1,path:[12,13],lock:[NodeGen.A]},
+			{id:12,type:NodeGen.B,from:11,path:[],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BOSS,from:11,path:[],lock:[NodeGen.B,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"FireTemple(OoT)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.BIGKEY,from:2,path:[],lock:[NodeGen.ITEM,NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,9],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:5,path:[10,13],lock:[NodeGen.KEY,NodeGen.KEY]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,12],lock:[]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:13,type:NodeGen.BRANCH,from:9,path:[14,17],lock:[NodeGen.KEY,NodeGen.KEY]},
+			{id:14,type:NodeGen.BRANCH,from:13,path:[15,16],lock:[]},
+			{id:15,type:NodeGen.KEY,from:14,path:[],lock:[]},
+			{id:16,type:NodeGen.KEY,from:14,path:[],lock:[]},
+			{id:17,type:NodeGen.BRANCH,from:13,path:[18,21],lock:[NodeGen.KEY]},
+			{id:18,type:NodeGen.BRANCH,from:17,path:[19,20],lock:[NodeGen.KEY]},
+			{id:19,type:NodeGen.KEY,from:18,path:[],lock:[]},
+			{id:20,type:NodeGen.ITEM,from:18,path:[],lock:[]},
+			{id:21,type:NodeGen.BOSS,from:17,path:[],lock:[NodeGen.ITEM,NodeGen.KEY]}
+		]
+	},{
+		name:"ShadowTemple(OoT)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.ITEM,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.ITEM]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:5,path:[8,9],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:7,path:[10,11],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:9,path:[12,14],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.KEY,from:11,path:[13],lock:[]},
+			{id:13,type:NodeGen.BIGKEY,from:12,path:[],lock:[]},
+			{id:14,type:NodeGen.BOSS,from:11,path:[],lock:[NodeGen.KEY,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"WaterTemple(OoT)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,22],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,20],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,13],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.A,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:4,path:[7,12],lock:[NodeGen.A]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,11],lock:[]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:11,type:NodeGen.B,from:7,path:[],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.BIGKEY,from:6,path:[],lock:[NodeGen.ITEM,NodeGen.KEY,NodeGen.KEY]},
+			{id:13,type:NodeGen.BRANCH,from:3,path:[14,19],lock:[NodeGen.B]},
+			{id:14,type:NodeGen.BRANCH,from:13,path:[15,18],lock:[]},
+			{id:15,type:NodeGen.BRANCH,from:14,path:[16,17],lock:[]},
+			{id:16,type:NodeGen.KEY,from:15,path:[],lock:[]},
+			{id:17,type:NodeGen.KEY,from:15,path:[],lock:[]},
+			{id:18,type:NodeGen.C,from:14,path:[],lock:[NodeGen.KEY]},
+			{id:19,type:NodeGen.KEY,from:13,path:[],lock:[NodeGen.ITEM]},
+			{id:20,type:NodeGen.ITEM,from:2,path:[21],lock:[NodeGen.KEY,NodeGen.KEY]},
+			{id:21,type:NodeGen.KEY,from:20,path:[],lock:[]},
+			{id:22,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"GreatBay(MM)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,15],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,14],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,13],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,12],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,11],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,10],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.ITEM,from:7,path:[],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.BIGKEY,from:6,path:[],lock:[NodeGen.ITEM]},
+			{id:11,type:NodeGen.A,from:5,path:[],lock:[NodeGen.ITEM]},
+			{id:12,type:NodeGen.B,from:4,path:[],lock:[NodeGen.ITEM]},
+			{id:13,type:NodeGen.C,from:3,path:[],lock:[NodeGen.ITEM]},
+			{id:14,type:NodeGen.D,from:2,path:[],lock:[NodeGen.A,NodeGen.B]},
+			{id:15,type:NodeGen.BRANCH,from:1,path:[16,21],lock:[NodeGen.D]},
+			{id:16,type:NodeGen.BRANCH,from:15,path:[17,20],lock:[]},
+			{id:17,type:NodeGen.BRANCH,from:16,path:[18,19],lock:[]},
+			{id:18,type:NodeGen.E,from:17,path:[],lock:[]},
+			{id:19,type:NodeGen.F,from:17,path:[],lock:[]},
+			{id:20,type:NodeGen.G,from:16,path:[],lock:[NodeGen.C,NodeGen.E,NodeGen.F]},
+			{id:21,type:NodeGen.BOSS,from:15,path:[],lock:[NodeGen.G,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"AncientCistern(SS)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,13],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,10],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.A,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.KEY,from:4,path:[],lock:[NodeGen.A]},
+			{id:7,type:NodeGen.BRANCH,from:3,path:[8,9],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.ITEM,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BOSS,from:7,path:[],lock:[NodeGen.BIGKEY]},
+			{id:10,type:NodeGen.BRANCH,from:2,path:[11,12],lock:[NodeGen.ITEM]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.B,from:10,path:[],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BIGKEY,from:1,path:[],lock:[NodeGen.B]}
+		]
+	},{
+		name:"EarthTemple(SS)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,7],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,6],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,5],lock:[]},
+			{id:4,type:NodeGen.ITEM,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.A,from:3,path:[],lock:[]},
+			{id:6,type:NodeGen.B,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:7,type:NodeGen.BRANCH,from:1,path:[8,9],lock:[NodeGen.A,NodeGen.B]},
+			{id:8,type:NodeGen.BIGKEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BOSS,from:7,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"LanayruMiningFacility(SS)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.ITEM,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,7],lock:[NodeGen.ITEM]},
+			{id:6,type:NodeGen.BIGKEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BOSS,from:5,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"FireSanctuary(SS)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[NodeGen.ITEM]},
+			{id:7,type:NodeGen.ITEM,from:5,path:[8],lock:[]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,12],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,11],lock:[]},
+			{id:10,type:NodeGen.A,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BIGKEY,from:9,path:[],lock:[NodeGen.A]},
+			{id:12,type:NodeGen.BOSS,from:8,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"SkyViewTemple(SS)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,6],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,5],lock:[]},
+			{id:3,type:NodeGen.A,from:2,path:[4],lock:[]},
+			{id:4,type:NodeGen.B,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.B]},
+			{id:6,type:NodeGen.BRANCH,from:1,path:[7,10],lock:[NodeGen.A,NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.ITEM,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:7,path:[],lock:[NodeGen.ITEM]},
+			{id:10,type:NodeGen.BRANCH,from:6,path:[11,12],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.BIGKEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.BOSS,from:10,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"ArbitersGround(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,17],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,10],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,9],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.A,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.B,from:6,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:10,type:NodeGen.BRANCH,from:4,path:[11,12],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.BRANCH,from:10,path:[13,16],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BRANCH,from:12,path:[14,15],lock:[]},
+			{id:14,type:NodeGen.C,from:13,path:[],lock:[]},
+			{id:15,type:NodeGen.KEY,from:13,path:[],lock:[]},
+			{id:16,type:NodeGen.D,from:12,path:[],lock:[NodeGen.KEY]},
+			{id:17,type:NodeGen.BRANCH,from:3,path:[18,23],lock:[NodeGen.A,NodeGen.B,NodeGen.C,NodeGen.D]},
+			{id:18,type:NodeGen.BRANCH,from:17,path:[19,20],lock:[]},
+			{id:19,type:NodeGen.KEY,from:18,path:[],lock:[]},
+			{id:20,type:NodeGen.BRANCH,from:18,path:[21,22],lock:[NodeGen.KEY]},
+			{id:21,type:NodeGen.ITEM,from:20,path:[],lock:[]},
+			{id:22,type:NodeGen.BIGKEY,from:20,path:[],lock:[NodeGen.ITEM]},
+			{id:23,type:NodeGen.BOSS,from:17,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"CityInTheSky(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,8],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,7],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[4],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[NodeGen.ITEM]},
+			{id:5,type:NodeGen.BIGKEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.A,from:4,path:[],lock:[]},
+			{id:7,type:NodeGen.ITEM,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.A,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"ForestTemple(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.A,from:0,path:[2],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,18],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,17],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,15],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,9],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.B,from:6,path:[],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:5,path:[10,14],lock:[NodeGen.A,NodeGen.B]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,13],lock:[]},
+			{id:11,type:NodeGen.KEY,from:10,path:[12],lock:[]},
+			{id:12,type:NodeGen.KEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.C,from:11,path:[],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.D,from:10,path:[],lock:[NodeGen.KEY]},
+			{id:15,type:NodeGen.ITEM,from:4,path:[16],lock:[NodeGen.C,NodeGen.D]},
+			{id:16,type:NodeGen.E,from:15,path:[],lock:[]},
+			{id:17,type:NodeGen.BIGKEY,from:3,path:[],lock:[NodeGen.ITEM]},
+			{id:18,type:NodeGen.BRANCH,from:2,path:[19,24],lock:[NodeGen.ITEM]},
+			{id:19,type:NodeGen.BRANCH,from:18,path:[20,23],lock:[]},
+			{id:20,type:NodeGen.KEY,from:19,path:[21],lock:[]},
+			{id:21,type:NodeGen.F,from:20,path:[22],lock:[]},
+			{id:22,type:NodeGen.G,from:21,path:[],lock:[]},
+			{id:23,type:NodeGen.H,from:19,path:[],lock:[NodeGen.KEY]},
+			{id:24,type:NodeGen.BOSS,from:18,path:[],lock:[NodeGen.E,NodeGen.F,NodeGen.G,NodeGen.H,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"GoronMines(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,6],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:2,path:[5],lock:[]},
+			{id:5,type:NodeGen.A,from:2,path:[],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:3,path:[7,13],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.ITEM,from:7,path:[10],lock:[]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,12],lock:[]},
+			{id:11,type:NodeGen.B,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.C,from:10,path:[],lock:[]},
+			{id:13,type:NodeGen.BOSS,from:6,path:[],lock:[NodeGen.ITEM,NodeGen.A,NodeGen.B,NodeGen.C]}
+		]
+	},{
+		name:"LakebedTemple(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,15],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,8],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,5],lock:[]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.KEY,from:5,path:[5],lock:[]},
+			{id:7,type:NodeGen.A,from:5,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BRANCH,from:2,path:[9,12],lock:[NodeGen.A]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,11],lock:[]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.ITEM,from:9,path:[],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.BRANCH,from:8,path:[13,14],lock:[NodeGen.ITEM]},
+			{id:13,type:NodeGen.B,from:12,path:[],lock:[]},
+			{id:14,type:NodeGen.BIGKEY,from:12,path:[],lock:[NodeGen.B]},
+			{id:15,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.B,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"SnowpeakRuins(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,15],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,14],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.A,from:4,path:[],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:3,path:[8,11],lock:[NodeGen.A]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.B,from:8,path:[],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.BRANCH,from:7,path:[12,13],lock:[NodeGen.B]},
+			{id:12,type:NodeGen.ITEM,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.C,from:11,path:[],lock:[NodeGen.ITEM]},
+			{id:14,type:NodeGen.D,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:15,type:NodeGen.BRANCH,from:1,path:[16,17],lock:[NodeGen.C]},
+			{id:16,type:NodeGen.KEY,from:15,path:[],lock:[]},
+			{id:17,type:NodeGen.BRANCH,from:15,path:[18,19],lock:[NodeGen.KEY]},
+			{id:18,type:NodeGen.KEY,from:17,path:[],lock:[NodeGen.D]},
+			{id:19,type:NodeGen.BRANCH,from:17,path:[20,21],lock:[NodeGen.KEY]},
+			{id:20,type:NodeGen.BIGKEY,from:19,path:[],lock:[]},
+			{id:21,type:NodeGen.BOSS,from:19,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TempleOfTime(TP)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,12],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[5,6],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BRANCH,from:4,path:[7,11],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.ITEM,from:7,path:[10],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.A,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BIGKEY,from:6,path:[],lock:[NodeGen.A]},
+			{id:12,type:NodeGen.BOSS,from:2,path:[],lock:[NodeGen.A,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"DragonRoost(WW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,5],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.KEY,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:3,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:5,path:[8,9],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.KEY,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:7,path:[10,12],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.ITEM,from:9,path:[11],lock:[]},
+			{id:11,type:NodeGen.BIGKEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.BOSS,from:9,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"EarthTemple(WW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,7],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[5,6],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.ITEM,from:4,path:[],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:1,path:[8,11],lock:[NodeGen.ITEM]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.A,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:7,path:[12,13],lock:[NodeGen.KEY,NodeGen.A]},
+			{id:12,type:NodeGen.BIGKEY,from:11,path:[],lock:[]},
+			{id:13,type:NodeGen.BOSS,from:11,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"ForbiddenWoods(WW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,7],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:2,path:[5,6],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.ITEM,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.BIGKEY,from:4,path:[],lock:[NodeGen.ITEM]},
+			{id:7,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TowerOfTheGods(WW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,7],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,6],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,5],lock:[]},
+			{id:4,type:NodeGen.A,from:3,path:[],lock:[]},
+			{id:5,type:NodeGen.KEY,from:3,path:[],lock:[NodeGen.A]},
+			{id:6,type:NodeGen.B,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.BRANCH,from:1,path:[8,19],lock:[NodeGen.B]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,16],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,11],lock:[]},
+			{id:10,type:NodeGen.C,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BRANCH,from:9,path:[12,15],lock:[NodeGen.C]},
+			{id:12,type:NodeGen.BRANCH,from:11,path:[13,14],lock:[]},
+			{id:13,type:NodeGen.D,from:12,path:[],lock:[]},
+			{id:14,type:NodeGen.ITEM,from:12,path:[],lock:[NodeGen.D]},
+			{id:15,type:NodeGen.E,from:11,path:[],lock:[NodeGen.ITEM]},
+			{id:16,type:NodeGen.BRANCH,from:8,path:[17,18],lock:[NodeGen.E]},
+			{id:17,type:NodeGen.KEY,from:16,path:[],lock:[]},
+			{id:18,type:NodeGen.F,from:16,path:[],lock:[NodeGen.KEY]},
+			{id:19,type:NodeGen.BIGKEY,from:7,path:[20],lock:[NodeGen.F]},
+			{id:20,type:NodeGen.BOSS,from:19,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"WindTemple(WW)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,17],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,16],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,15],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,14],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,7],lock:[]},
+			{id:6,type:NodeGen.A,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:5,path:[8,13],lock:[NodeGen.A]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,12],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:8,path:[10,11],lock:[]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.ITEM,from:9,path:[],lock:[NodeGen.KEY]},
+			{id:12,type:NodeGen.BOSS,from:8,path:[],lock:[NodeGen.B,NodeGen.KEY,NodeGen.BIGKEY]},
+			{id:13,type:NodeGen.C,from:7,path:[],lock:[NodeGen.ITEM]},
+			{id:14,type:NodeGen.ITEM,from:4,path:[],lock:[NodeGen.ITEM]},
+			{id:15,type:NodeGen.BIGKEY,from:3,path:[],lock:[NodeGen.ITEM]},
+			{id:16,type:NodeGen.B,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:17,type:NodeGen.KEY,from:1,path:[],lock:[NodeGen.C]}
+		]
+	},{
+		name:"TempleOfFire(PH)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.A,from:2,path:[],lock:[]},
+			{id:5,type:NodeGen.ITEM,from:1,path:[6],lock:[NodeGen.A]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,10],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:6,path:[8,9],lock:[]},
+			{id:8,type:NodeGen.B,from:7,path:[],lock:[]},
+			{id:9,type:NodeGen.KEY,from:7,path:[],lock:[NodeGen.B]},
+			{id:10,type:NodeGen.BRANCH,from:6,path:[11,12],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.BRANCH,from:10,path:[13,16],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BRANCH,from:12,path:[14,15],lock:[]},
+			{id:14,type:NodeGen.C,from:13,path:[],lock:[]},
+			{id:15,type:NodeGen.BIGKEY,from:13,path:[],lock:[NodeGen.C]},
+			{id:16,type:NodeGen.BOSS,from:12,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TempleOfWind(PH)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,8],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.A,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.KEY,from:4,path:[],lock:[NodeGen.A]},
+			{id:7,type:NodeGen.ITEM,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BIGKEY,from:2,path:[],lock:[NodeGen.ITEM]},
+			{id:9,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.ITEM,NodeGen.BIGKEY]}
+		]
+	},{
+		name:"TempleOfCourage(PH)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,3],lock:[]},
+			{id:2,type:NodeGen.KEY,from:1,path:[],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:1,path:[4,7],lock:[NodeGen.KEY]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.A,from:4,path:[],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.ITEM,from:3,path:[8],lock:[NodeGen.A]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.BIGKEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.BOSS,from:8,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"FireTemple(ST)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,8],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:7,type:NodeGen.A,from:3,path:[],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.B,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.ITEM,from:1,path:[10],lock:[NodeGen.A,NodeGen.B]},
+			{id:10,type:NodeGen.BRANCH,from:9,path:[11,12],lock:[]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.BRANCH,from:10,path:[13,14],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BIGKEY,from:12,path:[],lock:[]},
+			{id:14,type:NodeGen.BOSS,from:12,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"DesertTemple(ST)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,9],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,8],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,7],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,6],lock:[]},
+			{id:5,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:6,type:NodeGen.ITEM,from:4,path:[],lock:[NodeGen.KEY]},
+			{id:7,type:NodeGen.A,from:3,path:[],lock:[NodeGen.ITEM]},
+			{id:8,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.A,NodeGen.ITEM]},
+			{id:9,type:NodeGen.BRANCH,from:1,path:[10,11],lock:[NodeGen.ITEM,NodeGen.KEY]},
+			{id:10,type:NodeGen.BIGKEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BOSS,from:9,path:[],lock:[NodeGen.BIGKEY]}
+		]
+	},{
+		name:"DungeonOne(LoZ)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,7],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.BRANCH,from:5,path:[8,13],lock:[NodeGen.KEY]},
+			{id:8,type:NodeGen.BRANCH,from:7,path:[9,10],lock:[]},
+			{id:9,type:NodeGen.KEY,from:8,path:[],lock:[]},
+			{id:10,type:NodeGen.BRANCH,from:8,path:[11,12],lock:[NodeGen.KEY]},
+			{id:11,type:NodeGen.KEY,from:10,path:[],lock:[]},
+			{id:12,type:NodeGen.ITEM,from:10,path:[],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BRANCH,from:7,path:[14,15],lock:[NodeGen.KEY]},
+			{id:14,type:NodeGen.KEY,from:13,path:[],lock:[]},
+			{id:15,type:NodeGen.BOSS,from:13,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"DungeonThree(LoZ)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,13],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,12],lock:[]},
+			{id:3,type:NodeGen.BRANCH,from:2,path:[4,9],lock:[]},
+			{id:4,type:NodeGen.BRANCH,from:3,path:[5,8],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:4,path:[6,7],lock:[]},
+			{id:6,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:7,type:NodeGen.KEY,from:5,path:[],lock:[]},
+			{id:8,type:NodeGen.KEY,from:4,path:[],lock:[]},
+			{id:9,type:NodeGen.BRANCH,from:3,path:[10,11],lock:[NodeGen.KEY]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.ITEM,from:9,path:[],lock:[]},
+			{id:12,type:NodeGen.KEY,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:13,type:NodeGen.BOSS,from:1,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"DungeonSix(LoZ)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.A,from:2,path:[],lock:[NodeGen.KEY]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,9],lock:[NodeGen.A]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.ITEM,from:6,path:[],lock:[NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:7,path:[10,11],lock:[NodeGen.ITEM]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BOSS,from:9,path:[],lock:[NodeGen.KEY]}
+		]
+	},{
+		name:"DungeonTwo(AoL)",
+		nodes:[
+			{id:0,type:NodeGen.ENTRANCE,path:[1],lock:[]},
+			{id:1,type:NodeGen.BRANCH,from:0,path:[2,5],lock:[]},
+			{id:2,type:NodeGen.BRANCH,from:1,path:[3,4],lock:[]},
+			{id:3,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:4,type:NodeGen.KEY,from:2,path:[],lock:[]},
+			{id:5,type:NodeGen.BRANCH,from:1,path:[6,9],lock:[NodeGen.KEY]},
+			{id:6,type:NodeGen.BRANCH,from:5,path:[7,8],lock:[]},
+			{id:7,type:NodeGen.KEY,from:6,path:[],lock:[]},
+			{id:8,type:NodeGen.ITEM,from:6,path:[],lock:[NodeGen.KEY,NodeGen.KEY]},
+			{id:9,type:NodeGen.BRANCH,from:5,path:[10,11],lock:[NodeGen.ITEM]},
+			{id:10,type:NodeGen.KEY,from:9,path:[],lock:[]},
+			{id:11,type:NodeGen.BOSS,from:9,path:[],lock:[NodeGen.KEY]}
+		]
+	}
+];
+let nodeGen=n;
+run.randomLevelGen=e=>{nodeGen=new NodeDungeonGen(6);AE(nodeGen);};
+
+class NodeDungeonGen extends DOMObj{
+	constructor(dungeonID){
+		super(
+			"dungeonID",dungeonID,
+			"rooms",[],
+			"roomSize",[10,8],
+			"baseTiles",{
+				FLOOR:129,
+				WALL:{
+					TL:67,
+					T:64,
+					TR:66,
+					L:83,
+					R:82,
+					BL:51,
+					B:48,
+					BR:50
+				},
+				DOOR:{
+					EA:65,
+					EB:49,
+					NA:68,
+					NB:65,
+					WA:68,
+					WB:52,
+					SA:52,
+					SB:49
+				}
+			},
+			"_width",800,
+			"_height",600,
+			"scale",1
+	);}
+	generate(){
+		this.DOM=CE("cvs",n,n,n,0,0,this._width,this._height);
+		this.ctx=this.DOM.getContext("2d");
+		this.className="screen";
+		window.addEventListener("resize",e=>this.resize(e),false);
+		window.addEventListener("orientationchange",e=>this.resize(e),false);
+		
+		let loader=new SimpleLoader(e=>this.init(this.dungeonID,t),2);
+		this.imageHandler=new ImageHandler("images/randomLevelGen/bg.png",16,this.shareVars("scale"),loader);
+		this.icons=new ImageHandler("images/randomLevelGen/genIcons.png",16,this.shareVars("scale"),loader);
+	}
+	init(id){
+		this.dungeonID=id;
+		this.dungeon=level[this.dungeonID];
+		this.dungeon.nodes.map((e,i)=>e.id=i);
+		this.node(0).room=new Room(0,0,
+			this.shareVars(
+				"ctx","scale","roomSize","drawRect","baseTiles",
+				["imageHandler",["image","tileSize"]]
+		),[0]);
+		this.node(0).room.id=0;
+		this.rooms.push(this.node(0).room);
+		this.node(0).room.type=NodeGen.ENTRANCE;
+		this.node(0).room.locks=[];
+		this.node(0).room.doors[3]=-1;
+		if(this.navigateNodes()){
+			this.offsetRooms();
+			this.resize();
+		}else{
+			this.resetDungeon();
+		}
+	}
+	node(i){return this.dungeon.nodes[i];}
+	keysRequiredToNode(node){
+		let locks=[];
+		while(node.id!=0){
+			locks.push(node.lock);
+			node=this.node(node.from);
+		}
+		return locks;
+	}
+	navigateNodes(moveUntil=-1){
+		let debug=f;
+		let names=["NULL","ENTRANCE","BRANCH","KEY","ITEM","A","B","C","D","E","F","G","H","FAN","PERSON","BOSSKEY","BOSS"];
+
+		let node=this.node(1),
+				keys=[],
+				usedKeys=[],
+				furthest=node;
+		let dirs=this.dungeon.nodes.map(e=>0);
+		let steps=0;
+		let nextDir=({id})=>{dirs[id]=(dirs[id]+1)%(this.node(id).path.length+1)};
+		let unlocked=node=>{
+			let holdingKeys=[];
+			node=nextNode(node);
+			if(node==f){return f;}
+
+			//If there's a lock, check if you have the available keys
+			if(node.lock.length>0){
+				for(let i=0;i<node.lock.length;i++){
+					if(keys.includes(node.lock[i])){
+						holdingKeys.push(keys.splice(keys.indexOf(node.lock[i]),1)[0]);
+					}else{break;}
+			}	}else{return true;}
+			if(node.lock.length==holdingKeys.length){
+				for(let i=holdingKeys.length-1;i>=0;i--){
+					let e=holdingKeys[i];
+					if(e!=NodeGen.KEY&&e!=NodeGen.BIGKEY){keys.push(holdingKeys.splice(i,1));}
+				}
+				usedKeys.push([node.id,[...holdingKeys]]);
+				holdingKeys.length=0;
+				node.unlocked=[...node.lock];
+				node.lock.length=0;
+			}else{keys.push(...holdingKeys);}
+			return node.lock.length==0;
+		},
+		move=current=>{
+			if(current.dir==3){
+				node=this.node(current.from);
+			}else{
+				node=this.node(current.paths[dir]);
+			}
+			nextDir(current.id);
+		},
+		deadEnd=(node)=>{
+			return dirs[node.id]>node.path.length;
+		},
+		pickUpItem=node=>{
+			if(node.type>NodeGen.BRANCH){
+				keys.push(node.type);
+				node.wasType=node.type;
+				node.type=-1;
+			}
+		},
+		nextNode=(node)=>{
+			return dirs[node.id]<node.path.length?this.node(node.path[dirs[node.id]]):f;
+		}
+		
+		while(node.type!=NodeGen.BOSS&&node.id!=moveUntil){
+			if(!this.makeRoom(node)){return f;}
+			let current=node;
+			//If there's a key, pick it up
+			pickUpItem(current)
+			//Is there a path leading out?
+			if(!deadEnd(node)&&unlocked(node)&&!!nextNode(node)){
+					node=nextNode(node);
+					nextDir(current);
+			}
+			else if(dirs[node.id]<node.path.length-1){
+				nextDir(current);
+				node=nextNode(current);
+				nextDir(current);
+			}
+			//Dead end or locked door
+			else{
+				dirs[node.id]=0;
+				if(node.id>1){
+					node=this.node(node.from);
+				}
+			}
+			steps++;
+			if(steps>150){break;}
+		}
+		let index=0;
+		while(++index<this.dungeon.nodes.length){
+			node=this.node(index);
+			if(node.type==NodeGen.BOSS){
+				if(!hasKey(node,"unlocked")){node.unlocked=[...node.lock];}
+				this.makeRoom(node);
+				break;
+			}
+		}
+		if(debug){
+			if(node.type==NodeGen.BOSS){
+				console.log("Made it to the end in "+kill+" steps");
+			}else{console.log(this.dungeonID+" Didn't make it to the end");}
+		}
+		return t;
+	}
+	makeRoom(node){
+		if(hasKey(node,"room")){return t;}
+		let {from,room}=this.newRoom(node);
+		if(!room){return f;}
+		if(Math.random()>0.66){
+			let {from,room}=this.newRoom(node);
+			if(!room){return f;}
+		}
+		node.room=room;
+		room.type=node.type;
+		if(hasKey(node,"unlocked")){
+			let dir=room.doors.indexOf(from);
+			room.locks.push([dir,[...node.unlocked]]);
+		}
+		return t;
+	}
+	newRoom(node){
+		let coords=[],dir=-1;
+		let neighbour=this.roomOptions(node);
+		do{
+		coords=this.randomOpenDoor(neighbour.splice(Math.floor(Math.random()*neighbour.length),1)[0]);
+			if(!!coords){
+				dir=coords.shift();
+				neighbour=coords.pop();
+				break;
+			}
+		}while(neighbour.length>0);
+		if(isArray(neighbour)){
+			return {room:false};
+		}
+		//Make the room
+		let room=new Room(...coords,
+			this.shareVars(
+				"ctx","scale","roomSize","drawRect","baseTiles",
+				["imageHandler",["image","tileSize"]]
+		)	);
+		//Connect the room and add it to this.rooms
+		room.doors[(dir+2)%4]=neighbour;
+		neighbour.doors[dir]=room;
+		room.id=this.rooms.length;
+		this.rooms.push(room);
+		room.locks=[];
+		room.type=-1;
+		return {room:room,from:neighbour};
+	}
+	randomOpenDoor(room,check=true,secondPass=false){
+		if(room.doors.includes(check)){
+			//Get all the available doors
+			let doors=room.doors.map((e,i)=>e==check?i:-1).filter(e=>e!=-1);
+			do{
+				let dir=doors.splice(Math.floor(Math.random()*doors.length),1)[0],
+						coords=this.nextRoom(room,dir);
+				if(!this.roomExists(...coords)){
+					return [dir,...coords,room];
+				}
+			}while(doors.length>0);
+		}else if(!secondPass){
+			return this.randomOpenDoor(room,!check,true);
+		}
+		return false;
+	}
+	nextRoom({col,row},dir){
+		let x=col,y=row;
+		switch(dir){
+			case 0:x++;break;//Right
+			case 1:y--;break;//Up
+			case 2:x--;break;//Left
+			case 3:y++;break;//Down
+		}
+		return [x,y];
+	}
+	
+	roomExists(x,y){
+		for(let i=0;i<this.rooms.length;i++){
+			if(this.rooms[i].col==x&&this.rooms[i].row==y){return i;}
+		}
+		return f;
+	}
+	roomOptions(endNode){
+		let node=this.node(endNode.from),nodes=[],rooms=[];
+		while(!hasKey(node,"unlocked")&&node.id>0){node=this.node(node.from);}
+		
+		let nextNode=(node)=>{
+			return dirs[node.id]<node.path.length?this.node(node.path[dirs[node.id]]):f;
+		},
+		dirs=this.dungeon.nodes.map(e=>0),
+		nextDir=({id})=>{dirs[id]=(dirs[id]+1)%(this.node(id).path.length+1)};
+		while(node.id!=endNode.id){
+			let current=node;
+			//Add valid rooms to roomsList
+			if(!nodes.includes(node.id)){
+				nodes.push(node.id);
+				if(node.room.doors.includes(true)||node.room.doors.includes(false)){rooms.push(node.room);}
+				if(hasKey(node,"spareRoom")&&(node.spareRoom.doors.includes(true)||node.spareRoom.doors.includes(false))){
+					rooms.push(node.spareRoom);
+			}	}
+			
+			if(dirs[node.id]<=node.path.length&&!!nextNode(node)&&nextNode(node).lock==0){
+					node=nextNode(node);
+					nextDir(current);
+			}
+			else if(dirs[node.id]<node.path.length-1){
+				nextDir(current);
+				node=nextNode(current);
+				nextDir(current);
+			}
+			else{
+				dirs[node.id]=0;
+				if(node.id>1){
+					node=this.node(node.from);
+				}
+			}
+			
+		}
+		return rooms;
+	}
+	
+	deadEnds(){
+		let rooms=[];
+		for(let i in this.rooms){
+			if(this.rooms[i].type==-1&&this.rooms[i].doors.filter(door=>door==f).length==3){
+				rooms.push(this.rooms[i]);
+		}	}
+		return rooms;
+	}
+	
+	offsetRooms(){
+		//Get the bounds
+		let x=0,y=0,cols=0,rows=0,
+				rooms=this.rooms;
+		this.rooms.map(room=>{
+			if(room.col>cols){cols=room.col;}
+			else if(room.col<x){x=room.col;}
+			if(room.row>rows){rows=room.row;}
+			else if(room.row<y){y=room.row;}
+		});
+		//Set the max rows/cols and canvas dimens
+		x=0-x;
+		y=0-y;
+		this.cols=cols+x;
+		this.rows=rows+y;
+		this._width=(this.cols+1)*this.roomSize[0]*this.imageHandler.tileSize;
+		this._height=(this.rows+1)*this.roomSize[1]*this.imageHandler.tileSize;
+		//Offset the rooms
+		this.rooms={};
+		rooms.map(room=>{
+			
+				room.col+=x;
+				room.row+=y;
+				for(let i=0;i<room.doors.length;i++){
+				if(room.doors[i]==true){room.doors[i]=false;}
+			}
+				this.rooms[room.col*this.rows+room.row]=room;
+			
+		});
+		//remove the room if it is a dead end
+		for(let i in this.rooms){
+			let room=this.rooms[i];
+			if(room.type==-1&&room.doors.filter(door=>door==f).length==3){
+				for(let i=0;i<room.doors.length;i++){
+					if(room.doors[i]!=f){room.doors[i].doors[(i+2)%4]=f;break;}
+				}
+				delete this.rooms[room.col*this.rows+room.row];
+			}
+		}
+	}
+	resetDungeon(){
+		this.dungeon.nodes.map(node=>{
+			if(hasKey(node,"unlocked")){
+				node.locks=node.unlocked;
+				delete node.unlocked;
+			}
+			if(hasKey(node,"wasType")){
+				node.type=node.wasType;
+				delete node.wasType;
+			}
+			if(hasKey(node,"room")){
+				delete node.room;
+			}
+		});
+		this.rooms=[];
+		this.init(this.dungeonID);
+	}
+	resize(){
+		let widthToHeight=this._width/this._height,
+			newWidth=window.innerWidth,
+			newHeight=window.innerHeight,
+			newWidthToHeight=newWidth/newHeight;
+		
+		if(newWidthToHeight>widthToHeight){
+			newWidth=newHeight*widthToHeight;
+			this.scale=newWidth/this._width;
+		}else{
+			newHeight=newWidth/widthToHeight;
+			this.scale=newWidth/this._width;
+		}
+		
+		this.DOM.width=newWidth;
+		this.DOM.height=newHeight;
+		this.draw();
+	}
+	drawRect(x,y,width,height,color){
+		this.ctx.beginPath();
+		this.ctx.fillStyle=color;
+		this.ctx.rect(x,y,width,height);
+		this.ctx.fill();
+		this.ctx.closePath();
+	}
+	draw(){
+		this.drawRect(0,0,this.DOM.width+200,this.DOM.height+200,"black");
+		let rooms=[];
+		for(let i in this.rooms){
+			rooms.push(this.rooms[i]);
+			this.rooms[i].draw();
+		}
+		for(let i in this.rooms){
+			this.rooms[i].drawSymbols(this.icons);
+		}
+}
+}
+
+class Room extends Obj{
+	constructor(col,row,vars,features){
+		super("col",col,"row",row,"features",features||[],"sharedVars",vars);
+		this.doors=("000"+(Math.floor(Math.random()*15+1)).toString(2)).slice(-4).split("").map(n=>n=="1");
+		
+		this.tiles=[this.baseTiles.WALL.TL,...Array.generate(this.cols-2,e=>this.baseTiles.WALL.T),this.baseTiles.WALL.TR];
+		for(let row=1;row<this.rows-1;row++){//Fill in all the middle rows
+			this.tiles.push(this.baseTiles.WALL.L,...Array.generate(this.cols-2,e=>this.baseTiles.FLOOR),this.baseTiles.WALL.R)
+		}//Fill in the bottom row
+		this.tiles.push(this.baseTiles.WALL.BL,...Array.generate(this.cols-2,e=>this.baseTiles.WALL.B),this.baseTiles.WALL.BR);
+	}
+	setDoorTiles(){
+		let doorPos=[
+			[
+				[[this.cols-1,2],this.baseTiles.DOOR.EA],
+				[[this.cols-1,3],this.baseTiles.FLOOR],
+				[[this.cols-1,4],this.baseTiles.FLOOR],
+				[[this.cols-1,5],this.baseTiles.DOOR.EB]],
+			[
+				[[3,0],this.baseTiles.DOOR.NA],
+				[[4,0],this.baseTiles.FLOOR],
+				[[5,0],this.baseTiles.FLOOR],
+				[[6,0],this.baseTiles.DOOR.NB]
+			],
+			[
+				[[0,2],this.baseTiles.DOOR.WA],
+				[[0,3],this.baseTiles.FLOOR],
+				[[0,4],this.baseTiles.FLOOR],
+				[[0,5],this.baseTiles.DOOR.WB]
+			],
+			[
+				[[3,this.rows-1],this.baseTiles.DOOR.SA],
+				[[4,this.rows-1],this.baseTiles.FLOOR],
+				[[5,this.rows-1],this.baseTiles.FLOOR],
+				[[6,this.rows-1],this.baseTiles.DOOR.SB]
+			]
+		];
+		this.doors.map((door,dir)=>{
+			if(!!door){
+				doorPos[dir].map(tile=>{
+					let pos=tile[0][1]*this.cols+tile[0][1];
+					this.tiles[pos]=tile[1];
+				})
+			}
+		});
+	}
+	get x(){return this.col*this.width;}
+	get y(){return this.row*this.height;}
+	get cols(){
+		return this.roomSize[0];
+	}
+	get rows(){
+		return this.roomSize[1];
+	}
+	get width(){return this.roomSize[0]*this.tileSize*this.scale;}
+	get height(){return this.roomSize[1]*this.tileSize*this.scale;}
+	get upIsOpen(){return !!this.doors[1];}
+	get leftIsOpen(){return !!this.doors[2];}
+	get downIsOpen(){return !!this.doors[3];}
+	get rightIsOpen(){return !!this.doors[0];}
+	tilePos(x,y){
+		return [x*this.tileSize,y*this.tileSize];
+	}
+	draw(){
+		this.ctx.beginPath();
+		this.ctx.rect(this.x,this.y,this.width,this.height);
+		this.ctx.fillStyle=this.features.indexOf(0)!=-1?"green":this.features.indexOf(1)!=-1?"blue":"white";
+		this.ctx.fill();
+		this.ctx.closePath();
+		
+		this.ctx.lineWidth=1;
+		let oneThirdWidth=this.width/3,
+				oneThirdHeight=this.height/3;
+		this.ctx.beginPath();
+		this.ctx.moveTo(this.x,this.y);
+		if(this.upIsOpen){
+			this.ctx.lineTo(this.x+oneThirdWidth,this.y);
+			this.ctx.moveTo(this.x+oneThirdWidth*2,this.y);
+		}
+		this.ctx.lineTo(this.x+this.width,this.y);
+		this.ctx.moveTo(this.x+this.width,this.y);
+		if(this.rightIsOpen){
+			this.ctx.lineTo(this.x+this.width,this.y+oneThirdHeight);
+			this.ctx.moveTo(this.x+this.width,this.y+oneThirdHeight*2);
+		}
+		this.ctx.lineTo(this.x+this.width,this.y+this.height);
+		this.ctx.moveTo(this.x+this.width,this.y+this.height);
+		if(this.downIsOpen){
+			this.ctx.lineTo(this.x+oneThirdWidth*2,this.y+this.height);
+			this.ctx.moveTo(this.x+oneThirdWidth,this.y+this.height);
+		}
+		this.ctx.lineTo(this.x,this.y+this.height);
+		this.ctx.moveTo(this.x,this.y+this.height);
+		if(this.leftIsOpen){
+			this.ctx.lineTo(this.x,this.y+oneThirdHeight*2);
+			this.ctx.moveTo(this.x,this.y+oneThirdHeight);
+		}this.ctx.lineTo(this.x,this.y);
+		this.ctx.strokeStyle="red";
+		this.ctx.stroke();
+		this.ctx.closePath();
+		this.ctx.font="12px Arial";
+		this.ctx.fillStyle="black";
+		this.ctx.fillText(`${this.id}[${this.col},${this.row}]`,this.x+this.width/5,this.y+this.height/2)
+		
+	}
+	drawImages(){
+		let roomPos=[this.col*this.width,this.row*this.height];
+		this.tiles.map((tile,pos)=>{
+			pos=[(roomPos[0]+(pos%this.cols))*this.tileSize,(roomPos[1]+Math.floor(pos/this.cols))*this.tileSize];
+			this.ctx.drawImage(...this.image(tile,pos));
+		});
+	}
+	drawSymbols(icon){
+		let x=0,y=0,id=0;
+		if(this.type!=-1&&this.type!=NodeGen.BRANCH){
+			x=(this.width+16)/2+this.x;
+			y=(this.height+16)/2+this.y;
+			switch(this.type){
+				case NodeGen.ENTRANCE:id=0;break;
+				case NodeGen.KEY:id=4;break;
+				case NodeGen.ITEM:id=6;break;
+				case NodeGen.A:id=8;break;
+				case NodeGen.B:id=10;break;
+				case NodeGen.C:id=12;break;
+				case NodeGen.D:id=14;break;
+				case NodeGen.E:id=16;break;
+				case NodeGen.F:id=18;break;
+				case NodeGen.G:id=20;break;
+				case NodeGen.H:id=22;break;
+				case NodeGen.FAN:id=6;break;
+				case NodeGen.PERSON:id=6;break;
+				case NodeGen.BIGKEY:id=2;break;
+				case NodeGen.BOSS:id=1;break;
+			}
+			this.ctx.drawImage(...icon.image(id,[x,y]));
+		}
+		this.locks.map(door=>{
+			let offset=door[1].length*8;
+			let dir=door[0],
+					horizontal=dir%2==0;
+			switch(dir){
+				case 0:x=this.x+this.width-8;y=this.y+this.height/2-offset;break;//right
+				case 1:x=this.x+this.width/2-offset;y=this.y-8;break;//up
+				case 2:x=this.x-8;y=this.y+this.height/2-offset;break;//left
+				case 3:x=this.x+this.width/2-offset;y=this.y+this.height-8;break;//down
+			}
+			
+			
+			
+			door[1].map((lock,num)=>{
+				switch(lock){
+				case NodeGen.KEY:id=5;break;
+				case NodeGen.ITEM:id=7;break;
+				case NodeGen.A:id=9;break;
+				case NodeGen.B:id=11;break;
+				case NodeGen.C:id=13;break;
+				case NodeGen.D:id=15;break;
+				case NodeGen.E:id=17;break;
+				case NodeGen.F:id=19;break;
+				case NodeGen.G:id=21;break;
+				case NodeGen.H:id=23;break;
+				case NodeGen.FAN:id=7;break;
+				case NodeGen.PERSON:id=7;break;
+				case NodeGen.BIGKEY:id=3;break;
+			}
+				this.ctx.drawImage(...icon.image(id,[x+(!horizontal?(num*18):0),y+(horizontal?(num*18):0)]));
+			});
+		});
+	
+	}
+	toString(){return `id:${this.id},type:${NodeGen.NAMES[this.type+1]},pos:[${this.col},${this.row}],locks:[${this.locks.map(e=>e[1].map(i=>NodeGen.NAMES[i+1]).join(", ")).join(", ")}]`;}
+}
+
+
+class ImageHandler extends Obj{
+	constructor(imgSrc,tileSize,vars,loader){
+		super("tileSize",tileSize,"rows",0,"cols",0,"sharedVars",vars);
+		this.src=new Image();
+		this.src.onload=e=>{
+			this.cols=this.src.width/this.tileSize;
+			this.rows=this.src.height/this.tileSize;
+			loader.removeItem();
+		}
+		this.src.src=imgSrc;
+	}
+	image(id,pos=f){
+		let tile=this.tilePos(id),
+				size=this.tileSize,
+				coords=[this.src,tile[0]*size,tile[1]*size,size,size];
+		if(!!pos){
+			coords.push(...pos,size*this.scale,size*this.scale);
+		}
+		return coords;
+	}
+	tileID(col,row){
+		return row*this.cols+col;
+	}
+	tilePos(id){
+		return [id%this.cols,Math.floor(id/this.cols)];
+	}
+}
+</script>
+<style>
+	.screen{
+  	image-rendering: -moz-crisp-edges;
+  	image-rendering: -webkit-crisp-edges;
+  	image-rendering: pixelated;
+  	image-rendering: crisp-edges;
+	}
+	.screen:focus{
+		outline:none;
+	}
+</style>

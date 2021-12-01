@@ -1,0 +1,806 @@
+<!DOCTYPE html><html latestURL="https://randomcode.run/crossword" version="1.0" lang="en"><title>Crossword</title><meta charset="utf-8"><link rel="icon" type="image/x-icon" href="images/favicon.ico"><script>const version="1.00",baseURL="randomcode.run",contactMail="mattbird@randomcode.run";function HEADER(name){console.log.apply(console,["\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c MADE WITH:"+("                                   v"+version).slice((version+"".length))+" %c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n"+"%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u2590\u2588\u2580\u2584\u00A0\u2584\u2580\u2580\u2584\u00A0\u2588\u2584\u00A0\u00A0\u2588\u2590\u2588\u2580\u2588\u00A0\u2584\u2580\u2580\u2584\u00A0\u2588\u2584\u00A0\u2584\u2588\u00A0\u2584\u2580\u2580\u2584\u00A0\u2584\u2580\u2580\u2584\u2590\u2588\u2580\u2588\u00A0\u2588\u2580\u2580\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u2590\u2588\u2584\u2580\u00A0\u2588\u2584\u2584\u2588\u00A0\u2588\u00A0\u2588\u00A0\u2588\u2590\u2588\u00A0\u2590\u258C\u2588\u00A0\u00A0\u2588\u00A0\u2588\u00A0\u2588\u00A0\u2588\u00A0\u2588\u00A0\u00A0\u00A0\u00A0\u2588\u00A0\u00A0\u2588\u2590\u2588\u00A0\u2590\u258C\u2588\u2580\u00A0\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u2590\u2588\u00A0\u2588\u00A0\u2588\u00A0\u00A0\u2588\u00A0\u2588\u00A0\u00A0\u2580\u2588\u2590\u2588\u2584\u2588\u00A0\u2580\u2584\u2584\u2580\u00A0\u2588\u00A0\u00A0\u00A0\u2588\u00A0\u2580\u2584\u2584\u2580\u00A0\u2580\u2584\u2584\u2580\u2590\u2588\u2584\u2588\u00A0\u2588\u2584\u2584\u00A0\u00A0%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c https://"+baseURL+"/ | "+contactMail+" %c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n%c\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\u00A0%c run(\""+name+"\");                                  ".slice(-10-name+"".length)+"%c\u00A0\u00A0\u00A0%c\u00A0\u00A0%c\u00A0\u00A0\n",...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600'],...['background:#00e600','background:#009900','background:#006600','color:#ffffff;background:#003300','background: #006600','background: #009900','background: #00e600']])};/*
+randomcodode.run/
+░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓ ▐█▀▄ ▄▀▀▄ █▄  █▐█▀█ ▄▀▀▄ █▄ ▄█ ▄▀▀▄ ▄▀▀▄▐█▀█ █▀▀ ▓▓▓▒▒░░
+░░▒▒▓▓▓ ▐█▄▀ █▄▄█ █ █ █▐█ ▐▌█  █ █ █ █ █    █  █▐█ ▐▌█▀  ▓▓▓▒▒░░
+░░▒▒▓▓▓ ▐█ █ █  █ █  ▀█▐█▄█ ▀▄▄▀ █   █ ▀▄▄▀ ▀▄▄▀▐█▄█ █▄▄ ▓▓▓▒▒░░
+░░▒▒▓▓▓ https://randomcode.run | mattbird@randomcode.run ▓▓▓▒▒░░
+░░▒▒▓▓▓             	 crossword v1.0	 	   		     ▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓													 ▓▓▓▒▒░░
+░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
+<script>
+var content;
+const t=true,f=false,n=null,run={};;
+function onLoad(func){
+	if(document.readyState==='complete'){func();}
+	else{window.onload=((oldLoad,func)=>{
+		return function(){
+			oldLoad && oldLoad();
+			func();
+		}	})(window.onload,func);
+}	}
+onLoad(e=>{
+	content=ACE(document.body,"main");
+	var url = window.location.pathname,
+			filename = url.substring(url.lastIndexOf('/')+1);
+	filename=filename.substring(0,filename.lastIndexOf('.'));
+	HEADER(filename);
+	run[filename]();
+});
+function AE(element,parent=content){
+	var origElement=element;
+	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
+	else if(isDefined(element.DOM)){
+		while(element.DOM!=null){
+			element=element.DOM;
+		}
+	}
+	parent.appendChild(element);
+	if("appended" in origElement){origElement.appended();}
+	return origElement;
+}
+function ACE(parent=content){
+	var args=ArgToArr(arguments);
+	args.shift();
+	var element=CE(...args);
+	AE(element,parent);
+	return element;
+}
+function CE(){
+	var info=ArgToArr(arguments),type,element,fields;
+	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
+		fields=cElement[info[0]];
+	}else{
+		fields=[info[0],"generic"];
+	}
+	element=document.createElement(fields[0]);
+	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
+	if(fields[1]=="generic"){fields=cElement["generic"];}
+	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
+	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
+	for(let index=1;index<fields.length;index++){
+		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
+		else if(info[index]==null){}
+		else if(fields[index]=="content"){
+			if(info[index]!=null){
+				if(info[index] instanceof Array){
+					for(let innerdex=0;innerdex<info[index].length;innerdex++){
+						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
+						AE(info[index][innerdex],element);
+					}
+				}else{element.innerText=info[index];}
+		}	}
+		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
+		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
+		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
+		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
+		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
+		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
+	}
+	return element;
+}
+function addCE(){
+	let args=ArgsToArr(arguments);
+	cElement[args.pop()]=args;
+}
+const cElement={
+	jp:["japaneseText","func",(e,t,n=!1)=>{
+		let r=isArray(t)?t.map(e=>isString(e)?"\n"===e?br():CE("spn",e):isArray(e)?CE("ruby",...e):e):t;
+		return(r=CE("div",r,null,n?"vertical":null)).lang="jp",r}],
+	'generic':["","content","id","class","onclick","keySet"]
+};
+
+class Obj{
+	constructor(){
+		var fields=ArgToArr(arguments);
+		if(fields[0] instanceof ExtendedObj){
+			fields[0].expand(this);
+			fields.shift();
+		}
+		for(let index=0;index<fields.length;index++){
+			this[fields[index++]]=fields[index];
+		}
+	}
+	static null(){
+		var object=new Obj(), fields=arguments;
+		for(let index=0;index<fields.length;index++){
+			object[fields[index]]=null;
+		}
+		return object;
+	}
+	static extendable(variableCount,args){
+		return new ExtendedObj(ArgToArr(args).slice(variableCount));
+	}
+	shareVars(){
+		let args=ArgToArr(arguments).map((arg)=>{
+			if(isFunc(this[arg])){
+				return (obj)=>{obj[arg]=this[arg].bind(this);}
+			}else{
+				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
+			}
+		});
+		return args;
+	}
+	set sharedVars(args){args.map(a=>a(this));}
+	setProperty(name,getter,setter){
+		let property={};
+		if(getter!=null){property.get=getter;}
+		if(setter!=null){property.set=setter;}
+		Object.defineProperty(this,name,property);
+	}
+}
+class DOMObj{
+	constructor(parent){
+		var fields=ArgToArr(arguments);
+		if(fields[0] instanceof ExtendedObj){
+			fields[0].expand(this);
+			fields.shift();
+		}
+		for(let index=0;index<fields.length;index++){
+			this[fields[index++]]=fields[index];
+		}
+		this.DOM=CE("div");
+		if(isDefined(this.preGen)){this.preGen();}
+		this.boundEvents={};
+		let keywords=[
+	    	//Keyboard Events
+	    	["keyUp","keyup"],["keyDown","keydown"],
+	    	//Mouse Events
+	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
+	    	//Element Events
+	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
+	    	//Drag/Drop Events
+		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
+		
+		];
+
+		this.generate();
+		
+		for(let id=0; id<keywords.length;id++){
+			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
+		}
+		if(isDefined(this.postGen)){this.postGen();}
+	}
+	addListener(listener,func,DOM=this.DOM){
+		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
+		this.boundEvents[listener]=func.bind(this);
+		DOM.addEventListener(listener,this.boundEvents[listener],false);
+	}
+	shareVars(){
+		let args=ArgToArr(arguments).map((arg)=>{
+			if(isFunc(this[arg])){
+				return obj=>{obj[arg]=this[arg].bind(this)}
+			}else{
+				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
+			}
+		});
+		return args;
+	}
+	set sharedVars(args){args.map(a=>a(this));}
+	removeListener(listener,DOM=this.DOM){
+		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
+			delete this.boundEvents[listener];
+		}catch(e){}
+	}
+	preventDefault(e){
+		if(e.preventDefault){e.preventDefault();}
+		if(e.stopPropagation){e.stopPropagation();}
+	}
+	generate(parent){return null;}
+	insertChild(parent,index){
+		var DOM=this;
+		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
+		while(parent.DOM!=null){parent=parent.DOM;}
+		if(index>=parent.children.length){AE(DOM,parent);}
+		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
+	}
+	insertAfter(element){
+		var DOM=this;
+		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
+		while(!isDOM(element)){element=element.DOM;}
+			element.parentNode.insertBefore(DOM, element.nextSibling);
+	}
+	appendChild(object){
+		while(object.DOM!=null){object=object.DOM;}
+		this.DOM.appendChild(object);
+	}
+	removeChild(object){this.DOM.removeChild(object);}
+	remove(){
+		if(this.parentNode!=null){
+			var object=this.DOM;
+			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
+			this.parentNode.removeChild(object);
+	}	}
+	toggleCSS(rule,DOM=this.DOM){
+		if(!DOM.classList.contains(rule)){
+			DOM.classList.add(rule);
+		}else{
+			DOM.classList.remove(rule);
+		}
+	}
+	overlaps(elem){
+		return !((this.bottom < elem.top) ||
+						(this.top > elem.bottom) ||
+						(this.right < elem.left) ||
+						(this.left > elem.right))
+	}
+	setProperty(name,getter,setter){
+		let property={};
+		if(getter!=null){property.get=getter;}
+		if(setter!=null){property.set=setter;}
+		Object.defineProperty(this,name,property);
+	}
+	get height(){return this.DOM.offsetHeight;}
+	get width(){return this.DOM.offsetWidth;}
+	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
+	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
+	get top(){return this.DOM.offsetTop;}
+	get classList(){return this.DOM.classList;}
+	get left(){return this.DOM.offsetLeft;}
+	get right(){return this.left+this.width;}
+	get bottom(){return this.top+this.height;}
+	get innerHTML(){return this.DOM.innerHtml;}
+	set hidden(hidden){
+		if(hidden&&!this.DOM.classList.contains("hidden")){
+			this.DOM.classList.add("hidden");
+		}else if(!hidden&&this.DOM.classList.contains("hidden")){
+			this.DOM.classList.remove("hidden");
+		}
+	}
+	get innerText(){return this.DOM.innerText;}
+	set innerText(text){this.DOM.innerText=text;}
+	get className(){return this.DOM.className;}
+	set className(className){this.DOM.className=className;}
+	get childNodes(){return this.DOM.childNodes;}
+	get children(){return this.DOM.children;}
+	clearChildren(){
+		this.DOM.innerHTML="";
+	}
+	get parentNode(){
+		var node=this.DOM;
+		while(node.DOM!=null){node=node.DOM;}
+		return node.parentNode;
+	}
+	replaceDOM(object){
+		while(object.DOM!=null){object=object.DOM;}
+		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+		this.DOM=object;
+	}
+}
+class ExtendedObj extends DOMObj{
+	constructor(args){super("args",args);}
+	expand(object){
+		for(let index=0;index<this.args.length;index++){
+			object[this.args[index++]]=this.args[index];
+		}
+	}
+}
+function ArgToArr(arg){return Array.prototype.slice.call(arg);}
+function isArray(array){return array instanceof Array;}
+function isString(string){return typeof string==="string";}
+function isDefined(object){return typeof object!='undefined';}
+Array.generate=(size,action)=>{return ([...Array(size).keys()]).map(action);}
+Array.prototype.last=function(){return this[this.length - 1];}
+
+function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
+
+</script>
+<script>
+const text=`internet	インターネット
+web	ウェブ
+status	ステータス
+online/offline	オンライン/[非,ひ][直,ちょっ][結,けつ]
+broadband	[広,こう][帯,たい][域,いき]
+database	データベース
+server	サーバ
+router	ルーター
+port	ポート
+network	ネットワーク
+simulation	[疑,ぎ][似,じ][体,たい][験,けん]
+cloud computing	クラウドコンピューティング
+firewall	[防,ぼう][火,か][壁,へき]
+bandwidth	[帯,たい][域,いき][幅,はば]
+ping	ピング
+peer-to-peer	ピアツーピア
+open source software	オープンソースソフトウェア
+browser	ブラウザ
+webpage/website	ホームページ/ウェブサイト
+host/client	ホスト/クライアント
+clear cookies	クッキーを[消,け]す
+banner advertisment	バナー[広,こう][告,こく]
+pop-up	ポップアップウィンドウ
+hyperlink	[超,ちょう][連,れん][結,けつ][子,し]
+shopping cart	ショッピングカート
+search engine	[検,けん][索,さく]エンジン
+homepage	ホームページ
+social network	[社,しゃ][会,かい][的,てき]ネットワーク
+message board/forum	[伝,でん][言,ごん][板,ばん]/フォーラム
+lurker	[読,よ]む[専,せん]
+instant messaging	メッセンジャー
+chatroom	チャットルーム
+mailing list	メーリングリスト
+subscribe	[登,とう][録,ろく]する
+cache	キャッシュ
+settings	[設,せっ][定,てい]
+inbox	[受,じゅ][信,しん][箱,ばこ]
+new message	[新,あたら]しいメッセージ
+address book	アドレス[帳,ちょう]
+to attach	[添,てん][付,ぷ]する
+scan for viruses	ウイルスをスキャンする
+infected	[感,かん][染,せん]した
+anti-virus software	アンチウィルスソフト
+filter out spam	[迷,めい][惑,わく]メールを[取,と]り[除,のぞ]く
+spyware	スパイウエア
+freeze	フリーズする
+run out of space	[容,よう][量,りょう]が[足,た]りない
+crash	クラッシュする
+filename extension	[拡,かく][張,ちょう][子,し]
+directory/folder	ディレクトリ/フォルダ
+buffer	バッファ
+document	ドキュメント
+font	フォント
+bold/italic/underline	[太,ふと][字,じ]/[斜,しゃ][体,たい]/[下,か][線,せん]
+emoticon	[顔,かお][文,も][字,じ]
+lower case letter	[小,こ][文,も][字,じ]
+capital letter	[大,おお][文,も][字,じ]
+word wrap	ワードラップ
+spreadsheet	[表,ひょう][計,けい][算,さん]
+cell	セル
+to start up/shut down	[立,た]ち[上,あ]げる/[電,でん][源,げん]を[消,け]す
+plug in/unplug	[差,さ]し[込,こ]む/[抜,ぬ]く
+to restart	[再,さい][起,き][動,どう]する
+logon/logoff	ログオン/ログオフ
+to open/close	[開,あ]く/[終,しゅう][了,りょう]
+to save/load	[保,ほ][存,ぞん]する/[読,よ]み[込,こ]む
+install software	ソフトをインストールする
+surf the internet	インターネットを[閲,えつ][覧,らん]する
+download a music file	[音,おん][楽,がく]ファイルをダウンロード
+click (a/the) button	ボタンをクリックする
+double click the icon	アイコンをダブルクリックする
+check (a/the) box	ボックスをチェックする
+fill out a form	フォームに[記,き][入,にゅう]する
+choose an option	オプションを[選,えら]ぶ
+to scroll up/down	スクロールアップ/ダウン
+zoom in/out	ズームイン/アウト
+drag and drop	ドラッグ[＆,アンド]ドロップ
+to write an e-mail	[電,でん][子,し]メールを[書,か]く
+to send an email	メールを[送,おく]る
+to answer a message	メッセージを[答,こた]える
+to forward	[寄,よ][越,こ]す
+clipboard	クリップボード
+to copy	コピーする
+to cut	[切,き]り[取,と]る
+to paste	[貼,は]り[付,つ]ける
+to insert	[挿,そう][入,にゅう]する
+to delete	[消,け]す`;
+
+run.crossword=e=>AE(new Crossword(textToArray(text,true),20,3));
+
+class Crossword extends DOMObj{
+	constructor(words,count){super("words",words,"count",count,"maxHeight",32,"maxWidth",32,"clues",[],"board",[],"wordBank",[],"wordsActive",[],"mode",null);}
+	generate(){
+		this.className="container";
+		this.words=this.getRandomSet(this.words,this.count);
+		this.wordBank=this.words.map(((word,index)=>{return new CWord(...word);}).bind(this));
+		this.crossword=this.create;
+		if(!!this.crossword){
+			AE(this.crossword,this.DOM);
+			this.getWordNumbers();
+		}
+	}
+	getRandomSet(set,count){
+		set=cloneFlattenedJPArr(set);
+		//Remove any elements that have a space characters
+		for(let index=set.length-1;index>-1;index--){
+			if(set[index][0].indexOf(" ")!=-1){
+				set.splice(index,1);
+			}
+		}
+		if(set.length>count){
+			//Get count unique indicies between 0 and set.length
+			var indicies=[];
+			while(indicies.length<count){
+				var randNum=Math.floor(Math.random()*set.length);
+				if(indicies.indexOf(randNum)===-1){indicies.push(randNum);}
+			}
+			return indicies.map(((index)=>{
+				return [index,...set[index]];
+			}).bind(this));
+		}
+		count=set.length;
+		return set;
+	}
+	get create(){
+		for(var i = 0, isSuccess=false; i < 20 && !isSuccess; i++){
+			//Clean the variables
+			this.wordsActive=[];
+			this.board=Array.generate(this.maxHeight,(()=>{return Array.generate(this.maxWidth,()=>{return null;});}).bind(this));
+			
+			//Prepare the board
+			for(i = 0; i < this.wordBank.length; i++){
+				for(var j = 0, wordA=this.wordBank[i]; j<wordA.length; j++){
+					for(var k = 0, charA=wordA.letter(j); k<this.wordBank.length; k++){
+						for(var l = 0,wordB=this.wordBank[k]; k!==i && l<wordB.length; l++){
+							wordA.matches.total += (charA===wordB.letter(l))?1:0;
+			}	}	}	}
+			//Populate the board
+			let isOk=true;
+			for(var i=0,len=this.wordBank.length; i<len && isOk; i++){
+				isOk = this.AddWordToBoard();
+			}
+			isSuccess=isOk;
+		}
+		if(isSuccess){return this.bulildCrosswordDOM(" ");}
+		else{AE(CE("div","Failed to find crossword."),this.DOM);}
+		return false;
+	}
+	AddWordToBoard(){
+		var lowestMatch=0;
+		if(this.wordsActive.length==0){//The first placed word
+			this.wordBank.map(((word,index)=>{//Loop through and find the word with the least amount of successful matches
+				if(word.matches.total<this.wordBank[lowestMatch].matches.total){
+					lowestMatch=index;
+			}	}).bind(this));
+			this.wordBank[lowestMatch].matches.successful=[{x:Math.floor(this.maxWidth/2.5),y:Math.floor(this.maxHeight/2.5),dir:0}];
+		}else{
+			lowestMatch=-1;
+			let minMatchDiff = 9999, curMatchDiff;
+			this.wordBank.map(((word,wordPos)=>{
+				word.matches.effective=0;
+				word.matches.successful=[];
+				for(var j = 0;j<word.length;j++){
+					let letter=word.letter(j);
+					for (var k = 0, lenK = this.wordsActive.length; k < lenK; k++){
+						let testWord = this.wordsActive[k];
+						for (var l = 0, lenL = testWord.length; l < lenL; l++){
+							let testChar = testWord.letter(l);
+							if (letter === testChar){
+								word.matches.effective++;
+								
+								var curCross = {x:testWord.x,y:testWord.y,dir:0};
+								if(testWord.dir === 0){
+									curCross.dir = 1;
+									curCross.x += l;
+									curCross.y -= j;
+								}else{
+									curCross.dir = 0;
+									curCross.y += l;
+									curCross.x -= j;
+								}
+								
+								var isMatch = true;
+								
+								for(var m = -1, lenM = word.length + 1; m < lenM; m++){
+									var crossVal = [];
+									if (m !== j){
+										if (curCross.dir === 0){
+											var xIndex = curCross.x + m;
+											
+											if (xIndex < 0 || xIndex > this.board.length){
+												isMatch = false;
+												break;
+											}
+											if(xIndex<this.board.length){
+												crossVal.push(this.board[xIndex][curCross.y]);
+												crossVal.push(this.board[xIndex][curCross.y + 1]);
+												crossVal.push(this.board[xIndex][curCross.y - 1]);
+											}
+										}else{
+											var yIndex = curCross.y + m;
+											
+											if (yIndex < 0 || yIndex > this.board[curCross.x].length){
+												isMatch = false;
+												break;
+											}
+											
+											crossVal.push(this.board[curCross.x][yIndex]);
+											crossVal.push(this.board[curCross.x + 1][yIndex]);
+											crossVal.push(this.board[curCross.x - 1][yIndex]);
+										}
+	
+										if(m > -1 && m < lenM-1){
+											if (crossVal[0] !== word.letter(m)){
+												if (crossVal[0] !== null){
+													isMatch = false;
+													break;
+												}else if (crossVal[1] !== null){
+													isMatch = false;
+													break;
+												}else if (crossVal[2] !== null){
+													isMatch = false;
+													break;
+											}	}
+										}else if (crossVal[0] !== null){
+											isMatch = false;
+											break;
+								}	}	}
+								
+								if (isMatch === true){
+									word.matches.successful.push(curCross);
+				}	}	}	}	}
+				
+				curMatchDiff = word.matches.total - word.matches.effective;
+				
+				if (curMatchDiff<minMatchDiff && word.matches.successful.length>0){
+					curMatchDiff = minMatchDiff;
+					lowestMatch = wordPos;
+				}
+				else if (curMatchDiff <= 0){
+					return false;
+				}
+			}).bind(this));
+		}
+		
+		if (lowestMatch === -1){
+			return false;
+		}
+			
+		var spliced = this.wordBank.splice(lowestMatch, 1);
+		this.wordsActive.push(spliced[0]);
+		let word=this.wordsActive.last(),
+			matchData=word.randomMatch();
+		
+		
+			word.dir = matchData.dir;
+			word.x = matchData.x;
+			word.y = matchData.y;
+		
+		for(let index=0;index<word.length;index++){
+			var x = matchData.x,
+				y = matchData.y;
+			
+			if (matchData.dir===0){
+				x += index;
+				this.board[x][y]=word.letter(index);
+			}else{
+				y += index;
+				this.board[x][y] = word.letter(index);
+			}
+		}
+			
+		return true;
+	}
+	bulildCrosswordDOM(blank){
+		let top=this.maxHeight,bottom=0,left=this.maxWidth,right=0,
+			crossword=ACE(this.DOM,"table",n,n,"center crossword");
+			crossword.onfocus=()=>{return false;}
+		//Get the bounds of the selected words
+		this.wordsActive.map((word)=>{
+			if(word.y<top){top=word.y;}
+			if(word.x<left){left=word.x;}
+			if(word.lastX>right){right=word.lastX;}
+			if(word.lastY>bottom){bottom=word.lastY;}
+		
+		});
+		//Set the cells of the table to their letters
+		for(let y=top;y<bottom;y++){
+			let row=ACE(crossword,"tr");
+			for(let x=left;x<right;x++){
+				ACE(row,"td",this.board[x][y],n,(this.board[x][y])?'square letter':'square');
+		}	}
+		//Realign the words x/y positions
+		this.wordsActive.map((word)=>{
+			word.x-=left;
+			word.y-=top;
+		});
+		return crossword;
+	}
+	get gridHeight(){return this.crossword.children.length;}
+	get gridWidth(){return this.crossword.children[0].children.length;}
+	getWordNumbers(){
+		let words=this.wordsActive,across=[],down=[],
+		sortedWords=Array.generate(words.length,(index)=>{return index;})
+		.sort(((a,b)=>{//order the list from top to bottom-left to right
+			if(words[a].y==words[b].y){return words[a].x-words[b].x;}
+			return words[a].y-words[b].y;
+		}).bind(this));
+		sortedWords.map(((word,index)=>{//Split the lists
+			words[word].index=index+1;
+			(words[word].dir==0?across:down).push(word);
+		}).bind(this));
+		
+		let lablelWords=((word)=>{
+			word=words[word];
+			let x=word.x,y=word.y;
+			let square=this.crossword.children[y].children[x];
+			ACE(square,"spn",word.index,n,"wordNumber");
+			return [CE("td",word.index),CE("td",[word.clue])];
+		}).bind(this)
+		across=across.map(lablelWords);
+		down=down.map(lablelWords);
+
+		let index=0;
+		if(across.length>down.length){
+			index=down.length;
+			while(index++<across.length){down.push([CE("td",n,n,"blankClue",n,{colspan:2})]);}
+		}else{
+			index=across.length;
+			while(index++<down.length){across.push([CE("td",n,n,"blankClue",n,{colspan:2})]);}
+		}
+		this.clueTable=ACE(this.DOM,"table",[
+			CE("thead",[CE("tr",[CE("td","Across",n,n,n,{colspan:2}),CE("td","Down",n,n,n,{colspan:2})])]),
+			CE("tbody",Array.generate(across.length,(index)=>{
+				return CE("tr",[...across[index],...down[index]]);
+			}))
+		],n,"center clues");
+	}
+	static a4(text,count,questionNum=3,questionText=["Please solve this crossword puzzle.","このクロスワードパズルを解いてください。"]){
+		return [
+			CE("div",[questionNum+") "+questionText[0],CE("div",n,n,"middle"),questionText[1]],n,"center evenMiddleSpacing"),
+			new Crossword(text,count),
+		CE("table",[
+			CE("tr",[CE("td","Name"),CE("td",n,n,"underLineBorder",n,{colspan:3})]),
+			CE("tr",[CE("td","Class"),CE("td"," ",n,"underLineBorder"),CE("td","Student Number"),CE("td"," ",n,"underLineBorder")])
+		],n,"studentDetails")
+		];
+	}
+}
+class CWord extends Obj{
+	constructor(id,text,clue){super("id",id,"text",text,"clue",clue,"matches",{total:0,effective:0,successful:[]});}
+	randomMatch(){return this.matches.successful[Math.floor(Math.random()*this.matches.successful.length)];}
+	letter(index){return this.text.charAt(index);}
+	get length(){return this.text.length;}
+	get lastX(){return this.x+(this.dir===ACROSS?this.length:0);}
+	get lastY(){return this.y+(this.dir===DOWN?this.length:0);}
+}
+const ACROSS=0,DOWN=1;
+
+function textToArray(text="",secondEntryJapanese=false){
+	//Make a 2d array of the text, where the first index is the amount of preceeding tabs
+	//All tabs between text are delimiters
+	let list=text.split("\n").map((line,index)=>{
+		line=line.split("	");
+		if(line.length==1){alert("There is an issue with ",line);}
+		index=0;
+		while(line[0]==""){
+			line.shift();
+			index++
+		}
+		line.unshift(index);
+		if(secondEntryJapanese){line[2]=textToJP(line[2]);}
+		line.push([]);//For children
+		return line;
+	});
+	//Nest the higher level tabs as the last index of it's parent
+	let tempArray=[],lastLevel=-1,currentParent=n;
+	while(list.length>0){
+		let node=list.shift(),
+			level=node.shift();
+		if(level==0){
+			tempArray.push(node);
+		}else{
+			
+			currentParent=tempArray;
+			for(let index=0;index<level;index++){
+				currentParent=currentParent.last();
+				if(isArray(currentParent[0])){currentParent=currentParent.last();}
+			}
+			currentParent.last().push(node);
+		}
+		lastLevel=level;
+	}
+	return tempArray;
+}
+function cloneFlattenedJPArr(arr){
+	let newArr=[];
+	for(let index=0;index<arr.length;index++){
+		newArr.push([arr[index][0],arr[index][1].cloneNode(true)]);
+		if(arr[index][arr[index].length-1].length>0){
+			newArr.push(WordInputter.cloneFlattenedJPArr(arr[index][arr[index].length-1]));
+		}
+	}
+	return newArr;
+}
+function textToJP(text,fontSize){
+	let jp=[];
+	for(let index=0;index<text.length;index++){
+		if(text[index]=="["){//itterate text for open square bracket
+			let outdex=index;//Start scanning to closing bracket from the opening bracket
+			do{}while(text[outdex]!="]"&&++outdex<text.length);//Scan to closing bracket
+			if(index!=0){jp.push(text.substring(0,index));}//if there's anything before the bracket, add it
+			jp.push(text.substring(index+1,outdex).split(","));//isolate outdex the brackets and split the comma
+			text=text.substring(outdex+1);//Set text to the remaining text
+			index=-1;//reset the index
+	}	}
+	if(text.length>0){jp.push(text);}
+	jp=CE("jp",jp);
+	if(fontSize!=n){jp.style.fontSize=fontSize+"px";}
+	return jp;
+}
+</script>
+<style>
+	.crossword{
+border-spacing: 0px;
+		border-collapse: separate;
+	margin: 0 auto;
+		max-width: 100%;
+		max-height: 100%;
+	color:transparent;
+}
+.crossword.showAnswers{
+color:#000000;
+}
+.square{
+	position: relative;
+	padding: 0px;
+	font: 24px Calibri;
+	width: 1.25em;
+	height: 1.25em;
+	min-height:15px;
+	min-width:15px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.letter{
+	background-color: rgb(255,255,255);
+	text-transform: uppercase;
+	 border: 0.5px solid #000;
+	-webkit-touch-callout: text;
+	-webkit-user-select: text;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+.char:focus{
+	-webkit-box-shadow: 0 0 0 2px rgba(255,32,32,1);
+	-moz-box-shadow: 0 0 0 2px rgba(255,32,32,1);
+	box-shadow: inset 0 0 0 2px rgba(255,32,32,1);
+}
+.char {
+	font-size:24px;
+	text-transform: uppercase;
+	outline: 0;
+	border: 0;
+	padding: 0;
+	margin: -1px 0 0 -1px;
+	width: 1.35em;
+	height: 1.35em;
+	text-align: center;
+	background: none;
+}
+.wordNumber {
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		line-height: 1;
+		font-size: 14px;
+		color: rgba(0,0,0,.5);
+		pointer-events: none;
+	}
+.clues{
+border-spacing: 0px;
+		border-collapse: separate;
+	width:100%;
+		max-width: 100%;
+		max-height: 100%;
+}
+.clues td{
+	border:0.5px solid #000;
+}
+.blankClue{
+	background-color: rgb(0,0,0);
+	border-style:none;
+}
+.hide{
+	visibility: hidden;
+}
+
+.clueReadOnly
+{
+	border: 0 ;
+	outline: 0;
+	color:#303030 !important;
+	background:none;
+}
+</style>
