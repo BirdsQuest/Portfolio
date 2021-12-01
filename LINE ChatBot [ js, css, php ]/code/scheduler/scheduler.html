@@ -1,0 +1,542 @@
+<html>
+	<head>
+	<title>Sekaiwa Scheduler</title>
+	<script src = "https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+	<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+	<script>
+		onLoad(() => {
+			AE(new Scheduler("1645399070-Rez3LNzm"));
+		});
+		/**
+		 * A LINE LIFF DOM Object
+		 *
+		 * @param String liffID    The registered ID
+		 */
+		class LIFF extends DOMObj {
+			constructor(liffID) {
+				super(Obj.extendable(1, arguments), "liffID", liffID);
+			}
+			/**
+			 * Connect to LINE using the liffID
+			 */
+			preGen() {
+				let liffID = this.liffID,
+					error = null;
+				liff.init({
+						liffId: liffID
+					})
+					.then(e => {
+						if (!liff.isLoggedIn()) {
+							liff.login({
+								redirectUri: window.location.href
+							});
+						} else if (liff.getContext()) {
+							let ctx = liff.getContext();
+							this.userID = ctx.userId;
+							this.generate();
+						} else {
+							liff.getProfile()
+								.then(profile => {
+									this.userID = profile.userId;
+									this.generate();
+								});
+						}
+					})
+					.catch(err => console.log(err));
+			}
+			/**
+			 * Opens the specified URL in the in-app browser of LINE or external browser.
+			 *
+			 * @param String url The url address to open
+			 * @param Boolean external Whether or not the page is opened in an external browser
+			 */
+			openWindow(url, external = true) {
+				liff.openWindow({
+					url: url,
+					external: external
+				});
+			}
+			/**
+			 * Send message on behalf of the user to the chat screen where the LIFF app is opened.
+			 * you can send Text, Image, Video, Audio, Location, Template(However, only a URI action can be set as an action),  and Flex messages
+			 * When image, video, and audio messages are sent, the webhook contains the contentProvider.type property whose value is external.
+			 * https://developers.line.biz/en/reference/messaging-api/#message-event
+			 *
+			 * @param Object message   What is to be sent, if it is a String it is turned into an object
+			 */
+			sendMessage(message) {
+				if (isString(message)) {
+					message = {
+						type: 'text',
+						text: message
+					};
+				}
+				this.sendMessages([message]);
+			}
+			/**
+			 * Send a set of messages to the LINE chat window
+			 *
+			 * @param Array messages   An array of what is to be sent
+			 */
+			sendMessages(messages) {
+				liff.sendMessages(messages)
+					.then(() => {
+						this.closeWindow();
+					})
+					.catch((err) => {
+						alert('error: ' + err);
+					});
+			}
+			/**
+			 * Open up the LINE QR code scanner
+			 */
+			scanQR() {
+				if (!!liff.isInClient() && liff.scanCode) {
+					liff.scanCode().then(result => {
+						this.message.textContent = JSON.stringify(result).value;
+					}).catch(err => {
+						this.message.textContent = "scanCode failed!";
+					});
+				}
+			}
+			/**
+			 * Programatically close the LIFF window
+			 */
+			closeWindow() {
+				if (!!liff.isInClient()) {
+					liff.closeWindow();
+				}
+			}
+		}
+		dict["jp"] = {
+			"setSchedule": "スケジュルを予約する",
+			months: [
+				"１月",
+				"２月",
+				"３月",
+				"４月",
+				"５月",
+				"６月",
+				"７月",
+				"８月",
+				"９月",
+				"１０月",
+				"１１月",
+				"１２月"
+			],
+			weekdays: [
+				"日曜日",
+				"月曜日",
+				"火曜日",
+				"水曜日",
+				"木曜日",
+				"金曜日",
+				"土曜日"
+			]
+		};
+		dict["en"] = {
+			"setSchedule": "Set Schedule",
+			months: [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December"
+			],
+			weekdays: [
+				"Sunday",
+				"Monday",
+				"Tuesday",
+				"Wednesday",
+				"Thursday",
+				"Friday",
+				"Saturday"
+			]
+		};
+		
+		/**
+		 *
+		 *
+		 * @param String liffID    The ID of LINEs LIFF
+		 */
+		class Scheduler extends LIFF {
+			constructor(liffID) {
+				super(liffID);
+			}
+			/**
+			 *
+			 */
+			generate() {
+				if (!isDefined(this.userID)) {
+					return;
+				}
+				this.className = "scheduler";
+				this.slots = [];
+				this.timeTable = ACE(this.DOM, "table", [CE("colgroup", [CE("col", 1, "times")])], null, "timeTable");
+				this.weekSpanHeader = ACE(this.timeTable, "td");
+				this.weekSpanHeader.colSpan = 8;
+				let header = ACE(this.timeTable, "tr", [CE("td"), ...dict[lang].weekdays.map((name) => {
+					return CE("td", name);
+				})], null, "header");
+				this.dates = ACE(this.timeTable, "tr", Array.generate(8, () => {
+					return CE("td");
+				}));
+				for (let weekday = 0; weekday < dict[lang].weekdays.length; weekday++) {
+					let slots = Array.generate(15, timeslot => new TimeTableCell(weekday, timeslot, null, this.shareVars("addSession")));
+					this.slots.push(slots);
+				}
+				for (let timeslot = 0; timeslot < 15; timeslot++) {
+					let row = dict[lang].weekdays.map((weekday, index) => this.slots[index][timeslot].DOM);
+					ACE(this.timeTable, "tr", [CE("td", this.timeString(timeslot)), ...row]);
+				}
+				this.setMonday(new Date());
+				this.setWeek(this.monday);
+			}
+			/**
+			 * Set the week variables(date&monday) and DOM dates
+			 *
+			 * @param Date date    A js Date object
+			 */
+			setWeek(date) {
+				this.date = new Date(date);
+				this.setMonday(this.date);
+				this.clearWeek();
+				this.weekSpanHeader.innerText = this.weekSpan;
+				date = this.startOfWeek;
+				for (let day = 1; day < 8; day++) {
+					this.dates.children[day].innerText = this.ordinalSuffix(date.getDate());
+					date.setDate(date.getDate() + 1);
+				}
+				this.fetchWeek();
+			}
+			/**
+			 * Get the weeks scheduled sessions from the database
+			 */
+			fetchWeek() {
+				ajax("../enCharge/scheduler/fetchWeek", ["week", this.monday, "span", 7], response => {
+					if (isArray(response)) {
+						if (!isArray(response[0])) {
+							response = [response];
+						}
+						response.map(time => this.addTimeslot(time));
+					}
+				});
+			}
+			/**
+			 * Set a scheduled session
+			 *
+			 * @param Date time  A js Date object
+			 */
+			addTimeslot(time) {
+				let date = new Date(time[2]);
+				let day = date.getDay(), //Get day of week from time
+					hour = date.getHours(), //Get hour from time
+					timeSlot = this.timeSlot(day, hour);
+				timeSlot.id = time[0];
+				timeSlot.classList.add(time[1] == true ? "open" : "closed");
+				timeSlot.classList.add("taken");
+			}
+			/**
+			 * Remove all scheduled timeslots
+			 */
+			clearWeek() {
+				this.slots.map((weekday) => {
+					weekday.map((slot) => {
+						slot.clear();
+					});
+				});
+			}
+			/**
+			 * Set the week when selected via the date picker
+			 */
+			pickedDate() {
+				this.setWeek(this.datePicker.date);
+			}
+			/**
+			 * Add an ordinal suffix(st/nd/rd) to a number
+			 *
+			 * @param Integer day  The number representing a day
+			 *
+			 * @return The passed integer as a String with as an ordinal number
+			 */
+			ordinalSuffix(day) {
+				var lastDigit = day % 10,
+					lastTenth = day % 100;
+				if (lastDigit == 1 && lastTenth != 11) {
+					return day + "st";
+				}
+				if (lastDigit == 2 && lastTenth != 12) {
+					return day + "nd";
+				}
+				if (lastDigit == 3 && lastTenth != 13) {
+					return day + "rd";
+				}
+				return day + "th";
+			}
+			/**
+			 * Get the first day of the current week
+			 *
+			 * @return The first day of the week
+			 */
+			get startOfWeek() {
+				let diff = this.date.getDate() - this.date.getDay();
+				let date = new Date();
+				date.setDate(diff);
+				return date;
+			}
+			/**
+			 * Get the last day of the current week
+			 *
+			 * @return The last day of the week
+			 */
+			get endOfWeek() {
+				let diff = this.startOfWeek.getDate() + 6;
+				let date = new Date();
+				date.setDate(diff);
+				return date;
+			}
+			/**
+			 * Get the string stating the start and end of the week to identify what the current week is
+			 *
+			 * @return the week span string
+			 */
+			get weekSpan() {
+				let startOfWeek = this.startOfWeek,
+					endOfWeek = this.endOfWeek;
+				return "Week spanning from " +
+					dict[lang].months[startOfWeek.getMonth()] + " " + this.ordinalSuffix(startOfWeek.getDate()) + " to " +
+					((startOfWeek.getMonth() == endOfWeek.getMonth()) ? "the " : dict[lang].months[endOfWeek.getMonth()] + " ") +
+					this.ordinalSuffix(endOfWeek.getDate());
+			}
+			/**
+			 * Add a time to the server
+			 *
+			 * @param Event e  A js onClick Event
+			 * @param Integer weekday  The day of the week
+			 * @param Integer timeslot The timeslot selected
+			 */
+			addSession(e, weekday, timeslot) {
+				//2020-02-25 08:00
+				if (weekday == n) {
+					this.sendMessage(dict[lang]["setSchedule"]);
+				} else {
+					this.sendMessage(this.timeFromSlot(weekday, timeslot));
+				}
+			}
+			/**
+			 * Sets the monday preceding(or on) a given date
+			 *
+			 * @param Date date    A js Date object
+			 */
+			setMonday(date) {
+				var day = date.getDay(),
+					diff = date.getDate() - day + (day == 0 ? -6 : 1); //adjust when day is sunday
+				this.monday = new Date(date.setDate(diff)).toISOString().slice(0, 19).replace('T', ' ');
+			}
+			/**
+			 * Move the current week to the next one
+			 */
+			nextWeek() {
+				this.clearSlots();
+				//TODO: Add 7 days onto this.monday
+				this.setMonday(this.monday);
+			}
+			/**
+			 * Move the current week to the previous one
+			 */
+			lastweek() {
+				
+			}
+			/**
+			 * Fetch the timeslots of a day of the week
+			 *
+			 * @param Integer day  Day of the week
+			 *
+			 * @return An array of timeslot DOMs from a single weekday
+			 */
+			weekdaySlot(day) {
+				return this.slots[day];
+			}
+			/**
+			 * Get the timeSlot index from a string with AM/PM
+			 *
+			 * @param String time A string representing a time
+			 *
+			 * @return a timeSlot index
+			 */
+			timeIndex(time) {
+				if (time.indexOf("a") > -1) {
+					time = time.substring(0, parseInt(time.length - 2));
+				} else if (time.indexOf("p") > -1) {
+					time = time.substring(0, parseInt(time.length - 2) - 12);
+				} else {
+					time = parseInt(time);
+				}
+				return time - 8;
+			}
+			/**
+			 * Convert a timeSlot to an am/pm String
+			 *
+			 * @param Integer time A timeSlot index
+			 *
+			 * @return A string of a 12h time
+			 */
+			timeString(time) {
+				time += 8;
+				if (time > 12) {
+					time -= 12;
+					time += "pm";
+				} else {
+					time += "am";
+				}
+				return time;
+			}
+			/**
+			 * get a timeSlot DOM from a weekday and time
+			 *
+			 * @param Integer weekday  a 0-6 int of the day of the week
+			 * @param Integer time A timeSlot or 12h time string
+			 *
+			 * @return a timeSlot DOM
+			 */
+			timeSlot(weekday, time) {
+				if (isInt(weekday)) {
+					weekday = this.weekdaySlot(weekday);
+				}
+				if (isString(time)) {
+					time = this.timeIndex(time);
+				}
+				return weekday[time];
+			}
+			/**
+			 * Get a DateTime string based on the current week and a weekday/timeSlot
+			 *
+			 * @param Integer weekday  The day of the week to get the day from
+			 * @param Integer time The timeslot to get the time from
+			 *
+			 * @return A datetime string in the format of YYYY-MM-DD HH:mm
+			 */
+			timeFromSlot(weekday, time) {
+				let day = new Date();
+				day.setDate(this.startOfWeek.getDate() + weekday);
+				time += 8;
+				return `${day.getFullYear()}-${("0"+(day.getMonth()+1)).slice(-2)}-${("0"+day.getDate()).slice(-2)} ${("0"+time).slice(-2)}:00`;
+			}
+		}
+		
+		/**
+		 * The DOM of a timeslot
+		 *
+		 * @param Integer day  What weekday the slot is
+		 * @param Integer hour  What timeslot the slot is
+		 * @param Integer id  The timeslots ID
+		 * @param SharedVars vars  Shared from Scheduler; addSession
+		 */
+		class TimeTableCell extends DOMObj {
+			constructor(day, hour, id, vars) {
+				super("day", day, "hour", hour, "id", id || -1, "sharedVars", vars);
+			}
+			/**
+			 * Set up the DOM and have it cleared
+			 */
+			generate() {
+				this.DOM = CE("td", null, null, "timeslot " + (this.open ? "open" : "closed"));
+				this.openDOM = ACE(this.DOM, "spn", null, null, "isOpen");
+				
+			}
+			/**
+			 * When the timeslot is clicked, add it as a session
+			 *
+			 * @param Event e  JS onClick event
+			 */
+			onClick(e) {
+				if (this.classList.contains("taken")) {
+					alert("That timeslot is taken");
+				} else {
+					this.DOM.classList.add("taken");
+					this.addSession(e, this.day, this.hour);
+				}
+			}
+			/**
+			 * If the timeslot has been set, clear it
+			 */
+			clear() {
+				this.id = -1;
+				this.open = true;
+				this.DOM.classList.remove("taken");
+				this.user = -1;
+				this.maxUsers = 6;
+				this.level = 1;
+				this.activityTopic = 0;
+			}
+			/**
+			 * Set the details of the timetable slot
+			 *
+			 * @param Integer id   The slots ID
+			 * @param Integer user The user who has booked the session
+			 * @param Array gps    Where the session is being held
+			 * @param Boolean open Whether other users can join the session
+			 * @param Integer maxUsers The max number of users who can join the session
+			 * @param Integer level    The difficulty of the session
+			 * @param String activityTopic  What is to be taught/studied
+			 */
+			set(id, user, time, gps, open, maxUsers, level, activityTopic) {
+				this.id = id;
+				this.dbObj.user = user;
+				this.dbObj.open = open;
+				this.dbObj.maxUsers = maxUsers;
+				this.dbObj.level = level;
+				this.dbObj.activityTopic = activityTopic;
+			}
+			/**
+			 * Set the open status(whether random users can join the session)
+			 *
+			 * @param Boolean isOpen   The open status
+			 */
+			set open(isOpen) {
+				this.isOpen = isOpen;
+				this.DOM.classList.add(isOpen ? "open" : "closed");
+				this.DOM.classList.remove(isOpen ? "closed" : "open");
+			}
+			/**
+			 * Get the open status(whether random users can join the session)
+			 *
+			 * @return The open status
+			 */
+			get open() {
+				return this.isOpen || true;
+			}
+		}
+		
+		
+		run["scheduler"] = () => {
+			AE(new Scheduler());
+		};
+	</script>
+	<style>
+		html, body {
+			height: 100 % ;
+		}
+		.scheduler {
+			width: 100 % ;height: 100 % ;
+		}
+		.timeTable {
+			width: 100 % ;height: 100 %
+		}
+		.header th {
+			writing - mode: vertical - rl;
+			text - orientation: sideways - right;
+		}
+		.taken {
+			background - color: green;
+		}
+		</style>
+	</head>
+</html>

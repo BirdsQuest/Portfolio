@@ -1,0 +1,289 @@
+:root {
+	--toastColor: #000;
+	--toastText: #FFF;
+}
+
+.status {
+	border-radius: 25px;
+	text-overflow: hidden;
+	white-space: nowrap;
+}
+
+.status.a {
+	background: #8aff63;
+}
+
+.status.b {
+	background: #4287f5;
+}
+
+.status.c {
+	background: #ebed51;
+}
+
+.status.d {
+	background: #309e0b;
+}
+
+.status.e {
+	background: #b04848;
+}
+
+.toast {
+	position: fixed;
+	min-width: 250px;
+	margin-left: -125px;
+	visibility: hidden;
+	font-size: 25px;
+	background-color: var(--toastColor);
+	color: var(--toastText);
+	text-align: center;
+	border-radius: 5px;
+	padding: 16px;
+	z-index: 1000;
+	left: 50%;
+	bottom: 30px;
+}
+.toast.active {
+	visibility: visible;
+	-webkit-animation: showToast 0.5s;
+	animation: showToast 0.5s;
+}
+.toast.inactive {
+	visibility: visible;
+	-webkit-animation: hideToast 0.5s;
+	animation: hideToast 0.5s;
+}
+@-webkit-keyframes showToast {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+@keyframes showToast {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+@-webkit-keyframes hideToast {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+@keyframes hideToast {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+/*============================================[ Chat ]=====================================*/
+
+/*Chat Windows*/
+@media only screen and (max-width: 540px) {
+	.chatSidebar {
+		display: none !important;
+	}
+	
+	.chatPopup {
+		display: none !important;
+	}
+}
+body {
+	background-color: #e9eaed;
+}
+.chatTerminal {
+	height: 19.5em;
+	overflow-y: scroll;
+}
+.chatSidebar {
+	width: 200px;
+	position: fixed;
+	height: 100%;
+	right: 0px;
+	top: 0px;
+	padding-top: 40px;
+	padding-bottom: 10px;
+	border: 1px solid rgba(29, 49, 91, .3);
+}
+.sidebarName {
+	display: block;
+	color: inherit;
+	margin-bottom: 4px;
+	font-size: 12px;
+	cursor: pointer;
+}
+.sidebarName:hover {
+	background-color: #e1e2e5;
+}
+.sidebarName img {
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}
+.sidebarName span {
+	padding-left: 32px;
+}
+.popupBox {
+	display: none;
+	position: fixed;
+	bottom: 0px;
+	right: 220px;
+	background-color: rgb(237, 239, 244);
+	width: 300px;
+	border: 1px solid rgba(29, 49, 91, .3);
+}
+.popupBox .popupHead {
+	background-color: #6d84b4;
+	padding: 5px;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	clear: both;
+}
+.popupBox .popupHead .popupHeadLeft {
+	float: left;
+}
+.popupBox .popupHead .popupHeadRight {
+	float: right;
+	opacity: 0.5;
+}
+.popupBox .popupHead .popupHeadRight .close {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+.popupBox .popupHead.new {
+	-webkit-animation: newMessage 2.3s infinite;
+	/* Safari 4+ */
+	
+	-moz-animation: newMessage 2.3s infinite;
+	/* Fx 5+ */
+	
+	-o-animation: newMessage 2.3s infinite;
+	/* Opera 12+ */
+	
+	animation: newMessage 2.3s infinite;
+	/* IE 10+, Fx 29+ */
+}
+.popupBox .outBox {
+	display: flex;
+}
+.popupBox input[type=textbox] {
+	flex-grow: 1;
+}
+@-webkit-keyframes newMessage {
+	0% {
+		background-color: #6d84b4;
+	}
+	
+	50% {
+		background-color: blue;
+	}
+	
+	100% {
+		background-color: #6d84b4;
+	}
+}
+.popupBox .popupMessages {
+	height: 21em;
+}
+
+/*VideogameAsthetic*/
+
+/*=========================================================[ Speech Bubble ]==================================================*/
+.leftSide {
+	text-align: left;
+}
+.rightSide {
+	text-align: right;
+}
+.speechBubble {
+	font-size: 20px;
+	font-family: 'Iceland', cursive;
+}
+.speechBubble {
+	position: relative;
+	display: block;
+	margin: 10px 9px 29px 6px;
+	text-align: center;
+	font-weight: 700;
+	background-color: #fff;
+	color: #000;
+	padding: 5px;
+	box-shadow: 0 -3px #fff, 0 -6px #000, 3px 0 #fff, 3px -3px #000, 6px 0 #000, 0 3px #fff, 0 6px #000, -3px 0 #fff, -3px 3px #000, -6px 0 #000, -3px -3px #000, 3px 3px #000, 3px 9px #aaa, 6px 6px #aaa, 9px 3px #aaa;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+}
+.speechBubble::before,
+.speechBubble::after {
+	content: '';
+	display: block;
+	position: absolute;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+	right: 3%;
+}
+.speechBubble::after {
+	background: #fff;
+	width: 9px;
+	height: 3px;
+	bottom: -14px;
+	margin-left: 6px;
+	box-shadow: -3px 0 #000, 3px 0 #000, 3px 3px #fff, 0px 3px #000, 6px 3px #000, 9px 3px #aaa, 3px 6px #000, 6px 6px #000, 9px 6px #aaa, 6px 9px #aaa;
+}
+.speechBubble::before {
+	width: 15px;
+	height: 8px;
+	background: #fff;
+	bottom: -11px;
+	border-left: 3px solid #000;
+	border-right: 3px solid #000;
+}
+.speechBubble.-up {
+	margin: 29px 9px 10px 6px;
+}
+.speechBubble.-up::before {
+	top: -11px;
+	bottom: auto;
+}
+.speechBubble.-up::after {
+	top: -14px;
+	bottom: auto;
+	box-shadow: -3px 0 #000, 3px 0 #000, 3px -3px #fff, 0px -3px #000, 6px -3px #000, 3px -6px #000, 6px -6px #000;
+}
+.speechBubble.-up.-right::after {
+	box-shadow: 3px 0 #000, -3px 0 #000, -3px -3px #fff, 0px -3px #000, -6px -3px #000, -3px -6px #000, -6px -6px #000;
+}
+.speechBubble.-right::before,
+.speechBubble.-right::after {
+	right: auto;
+	left: 3%;
+}
+.speechBubble.-right::after {
+	margin-left: 0;
+	margin-right: 6px;
+	box-shadow: 3px 0 #000, -3px 0 #000, -3px 3px #fff, 0px 3px #000, -6px 3px #000, -3px 6px #000, -6px 6px #000, -3px 9px #aaa, 0 6px #aaa, 3px 3px #aaa, 6px 0px #aaa;
+}

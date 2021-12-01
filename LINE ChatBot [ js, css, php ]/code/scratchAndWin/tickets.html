@@ -1,0 +1,553 @@
+<html>
+	<head>
+		<title>enCharge Scratch And Win Ticket</title>
+		<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+		<script>const title="randomcode",pageName="rc",version=.01,baseURL="https://randomcode.run/",rcVersion=1.05,lang="en",TIMESTAMP=(()=>Date.now()/1e3|0)(),classes={},t=!0,f=!1,n=null,KEY={SHIFT:16,BACKSPACE:8,ENTER:13,ESC:27,SPACE:32,LEFT:37,UP:38,RIGHT:39,DOWN:40},KEYS={chromeExtensionID:"gjhlocconbbejhcbajenldfaidlcakce"},image={};var content,VERSION,run={},aniFrame=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame||(e=>{setTimeout(e,1e3/60)});if(Date.now||(Date.now=(()=>(new Date).getTime())),isDefined(get))get=window.location.href.split("/").splice(4);else var get=[];class Obj{constructor(){var e=ArgToArr(arguments);e[0]instanceof ExtendedObj&&(e[0].expand(this),e.shift());for(let t=0;t<e.length;t++)this[e[t++]]=e[t]}static null(){var e=new Obj,t=arguments;for(let n=0;n<t.length;n++)e[t[n]]=null;return e}static extendable(e,t){return new ExtendedObj(ArgToArr(t).slice(e))}shareVars(){return ArgToArr(arguments).map(e=>isFunc(this[e])?t=>{t[e]=this[e].bind(this)}:t=>{Object.defineProperty(t,e,{get:(()=>this[e]).bind(this),set:(t=>{this[e]=t}).bind(this)})})}set sharedVars(e){e.map(e=>e(this))}setProperty(e,t,n){let r={};null!=t&&(r.get=t),null!=n&&(r.set=n),Object.defineProperty(this,e,r)}}class ExtendedObj extends Obj{constructor(e){super("args",e)}expand(e){for(let t=0;t<this.args.length;t++)e[this.args[t++]]=this.args[t]}}class DOMObj{constructor(e){var t=ArgToArr(arguments);t[0]instanceof ExtendedObj&&(t[0].expand(this),t.shift());for(let e=0;e<t.length;e++)this[t[e++]]=t[e];this.DOM=CE("div"),isDefined(this.preGen)&&this.preGen(),this.boundEvents={};let n=[["keyUp","keyup"],["keyDown","keydown"],["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]];this.generate();for(let e=0;e<n.length;e++)null!=this[n[e][0]]&&this.addListener(n[e][1],this[n[e][0]]);isDefined(this.postGen)&&this.postGen()}addListener(e,t,n=this.DOM){this.boundEvents.hasOwnProperty(e)&&this.removeListener(e,n),this.boundEvents[e]=t.bind(this),n.addEventListener(e,this.boundEvents[e],!1)}shareVars(){return ArgToArr(arguments).map(e=>isFunc(this[e])?t=>t[e]=this[e].bind(this):t=>{Object.defineProperty(t,e,{get:(()=>this[e]).bind(this),set:(t=>{this[e]=t}).bind(this)})})}set sharedVars(e){e.map(e=>e(this))}removeListener(e,t=this.DOM){try{t.removeEventListener(e,this.boundEvents[e]),delete this.boundEvents[e]}catch(e){}}preventDefault(e){e.preventDefault&&e.preventDefault(),e.stopPropagation&&e.stopPropagation()}generate(e){return null}insertChild(e,t){for(var n=this;n instanceof DOMObj;)n=n.DOM;for(;null!=e.DOM;)e=e.DOM;t>=e.children.length?AE(n,e):e.insertBefore(n,e.children[t].nextSibling)}insertAfter(e){for(var t=this;t instanceof DOMObj;)t=t.DOM;for(;!isDOM(e);)e=e.DOM;e.parentNode.insertBefore(t,e.nextSibling)}appendChild(e){for(;null!=e.DOM;)e=e.DOM;this.DOM.appendChild(e)}removeChild(e){this.DOM.removeChild(e)}remove(){if(null!=this.parentNode){for(var e=this.DOM;null!=e&&e instanceof DOMObj;)e=e.DOM;this.parentNode.removeChild(e)}}toggleCSS(e,t=this.DOM){t.classList.contains(e)?t.classList.remove(e):t.classList.add(e)}overlaps(e){return!(this.bottom<e.top||this.top>e.bottom||this.right<e.left||this.left>e.right)}setProperty(e,t,n){let r={};null!=t&&(r.get=t),null!=n&&(r.set=n),Object.defineProperty(this,e,r)}get height(){return this.DOM.offsetHeight}get width(){return this.DOM.offsetWidth}set width(e){null!=e&&(this.DOM.style.width=e+"px")}set height(e){null!=e&&(this.DOM.style.height=e+"px")}get top(){return this.DOM.offsetTop}get classList(){return this.DOM.classList}get left(){return this.DOM.offsetLeft}get right(){return this.left+this.width}get bottom(){return this.top+this.height}get innerHTML(){return this.DOM.innerHtml}set hidden(e){e&&!this.DOM.classList.contains("hidden")?this.DOM.classList.add("hidden"):!e&&this.DOM.classList.contains("hidden")&&this.DOM.classList.remove("hidden")}get innerText(){return this.DOM.innerText}set innerText(e){this.DOM.innerText=e}get className(){return this.DOM.className}set className(e){this.DOM.className=e}get childNodes(){return this.DOM.childNodes}get children(){return this.DOM.children}clearChildren(){this.DOM.innerHTML=""}get parentNode(){for(var e=this.DOM;null!=e.DOM;)e=e.DOM;return e.parentNode}replaceDOM(e){for(;null!=e.DOM;)e=e.DOM;var t=Array.from(this.parentNode.children).indexOf(this.DOM);this.parentNode.replaceChild(e,this.parentNode.childNodes[t]),this.DOM=e}}class Cookie{static set(e,t,n){var r=new Date;r.setTime(r.getTime()+24*n*60*60*1e3);var o="expires="+r.toUTCString();document.cookie=e+"="+t+"; "+o}static get(e){var t=e+"=",n=document.cookie.split(";");for(let e=0;e<n.length;e++){for(var r=n[e];" "==r.charAt(0);)r=r.substring(1);if(0==r.indexOf(t))return r.substring(t.length,r.length)}return""}static clear(e){document.cookie=e+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC"}static check(e,t){var n=getCookie(e);return""==n&&(n=t,setCookie(e,n,365)),e}}class Device{constructor(){this.browser=this.checkBrowser(),this.os=this.checkOS(),this.renderer="Canvas",this.bigEndian=this.getEndian()}checkBrowser(){var e=window.chrome,t=window.navigator,n=t.vendor,r=t.userAgent.indexOf("OPR")>-1,o=t.userAgent.indexOf("Edge")>-1,i=navigator.userAgent.toLowerCase().indexOf("firefox")>-1;return null!=e&&"Google Inc."===n&&0==r&&0==o?"Chrome":i?(log.arg=console.log,log.args=console.log,log.func=console.log,log.debug=console.log,log.error=console.log,log.info=console.log,"Firefox"):r?"Opera":o?"IE Edge":"Unknown"}checkOS(){return-1!=navigator.appVersion.indexOf("Win")?"Windows":-1!=navigator.appVersion.indexOf("Mac")?"MacOS":-1!=navigator.appVersion.indexOf("X11")?"UNIX":-1!=navigator.appVersion.indexOf("Linux")?"Linux":"Unknown"}checkAudio(){try{window.AudioContext=window.AudioContext||window.webkitAudioContext;new AudioContext;return"WebAudio"}catch(e){return"HTML Audio"}}getEndian(){var e=new ArrayBuffer(4);return new Uint32Array(e)[0]=168496141,10===e[4]&&11===e[5]&&12===e[6]&&13===e[7]}print(){console.log("OS:",this.os,", Browser:",this.browser,", Renderer:",this.renderer,", Audio:",this.audio,", Endian: "+(this.bigEndian?"big":"little"))}}class log{static construct(e,t){if(log.SHOW.construct){t=["%cConstruct "+e.constructor.name,"color: #ffffff; background: #003300;",t];log.apply(t)}}static args(e,t,n){if(log.SHOW.args){var r=[];null!=n?(r.push("%c"+e),r.push("color: #ffffff; background: #0000ff;")):(n=t,t=e);for(let e=0;e<n.length;e++)r.push("%c"+t[e]),r.push("color: #ffffff; background: #00e600;"),r.push(n[e]);log.apply(r)}}static arg(e,t,n=!1){if(log.SHOW.arg){var r=["%c"+e,"color: #ffffff; background: #00e600;",t];log.apply(r,!0)}}static statFunc(e,t,n){if(log.SHOW.statFunc){var r=["%cstatFunc "+e+"."+t,"color: #ffffff; background: #009900;"];for(let e=0;e<n.length;e++)r.push(n[e]);log.apply(r)}}static func(e,t,n){if(log.SHOW.func){var r=["%cfunc "+e.constructor.name+"."+t,"color: #ffffff; background: #009900;"];for(let e=0;e<n.length;e++)r.push(n[e]);log.apply(r)}}static apply(e,t=!1){t&&(e[0]+="%c\t%c"+log.caller(2)+"\n",e.splice(2,0,"background: #FFFFFF;","color: #FFFFFF; background: #000000;")),"Chrome"==device.browser?console.log.apply(console,e):window.console&&(e=e[0]).replace("%c","")}static trace(){try{throw Error("")}catch(e){return e.stack.split("\n").slice(2)}}static caller(e){var t=log.trace()[e+1];return t=(t=t.slice(t.indexOf("at ")+3,t.lastIndexOf(":"))).split(baseURL+"scripts/").join("").split("(").join("=> ")}static debug(){if(log.SHOW.debug){var e=["%cDEBUG:","color: #4d004d; background: #e600e6;",...arguments];log.apply(e,!0)}}static error(){if(log.SHOW.error){var e=["%cERROR:\n"+log.trace().join("\n")+"\n","color: #990000; background: #ff0000;",...arguments];log.apply(e,!0)}}static info(){if(log.SHOW.info){var e=["%cINFO:","color: #b34700; background: #ff751a;",...arguments];log.apply(e,!0)}}static header(){if(log.SHOW.header){var e=[log.HEADER];for(let t=0;t<4;t++)e.push("background: #00e600"),e.push("background: #009900"),e.push("background: #006600"),e.push("color: #ffffff; background: #003300;"),e.push("background: #006600"),e.push("background: #009900"),e.push("background: #00e600");log.apply(e)}}static response(e,t,n,r){if(log.SHOW.debug){n=["%cResponse:%c %c"+t+"%c\t%c"+e+"\n","color: #cc0066; background: #9966ff;","background: #FFFFFF;","color: #9900ff; background: #ffcccc;","background: #FFFFFF;","color: #FFFFFF; background: #000000;",n,"\n",r];log.apply(n)}}}class CR extends DOMObj{constructor(e){super("coords",e)}generate(){this.DOM=CE("svg"),this.line=ACE(this.DOM,"line"),this.start=this.start,this.end=this.end}get width(){return this.end.x-this.start.x}get height(){return this.end.y-this.start.y}set start(e){setCoord("A",e)}set end(e){this.setCoord("B",e)}get start(){return{x:this.coords.aX,y:this.coords.aY}}get end(){return{x:this.coords.bX,y:this.coords.bY}}setCoord(e,t){hasKey(t,"x")&&(this.line["x"+("A"==e?1:2)]=t.x,this.coords[e+"X"]=t.x),hasKey(t,"y")&&(this.line["y"+("A"==e?1:2)]=t.y,this.coords[e+"Y"]=t.y),this.DOM.height=this.height,this.DOM.width=this.width}}class B64Img extends DOMObj{constructor(){super()}generate(){this.input=ACE(this.DOM,"ipt",n,n,n,"file"),this.input.onchange=this.fromInput.bind(this),this.input.multiple=!0,this.url=ACE(this.DOM,"textArea"),ACE(this.DOM,"btn","Convert URL",n,n,this.fromURL.bind(this)),this.results=ACE(ACE(this.DOM,"table"),"tr"),this.code=ACE(this.DOM,"div")}fromInput(){for(let e=0;e<this.input.files.length;e++)this.toB64(this.input.files[e])}static has(e){return hasKey(image,e)}fromURL(){this.url.value.split("\n").map(((e,t)=>{var n=new XMLHttpRequest;n.onload=(()=>{this.toB64(n.response,t+this.total)}),n.open("GET",url),n.responseType="blob",n.send()}).bind(this))}fromClipboard(e){}toB64(e,t=0){this.addCell();let n=e.name,r=new FileReader;r.onloadend=(()=>{B64Img.add(n,r.result),this.setCell(n,r.result,t+this.total),this.code.innerText+=(this.code.innerText.length>0?",\n":"")+this.toCodeText(n,r.result)}).bind(this),r.readAsDataURL(e)}addCell(){ACE(this.results,"td")}setCell(e,t,n){let r=this.results.children[n];ACE(r,"h3",e),AE(B64Img.get(e),r)}static toCode(e){return[(e=e.split(";"))[0].split(":")[1],e[1].substring("base64,".length)]}toCodeText(e,t){return e+':["'+(t=B64Img.toCode(t))[0]+'","'+t[1]+'"]'}static add(e,t){if(e instanceof Object)for(let t in e)image[t]=e[t];else image[e]=B64Img.toCode(t),console.log(image)}static get(e){return image[e]}static toImage(e,t){let n=new Image,r=(-1!=image[e][0].indexOf("/")?"":"image/")+image[e][0],o="image/href"==r?image[e][1]:"data:"+r+";base64,"+image[e][1];return n.onload=t,n.src=o,n}static loaded(e){return e.path[0]}get total(){return this.code.children.length}static convert(){AE(CE("div",[new B64Img,CE("div","X",n,n,e=>{(e=getE(e).parentNode).parentNode.removeChild(e)})],n,n,n,{style:"position:absolute;top=0;right=0;"}),document.body)}static preload(){let e=new SimpleLoader,t=t=>e.removeItem();for(let e in image)isArray(image[e])&&(image[e]=B64Img.toImage(e,t))}static copy(e){return B64Img.get(e).cloneNode(!0)}}function onLoad(e){"complete"===document.readyState?e():window.onload=((e,t)=>(function(){e&&e(),t()}))(window.onload,e)}onLoad(()=>{B64Img.preload(),document.title=title,B64Img.has("background")&&(document.body.style.backgroundImage="url('"+B64Img.get("background").src+"')"),B64Img.has("favicon")&&CE("favico",B64Img.get("favicon").src)}),log.time=(()=>{var e=new Time;log.arg("TIME",e.toString("hms"))}),log.out=console&&"function"==typeof console.log?console.log.bind?console.log.bind(console):$.proxy(console.log,console):function(){(window.__im_log=window.__im_log||[]).push(Array.prototype.join.call(arguments," "))},log.SHOW={construct:!0,args:!0,arg:!0,statFunc:!0,func:!0,debug:!0,error:!0,info:!0,header:!0},log.CODE={e:log.error,i:log.info,d:log.debug},log.HEADER=["%c  %c  %c   %c ▐█▀▄ ▄▀▀▄ █▄  █▐█▀█ ▄▀▀▄ █▄ ▄█ ▄▀▀▄ ▄▀▀▄▐█▀█ █▀▀ %c   %c  %c  \n%c  %c  %c   %c ▐█▄▀ █▄▄█ █ █ █▐█ ▐▌█  █ █ █ █ █    █  █▐█ ▐▌█▀  %c   %c  %c  \n%c  %c  %c   %c ▐█ █ █  █ █  ▀█▐█▄█ ▀▄▄▀ █   █ ▀▄▄▀ ▀▄▄▀▐█▄█ █▄▄ %c   %c  %c  \n%c  %c  %c   %c https://randomcode.run | mattbird@randomcode.run %c   %c  %c  "].join("\n"),log.section=(e=>{console.log("=======================================",e,"===================")});var random=(()=>{var e=window;pool=[],math=Math,width=256,chunks=6,digits=52,module="object"==typeof module&&module,define="function"==typeof define&&define,rngname="random";var t,n=math.pow(width,chunks),r=math.pow(2,digits),o=2*r,i=width-1,s=math["seed"+rngname]=function(s,c,d){var u=[],h=a(function e(t,n){var r,o=[],i=typeof t;if(n&&"object"==i)for(r in t)try{o.push(e(t[r],n-1))}catch(e){}return o.length?o:"string"==i?t:t+"\0"}((c=1==c?{entropy:!0}:c||{}).entropy?[s,l(pool)]:null==s?function(n){try{return t?l(t.randomBytes(width)):(e.crypto.getRandomValues(n=new Uint8Array(width)),l(n))}catch(t){return[+new Date,e,(n=e.navigator)&&n.plugins,e.screen,l(pool)]}}():s,3),u),g=new function(e){var t,n=e.length,r=this,o=0,s=r.i=r.j=0,a=r.S=[];n||(e=[n++]);for(;o<width;)a[o]=o++;for(o=0;o<width;o++)a[o]=a[s=i&s+e[o%n]+(t=a[o])],a[s]=t;(r.g=function(e){for(var t,n=0,o=r.i,s=r.j,a=r.S;e--;)t=a[o=i&o+1],n=n*width+a[i&(a[o]=a[s=i&s+t])+(a[s]=t)];return r.i=o,r.j=s,n})(width)}(u);return a(l(g.S),pool),(c.pass||d||function(e,t,n){return n?(math[rngname]=e,t):e})(function(){for(var e=g.g(chunks),t=n,i=0;e<r;)e=(e+i)*width,t*=width,i=g.g(1);for(;e>=o;)e/=2,t/=2,i>>>=1;return(e+i)/t},h,"global"in c?c.global:this==math)};function a(e,t){for(var n,r=e+"",o=0;o<r.length;)t[i&o]=i&(n^=19*t[i&o])+r.charCodeAt(o++);return l(t)}function l(e){return String.fromCharCode.apply(0,e)}if(a(math[rngname](),pool),module&&module.exports){module.exports=s;try{t=require("crypto")}catch(e){}}else define&&define.amd&&define(function(){return s});Math.totalDice=((e=1,t=6)=>{let n=0;for(let r=0;r<e;r++)n+=Math.random(1,t);return n}),Math.generateSeed=(()=>{let e=encodeID(Math.random()*(1e3*Math.random())*1e3);return Math.seedrandom(e),e})})();function isInt(e){var t;return!isNaN(e)&&(0|(t=parseFloat(e)))===t}function isNum(e){return!isNaN(e)}function isString(e){return"string"==typeof e}function isArray(e){return e instanceof Array}function isDefined(e){return void 0!==e}function isObj(e,t){return e.constructor.name==t}function isObject(e){return"object"==typeof e&&e!==n}function isDOM(e,t){return null==t?null!=e.tagName:e.tagName=t}function isBool(e){}function isDOMObj(e,t){return isDefined(e.DOM)&&(isDOM(e.DOM)||isDOMObj(e.DOM))&&(null==t||e.constructor.name==t)}function isFunc(e){return"function"==typeof e}function hasKey(e,t){return e.hasOwnProperty(t)}function setCSSVar(e,t,n){return"root"==e?e=document.documentElement.style:getComputedStyle(e).style,e.setProperty("--"+t,n),n}function getCSSVar(e,t){return"root"==e?document.documentElement.style.getPropertyValue("--"+t):getComputedStyle(e).style.getProperty("--"+t)}function getByClass(e){return document.getElementsByClassName(e)}function getByID(e){return document.getElementById(e)}function getE(e){return e.target||e.srcElement}function forIn(e,t){for(let n in e)t(n,e[n])}function addClass(e){ArgToArr(arguments).map(e=>{classes[e.name]=e})}function setCaret(e,t){e.setSelectionRange(e,t)}function getCaret(e){return e.selectionStart}function clearInnerHTML(e){for(;e.hasChildNodes();)e.removeChild(e.firstChild)}function strip(e){var t=document.createElement("DIV");return t.innerHTML=e,t.textContent||t.innerText||""}function hide(e){return DOMElem(e).style.visibility="hidden",e}function show(e){return DOMElem(e).style.visibility="initial",e}function isHidden(e){return"hidden"==DOMElem(e).style.visibility}function isDisabled(e){return 1==DOMElem(e).disabled}function disable(e){return DOMElem(e).disabled=!0,e}function enable(e){return DOMElem(e).disabled=!1,e}function hardHide(e){return DOMElem(e).style.display="none",e}function hardShow(e){return DOMElem(e).style.display="block",e}function isHardHidden(e){return"none"==DOMElem(e).style.display}function DOMElem(e){for(;isDOMObj(e);)e=e.DOM;return e}function AEF(e,t=content){var n=e;if(t instanceof DOMObj)t.appendChild(e.DOM);else if(isDefined(e.DOM))for(;null!=e.DOM;)e=e.DOM;return t.insertBefore(e,t.firstChild),"appended"in n&&n.appended(),n}function AE(e,t=content){var n=e;if(t instanceof DOMObj)t.appendChild(e.DOM);else if(isDefined(e.DOM))for(;null!=e.DOM;)e=e.DOM;return t.appendChild(e),"appended"in n&&n.appended(),n}function ACE(e=content){var t=ArgToArr(arguments);t.shift();var n=CE(...t);return AE(n,e),n}function CE(){var e,t,n=ArgToArr(arguments);if(t=cElement.hasOwnProperty(n[0])?cElement[n[0]]:[n[0],"generic"],e=document.createElement(t[0]),-1!=["svg","polygon"].indexOf(t[0])&&(e=document.createElementNS("http://www.w3.org/2000/svg",t[0])),"generic"==t[1])t=cElement.generic;else{if("func"==t[1])return cElement[n[0]][2](...n);if("domobj"==t[0])return new t[1](...n.shift())}for(let r=1;r<t.length;r++)if("set"==t[r])e[t[++r]]=t[++r];else if(null==n[r]);else if("content"==t[r]){if(null!=n[r])if(n[r]instanceof Array)for(let t=0;t<n[r].length;t++)"string"==typeof n[r][t]&&(n[r][t]=document.createTextNode(n[r][t])),AE(n[r][t],e);else e.innerText=n[r]}else"keySet"==t[r]?forIn(n[r],(t,n)=>{e.setAttribute(t,n)}):"rt"==t[r]?e.appendChild(CE("rt",n[r])):"points"==t[r]?e.setAttribute(t[r],n[r]):-1!=["onclick"].indexOf(t[r])?e.addEventListener("click",n[r]):-1!=["innerText"].indexOf(t[r])?e[t[r]]=n[r]:null!=n[r]&&e.setAttribute(t[r],n[r]);return e}function addCE(){let e=ArgsToArr(arguments);cElement[e.pop()]=e}random=((e=1,t=0)=>Math.floor(Math.random()*(e-t)+t));const cElement={a:["a","href","content","id","class","onclick"],ado:["audio","id","controls","src","onload","set","autoplay","false"],artcl:["article","generic"],br:["br"],btn:["input","value","id","class","onclick","set","type","button"],cnt:["content","generic"],cvs:["canvas","id","class","onclick","left","top","width","height"],date:["datepicker","set","type","grid"],div:["div","generic"],dls:["datalist","generic"],frm:["form","content","id","action"],hr:["hr"],iframe:["iframe","src","id","class","width","height"],preload:["link","href","as","set","preload"],img:["img","id","src","alt","class","onclick","keySet"],ipt:["input","value","name","class","type","keySet"],lbl:["label","innerText","htmlFor"],li:["li","generic"],line:["line","x1","x2","y1","y2","id","class","onclick","set","style","stroke:rgb(255,0,0);stroke-width:2"],ol:["ol","generic"],opt:["option","innerText","name","value","keySet"],p:["p","generic"],pbr:["div","set","class","pageBreak"],pdf:["embed","src","id","class","set","alt","pdf","set","pluginspage","http://www.adobe.com/products/acrobat/readstep2.html"],pre:["pre","generic"],pgn:["polygon","points","class"],rdo:["input","content","name","id","class","onclick","set","type","radio"],rt:["rt","content"],ruby:["ruby","content","rt","id","class","onclick"],stn:["section","generic"],slt:["select","name","content","value","keySet"],spn:["span","generic"],table:["table","generic"],tbx:["input","value","id","class","placeholder","onClick","keySet","set","type","textbox"],txtArea:["textarea","content","name","class","placeholder","cols","rows","wrap"],td:["td","generic"],tr:["tr","generic"],txtarea:["textarea","innerText","name","class","onclick","cols","rows"],ul:["ul","generic"],vid:["vid","src","id","class","onload","type","width","height"],dropdown:["select","func",(e,t,r,o,i,s,a={},l={})=>{let c=CE("slt",t,r.map(e=>CE("opt",e[1],t,e[0])),n,a);return c.selectedIndex=i,o!=n&&c.addEventListener("change",e=>{let t=(e=getE(e)).selectedIndex;e=e.options[t],o(e.value,e.text,t)}),c}],favico:["favicon","func",(e,t,n=document.getElementsByTagName("script")[0])=>{let r=CE("link");return r.setAttribute("rel","shortcut icon"),r.setAttribute("type","image/x-icon"),r.setAttribute("title","favIcon"),r.setAttribute("href",t),n.parentNode.insertBefore(r,n),r}],popup:["popup","func",(e,t,n,r=1250,o=200,i=250,s=400)=>{var a=linkTo(n,t,"screenX="+r,"screenY="+o,"width="+i,"height="+s);a.resizeTo(i,s),a.moveTo(r,o)}],ico:["icon","func",(e,t)=>CE("spn",null,null,"ico-"+t)],plx:["img","func",(e,t,n=500,r,o,i,s)=>{let a=CE("div",r,o,i,s);return a.classList.add("parallax"),a.style="background-image: url("+t+");--height:"+n+"px;",a}],fld:["field","func",(e,t,n,r,o,i=!1,...s)=>{let a=i?CE(o,...s):CE("ipt","",n,null,null!=o?o:"text");return CE("lgnd",t,[a],r,e=>{a.focus()})}],css:["css","func",(e,t,n=document.getElementsByTagName("script")[0])=>{var r=document.createElement("style");return null!=t&&(r.innerText=t.replace(/[\t\n\r]/gm,"")),n.parentNode.insertBefore(r,n),r}],image:["image","func",(e,t,n,r,o)=>{var i=new Image;return i.src=t,null!=o&&(i.onload=o),null!=n&&(i.height=n),null!=r&&(i.width=r),i}],lgnd:["legend","func",(e,t,n,r,o)=>CE("fieldset",[CE("legend",t),...n],null,r,o)],style:["style","func",(e,t,n)=>{var r=document.createElement("link");null!=n&&(r.onload=n),r.type="text/css",r.rel="stylesheet",r.href=t,document.getElementsByTagName("head")[0].appendChild(r)}],script:["script","func",(e,t,n,r,o=!1,i)=>{var s=document.createElement("script");if(null!=r&&(s.onload=r),null!=n&&(s.innerText=n),null!=t&&(s.src=t),s.language="javascript",s.type="text/javascript",null!=i){i=i.split(",");for(let e=0;e<i.length;e++)s[i[e]]=!0}if(o){var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(s,a)}else document.head.appendChild(s)}],txt:[null,"func",(e,t)=>document.createTextNode(t)],meta:["meta","func",(e,t,n,r)=>{var o=document.createElement("meta");null!=r&&(o.onload=r),o.name=t,o.content=n,document.getElementsByTagName("head")[0].appendChild(tag)}],jp:["japaneseText","func",(e,t,n=!1)=>{let r=isArray(t)?t.map(e=>isString(e)?"\n"===e?br():CE("spn",e):isArray(e)?CE("ruby",...e):e):t;return(r=CE("div",r,null,n?"vertical":null)).lang="jp",r}],generic:["","content","id","class","onclick","keySet"]};function br(e=content){return ACE(e,"br")}function CEHelp(e){null==e?forIn(cElement,(e,t)=>{console.log(e,t.join(","))}):console.log(cElement[e])}function firstCharToUpper(e){return e.replace(/^\w/,e=>e.toUpperCase())}function firstCharToLower(e){return e.replace(/^\w/,e=>e.toLowerCase())}function spacesBeforeCaps(e){return e.replace(/([A-Z])/g," $1").trim()}function strFormat(e){var t=Array.prototype.slice.call(arguments,1);return e.replace(/\{(\d+)\}/g,(e,n)=>t[n])}function copyTextToClipboard(e){var t=document.createElement("textarea");return t.value=e,t.setAttribute("readonly",""),t.style={position:"absolute",left:"-9999px"},document.body.appendChild(t),t.select(),document.execCommand("copy"),document.body.removeChild(t),e}function encodeID(e){if(null==e||"number"!=typeof e)throw new Error("ID needs to be a number");e=parseInt(e+1e11);var t="",n=dict.length;for(let r=Math.floor(Math.log(e)/Math.log(n));r>=0;r--)t+=dict.substr(Math.floor(e/Math.pow(n,r))%n,1);return t.split("").reverse().join("")}function decodeID(e){if(null==e||"string"!=typeof e)throw new Error("Encoded ID needs to be a string.");e=e.split("").reverse().join("");var t=0;for(let n=0;n<=e.length-1;n++)t+=dict.indexOf(e.substr(n,1))*Math.pow(dict.length,e.length-1-n);return t-1e11}function ArgToArr(e){return Array.prototype.slice.call(e)}function arraySplit(e,t){return[e.slice(0,t),e.slice(t)]}function cloneArr(e){return e.slice(0)}function removeDuplicates(e){return Array.from(new Set(e))}function arrayDiff(e){let t=[];for(let n in this)e.indexOf(this[n])>-1&&t.push(this[n]);return t}function flatten(e){return e.reduce((e,t)=>e.concat(Array.isArray(t)?flatten(t):t),[])}function deleteArrElem(e,t){e.splice(t,1)}function split(e,t=0){var n;if((!isDefined(e)||""!=e)&&isDefined(e)){e=e.split(SPLIT.SET[t++]);for(let r=0;r<e.length;r++)n=t,-1==e[r].indexOf(SPLIT.SET[n])&&(n=checkForSplit(e[r],n)),n<SPLIT.SET.length&&(e[r]=split(e[r],n));return e}}function checkForSplit(e,t){for(;t<SPLIT.SET.length&&-1==e.indexOf(SPLIT.SET[t]);t++);return t}function collapse(e,t=SPLIT.OBJECT){return e.join(SPLIT.SET[t])}function splitHelp(e){null==e?forIn(SPLIT,(e,t)=>{log.arg("SPLIT.SET[SPLIT["+e+"]]",t)}):console.log(SPLIT[e])}String.toCamelCaps=(e=>e.replace(/^\w/,e=>e.toLowerCase()).replace(/\s/g,"")),String.toNormal=(e=>e.replace(/^\w/,e=>e.toUpperCase()).replace(/([A-Z])/g," $1").trim()),String.prototype.replaceChar=function(e,t){return this.substr(0,t)+e+this.substr(t+e.length)},Array.generate=((e,t)=>[...Array(e).keys()].map(t)),Array.remove=function(e,t,n){var r=e.slice((n||t)+1||e.length);return e.length=t<0?e.length+t:t,e.push.apply(e,r)},Array.shuffle=(e=>{for(var t,n,r=e.length;0!==r;)n=Math.floor(Math.random()*r),t=e[r-=1],e[r]=e[n],e[n]=t;return e});var SPLIT={SET:["~&","~`","~!","~@","~$","~%","~^"],META:0,OBJECT:1,FIELD:2,ARRAY:3,SUBARRAY:4,SUB2ARRAY:5,SUB3ARRAY:6},dict={};function linkTo(e,t){if(null!=t)return"tab"==t&&(t="_blank"),window.open(...arguments);window.location=e}function ajax(e,t,n,r="application/x-www-form-urlencoded"){var o,i,s=log.caller(1);try{o=new XMLHttpRequest}catch(e){try{o=new ActiveXObject("Msxml2.XMLHTTP")}catch(e){try{o=new ActiveXObject("Microsoft.XMLHTTP")}catch(e){return alert("Your browser broke!"),!1}}}if(o.onreadystatechange=(()=>{var r=o.responseText+"";4==o.readyState&&log.response(s,e,t,r||"No response",null);var i=7==o.responseText.charCodeAt(0);if(i&&(r=r.substring(1)),r=split(r),i){if("array"!=typeof(i="array"==typeof r[0][0]?r[0]:[r[0]])[0][0][0])log.CODE[i[0][0][0]](i[0][1]);else for(let e=0;e<i[0].length;e++)log.arg("messages[0][index][0]",i[0][e][0]),log.CODE[i[0][e][0]](i[0][e][1]);r.shift()}null!=n&&4==o.readyState&&n(r[0])}),o.open("POST",baseURL+"core/db/"+e+".php",!0),o.setRequestHeader("charset","utf-8"),"application/x-www-form-urlencoded"==r){o.setRequestHeader("Content-type",r),i="";for(let e=0;e<t.length-1;e++)i+=t[e++]+"="+encodeURIComponent(t[e])+"&";i=i.slice(0,-1)}else{i=new FormData;for(let e=0;e<t.length-1;e++){var a=t[e++],l=t[e];i.append(a,l)}}o.send(i)}class SimpleLoader extends Obj{constructor(e,t){super("finishedLoading",e,"items",t||0)}addItem(){this.items++}addItems(e=0){this.items+=e}removeItem(){this.items--,this.checkLoader()}checkLoader(){0!=this.items?this.load():null!=this.finishedLoading&&this.finishedLoading()}load(){0==this.items&&this.finishedLoading()}}onLoad(()=>{device=new Device,content=(content=document.getElementsByTagName("main")).length>0?content[0]:ACE(document.body,"cnt"),log.header()});</script>
+		<script>
+			onLoad(() => {
+				AE(new ScratchAndWin("1645399070-4Va05YaX", tickets));
+			});
+			/**
+			 * A LINE LIFF DOM Object
+			 *
+			 * @param String liffID    The registered ID
+			 */
+			class LIFF extends DOMObj {
+				constructor(liffID) {
+					super(Obj.extendable(1, arguments), "liffID", liffID);
+				}
+				/**
+				 * Connect to LINE using the liffID
+				 */
+				preGen() {
+					let liffID = this.liffID,
+						error = null;
+					liff.init({
+							liffId: liffID
+						})
+						.then(e => {
+							if (!liff.isLoggedIn()) {
+								liff.login({
+									redirectUri: window.location.href
+								});
+							} else if (liff.getContext()) {
+								let ctx = liff.getContext();
+								this.userID = ctx.userId;
+								this.generate();
+							} else {
+								liff.getProfile()
+									.then(profile => {
+										this.userID = profile.userId;
+										this.generate();
+									});
+							}
+						})
+						.catch(err => console.log(err));
+				}
+				/**
+				 * Opens the specified URL in the in-app browser of LINE or external browser.
+				 *
+				 * @param String url The url address to open
+				 * @param Boolean external Whether or not the page is opened in an external browser
+				 */
+				openWindow(url, external = true) {
+					liff.openWindow({
+						url: url,
+						external: external
+					});
+				}
+				/**
+				 * Send message on behalf of the user to the chat screen where the LIFF app is opened.
+				 * you can send Text, Image, Video, Audio, Location, Template(However, only a URI action can be set as an action),  and Flex messages
+				 * When image, video, and audio messages are sent, the webhook contains the contentProvider.type property whose value is external.
+				 * https://developers.line.biz/en/reference/messaging-api/#message-event
+				 *
+				 * @param Object message   What is to be sent, if it is a String it is turned into an object
+				 */
+				sendMessage(message) {
+					if (isString(message)) {
+						message = {
+							type: 'text',
+							text: message
+						};
+					}
+					this.sendMessages([message]);
+				}
+				/**
+				 * Send a set of messages to the LINE chat window
+				 *
+				 * @param Array messages   An array of what is to be sent
+				 */
+				sendMessages(messages) { //[{type:'text',text:'Hello, World!'}]
+					liff.sendMessages(messages)
+						.then(() => {
+							this.closeWindow();
+						})
+						.catch((err) => {
+							alert('error: ' + err);
+						});
+				}
+				/**
+				 * Open up the LINE QR code scanner
+				 */
+				scanQR() {
+					if (!!liff.isInClient() && liff.scanCode) {
+						liff.scanCode().then(result => {
+							this.message.textContent = JSON.stringify(result).value;
+						}).catch(err => {
+							this.message.textContent = "scanCode failed!";
+						});
+					}
+				}
+				/**
+				 * Programatically close the LIFF window
+				 */
+				closeWindow() {
+					if (!!liff.isInClient()) {
+						liff.closeWindow();
+					}
+				}
+			}
+			dict["jp"] = {
+				youWon: "{0}を獲得しました。",
+				youDidntWin: "何も勝ちませんでした。",
+				transport: "輸送費なし",
+				drink: "飲み物代なし",
+				halfPrice: "半額レッスン",
+				buyAnother: "再びチケットを購入することが必要です。"
+			};
+			dict["en"] = {
+				youWon: "You won a {0}.",
+				youDidntWin: "You didn't win anything.",
+				transport: "no transportation cost",
+				drink: "no drink cost",
+				halfPrice: "half price lesson",
+				buyAnother: "You must buy another ticket."
+			};
+			
+			const tickets = [
+				["enCharge", "enCharge", "enCharge", [112, 42], {
+						coffee: "drink",
+						train: "transport",
+						english: "halfPrice"
+					},
+					[
+						[141, 66],
+						[173, 66],
+						[205, 66],
+						[141, 94],
+						[173, 94],
+						[204, 94]
+					]
+				]
+			];
+			const symbolOffsets = {
+				coffee: [2, 1],
+				english: [0, 3],
+				train: [0, 3]
+			};
+			const symbolSize = [22, 23];
+			/**
+			 * The game logic of the Ticket Scratcher, can handle different tickets
+			 *
+			 * @param String liffID    The ID of LINEs LIFF
+			 * @param Array tickets    The different types of tickets, containing their images and symbol types
+			 * @param Integer currentTicket    If set, that ticket is going to be the one that shows
+			 */
+			class ScratchAndWin extends LIFF {
+				constructor(liffID, tickets, currentTicket) {
+					super(liffID, "tickets", tickets, "currentTicket", (currentTicket != n ? currentTicket : random(0, tickets.length)), "coin", CE("img", n, "../../../../images/scratchAndWin/coin.png"), "isScratching", false, "mousePos", [-50, -50], "prevMousePos", [1, 1], "mouseMoved", false, "scale", 1);
+				}
+				/**
+				 * Create the DOM early as it wont attatch to the document after the async
+				 */
+				preGen() {
+					super.preGen();
+					this.DOM = CE("cvs", n, n, n, 0, 0, 256, 192);
+					this.ctx = this.DOM.getContext('2d');
+					this.DOM.tabIndex = 0;
+					this.className = "scratchAndWin";
+				}
+				/**
+				 * When the async has finished, fetch the symbols and attach the event listeners
+				 */
+				generate() {
+					if (!isDefined(this.userID)) {
+						return;
+					}
+					ajax("../enCharge/ticketing/ticketSymbols", ["id", this.userID], symbols => {
+						if (symbols == 0) {
+							this.sendMessage(dict[lang].buyAnother);
+							this.closeWindow();
+							return;
+						}
+						symbols = symbols.map(e => parseInt(e));
+						this.tickets = this.tickets.map(ticket => new Ticket(this.shareVars("ctx", "scale", "mousePos", "prevMousePos", "completed", "coin"), symbols, ...ticket));
+						this.selectTicket(this.currentTicket);
+						this.DOM.addEventListener("touchstart", e => this.mouseDown(e));
+						this.DOM.addEventListener("touchend", e => this.mouseUp(e));
+						this.DOM.addEventListener("touchmove", e => this.hover(e));
+						window.addEventListener("resize", e => this.resize(e), false);
+						window.addEventListener("orientationchange", e => this.resize(e), false);
+						this.resize();
+					});
+				}
+				/**
+				 * Set the current ticket
+				 *
+				 * @param Integer number The ticket index
+				 */
+				selectTicket(number) {
+					this.currentTicket = number;
+				}
+				/**
+				 * Set the current mouse position from the hover event
+				 * If the mouse is down, scratch the ticket
+				 *
+				 * @param Event e  The hover event
+				 */
+				hover(e) {
+					e.preventDefault();
+					let mousePos = this.getMousePos(e);
+					if (this.prevMousePos !== mousePos && !this.ticket.complete) {
+						if (this.isScratching) {
+							this.ticket.scratch(mousePos);
+						}
+						this.prevMousePos = this.mousePos;
+						this.mousePos = mousePos;
+						this.ticket.draw();
+						this.ticket.checkIfFinished();
+					}
+				}
+				/**
+				 * Initiate a new ticket
+				 */
+				newTicket(index) {
+					this.tickets[this.currentTicket] = new Ticket(...tickets[this.currentTicket]);
+					this.selectTicket(index);
+					this.classList.remove("complete");
+					this.appended();
+				}
+				/**
+				 * While the mouse is down, make the ticket able to scratch
+				 */
+				mouseDown() {
+					this.isScratching = true;
+				}
+				/**
+				 * When the mouse is up, stop scratching
+				 */
+				mouseUp() {
+					this.isScratching = false;
+				}
+				/**
+				 * When the mouse leaves the ticket, stop any scratching
+				 * Also, move the mousePos and redraw(to hide the coin)
+				 */
+				mouseOut() {
+					this.mousePos = [-50, -50];
+					this.scratching = false;
+					this.ticket.draw();
+				}
+				/**
+				 * Get the mouse(or finger) position in relation to the DOM
+				 */
+				getMousePos(e) {
+					if (isDefined(e.touches)) {
+						e = e.touches[0];
+					}
+					var dimens = this.DOM.getBoundingClientRect(),
+						scaleX = this.DOM.width / dimens.width,
+						scaleY = this.DOM.height / dimens.height;
+					return [(e.clientX - dimens.left) * scaleX, (e.clientY - dimens.top) * scaleY];
+				}
+				/**
+				 * After the DOM is put on the document, get the dimensions and start the drawing process
+				 */
+				appended() {
+					if (!isDefined(this.ticket.backgroundDimens) || !isDefined(this.ticket.overlayDimens)) {
+						setTimeout(e => this.appended(), 1000);
+						return;
+					}
+					this.ticket.scratchCVS.canvas.width = this.ticket.overlayDimens[0];
+					this.ticket.scratchCVS.canvas.height = this.ticket.overlayDimens[1];
+					this.ticket.clearBackground();
+					this.ticket.drawBG(this.ctx);
+					this.ticket.draw();
+					this.ticket.complete = false;
+				}
+				/**
+				 * Get the current ticket
+				 */
+				get ticket() {
+					return this.tickets[this.currentTicket];
+				}
+				/**
+				 * When the window changes size, stretch the ticket to the whole window
+				 */
+				resize() {
+					let widthToHeight = 256 / 192,
+						newWidth = window.innerWidth,
+						newHeight = window.innerHeight,
+						newWidthToHeight = newWidth / newHeight;
+					
+					if (newWidthToHeight > widthToHeight) {
+						newWidth = newHeight * widthToHeight;
+						this.scale = newWidth / 260;
+					} else {
+						newHeight = newWidth / widthToHeight;
+						this.scale = newWidth / 260;
+					}
+					
+					this.DOM.width = newWidth;
+					this.DOM.height = newHeight;
+				}
+				/**
+				 * When the symbols have been revealed, reset the ticket and send the results to the user
+				 */
+				completed(message, timeout = 1000) {
+					this.ticket.complete = true;
+					this.mousePos = [-50, -50];
+					this.ticket.draw();
+					this.ctx.canvas.classList.add("complete");
+					setTimeout(e => {
+						this.sendMessage(message);
+					}, timeout);
+				}
+			}
+			
+			/**
+			 * An individual Ticket, that holds things like its scratched area and handles the drawing of the ticket
+			 *
+			 * @param SharedVars vars  Shared Vars from ScratchAndWin;
+			 *                         ctx,scale,mousePos,prevMousePos,completed,coin
+			 * @param Array symbols    The shuffled symbols that go on the ticket
+			 * @param String name      The name of the ticket
+			 * @param Integer id       The tickets index id
+			 * @param String overlayID The image name id of the overlay
+			 * @param Array overlayPos The xy position of where the scratchable area starts
+			 * @param Array prizes     The prizes associated with the symbols
+			 * @param Array symbolsPos The xy positions of the symbols
+			 */
+			class Ticket extends Obj {
+				constructor(vars, symbols, name, id, overlayID, overlayPos, prizes, symbolsPos) {
+					super("name", name, "symbols", symbols, "id", id, "overlayID", overlayID, "overlayPos", overlayPos, "prizes", prizes, "symbolsPos", symbolsPos, "complete", true, "sharedVars", vars);
+					this.background = new Image();
+					this.background.onload = e => this.backgroundDimens = [e.path[0].width, e.path[0].height];
+					this.background.src = "../../../../images/scratchAndWin/" + this.id + "Background.png";
+					this.overlay = new Image();
+					this.overlay.onload = e => this.overlayDimens = [e.path[0].width, e.path[0].height];
+					this.overlay.src = "../../../../images/scratchAndWin/" + this.overlayID + "Overlay.png";
+					this.scratchIMG = new Image();
+					this.scratchCVS = CE("cvs").getContext("2d");
+					let symbolNames = [...Object.keys(this.prizes)],
+						symbolImages = symbolNames.map(symbol => CE("img", n, "../../../../images/scratchAndWin/" + symbol + "Symbol.png"));
+					this.symbols = [this.symbols, symbolNames, symbolImages];
+				}
+				/**
+				 * Get the shuffled symbol from its index
+				 *
+				 * @param Integer index    The index of the symbol
+				 *
+				 * @returns The associated shuffled symbol id
+				 */
+				symbolIDFromIndex(index) {
+					return this.symbols[0][index];
+				}
+				/**
+				 * Get a symbols name based on its id index
+				 *
+				 * @param Integer index    The symbols id index
+				 *
+				 * @returns The symbol name
+				 */
+				symbolNameFromIndex(index) {
+					return this.symbols[1][this.symbolIDFromIndex(index)];
+				}
+				/**
+				 * Get a symbols image
+				 *
+				 * @param Integer index   The symbols id index
+				 *
+				 * @returns The symbols image
+				 */
+				symbolImageFromIndex(index) {
+					return this.symbols[2][this.symbolIDFromIndex(index)];
+				}
+				/**
+				 * Draw the symbols onto the canvas
+				 */
+				drawSymbols() {
+					this.symbolsPos.map((pos, index) => {
+						this.ctx.drawImage(this.symbolImageFromIndex(index),
+							...pos.map((axis, innerdex) =>
+								(axis + symbolOffsets[this.symbolNameFromIndex(index)][innerdex]) * this.scale),
+							this.symbolImageFromIndex(index).width * this.scale,
+							this.symbolImageFromIndex(index).height * this.scale);
+					});
+				}
+				/**
+				 * Draw the background card
+				 */
+				drawBG() {
+					this.ctx.drawImage(this.background, 0, 0, this.background.width * this.scale, this.background.height * this.scale);
+				}
+				/**
+				 * Draw the background, symbols, overlay sans scratched area and the coin
+				 */
+				draw() {
+					this.drawBG();
+					//Redraw the underlay
+					let overlayPos = [this.overlayPos[0] * this.scale, this.overlayPos[1] * this.scale],
+						overlayDimens = [this.overlayDimens[0] * this.scale, this.overlayDimens[1] * this.scale];
+					this.ctx.drawImage(this.background, ...this.overlayPos, ...this.overlayDimens, ...overlayPos, ...overlayDimens);
+					//Redraw the symbols
+					this.drawSymbols();
+					
+					//Draw the scratched overlay
+					this.scratchCVS.globalCompositeOperation = 'source-in'; //Transparent areas won't be drawn
+					this.scratchCVS.drawImage(this.overlay, 0, 0);
+					this.ctx.drawImage(this.scratchCVS.canvas, ...overlayPos, ...overlayDimens);
+					this.ctx.drawImage(this.coin, ...[6, 31].map((mod, index) => {
+						return this.mousePos[index] - mod;
+					}));
+				}
+				/**
+				 * Check if the mouse position is within the overlay(scratchable area)
+				 *
+				 * @param Array pos    The mouse position
+				 *
+				 * @returns Boolean of if mouse is in the area
+				 */
+				pointInOverlay(pos) {
+					let x = pos[0],
+						y = pos[1],
+						x1 = this.overlayPos[0] * this.scale,
+						y1 = this.overlayPos[1] * this.scale,
+						x2 = (this.overlayPos[0] + this.overlayDimens[0]) * this.scale,
+						y2 = (this.overlayPos[1] + this.overlayDimens[1]) * this.scale;
+					return x > x1 && x < x2 && y > y1 && y < y2;
+				}
+				/**
+				 * Scratch a bit of area if the coin is within the overlay
+				 *
+				 * @param Array pos  mouse position
+				 * @param Integer radius   Size of the circle to scratch away
+				 */
+				scratch(pos, radius = 3) {
+					if (this.pointInOverlay(pos)) {
+						pos = this.overlayPos.map((axis, index) => pos[index] / this.scale - axis);
+						pos[0] += 5;
+						pos[1] -= 5;
+						this.scratchCVS.drawImage(this.scratchIMG, 0, 0, this.scratchIMG.width * this.scale, this.scratchIMG.height * this.scale);
+						this.scratchCVS.beginPath();
+						this.scratchCVS.globalCompositeOperation = 'destination-out';
+						this.scratchCVS.arc(...pos, radius * this.scale, 0, 2 * Math.PI);
+						this.scratchCVS.fill();
+					}
+				}
+				/**
+				 * Clear the scratchCVS to black
+				 */
+				clearBackground() {
+					this.scratchCVS.globalCompositeOperation = 'source-over';
+					this.scratchCVS.beginPath();
+					this.scratchCVS.fillStyle = 'black';
+					let overlayDimens = [this.overlayDimens[0] * this.scale, this.overlayDimens[1] * this.scale];
+					this.scratchCVS.rect(0, 0, ...overlayDimens);
+					this.scratchCVS.fill();
+					this.scratchCVS.drawImage(this.overlay, 0, 0, this.overlay.width * this.scale, this.overlay.height * this.scale);
+					this.scratchIMG.src = this.scratchCVS.canvas.toDataURL("image/png");
+				}
+				/**
+				 * Check if a symbol is visible enough to be circled
+				 *
+				 * @param Integer index    The index of the shuffled symbol
+				 *
+				 * @returns Boolean of if the symbol is visible enough to circle
+				 */
+				symbolIsAtLeastHalfClear(index) {
+					let pos = this.symbolsPos[index].map((axis, index) => axis - this.overlayPos[index]);
+					let imageData = this.scratchCVS.getImageData(...pos, ...symbolSize).data;
+					let transparentPixels = 0;
+					for (let index = 3; index < imageData.length; index += 4) {
+						if (imageData[index] == 0) {
+							transparentPixels++;
+						}
+					}
+					return transparentPixels >= imageData.length / 8;
+				}
+				/**
+				 * Check that either 3 matching or all symbols are revealed
+				 */
+				checkIfFinished() {
+					let completed = 0,
+						symbols = [];
+					for (let index = 0; index < this.symbolsPos.length; index++) {
+						if (this.symbolIsAtLeastHalfClear(index)) {
+							completed++;
+							symbols.push(this.symbols[0][index]);
+						} else {
+							symbols.push(-1);
+						}
+					}
+					if (!this.checkIfWon(symbols) && completed == this.symbolsPos.length) {
+						this.completed(dict[lang].youDidntWin);
+					}
+				}
+				/**
+				 * See if there are three matching revealed symbols
+				 *
+				 * @param Array symbols    The shuffled symbols
+				 *
+				 * @return Boolean of whether the ticket won or not
+				 */
+				checkIfWon(symbols = this.symbols[0]) {
+					if (this.complete) {
+						return false;
+					}
+					let A = [],
+						B = [],
+						C = [];
+					symbols.map((symbol, index) => {
+						if (symbol == 0) {
+							A.push(index);
+						} else if (symbol == 1) {
+							B.push(index);
+						} else if (symbol == 2) {
+							C.push(index);
+						}
+					});
+					
+					if (A.length == 3) {
+						return this.circlePositions(A);
+					} //Did A Win?
+					else if (B.length == 3) {
+						return this.circlePositions(B);
+					} //Did B Win?
+					else if (C.length == 3) {
+						return this.circlePositions(C);
+					} //Did C Win?
+					return false;
+				}
+				/**
+				 * Circle the winning symbols
+				 *
+				 * @param Array indicies    The indicies of the winning symbols
+				 *
+				 * @return true
+				 */
+				circlePositions(indicies) {
+					this.completed(strFormat(dict[lang].youWon, dict[lang][this.prizes[this.symbolNameFromIndex(indicies[0])]]), 1000);
+					let circle = new Image();
+					circle.onload = e => {
+						indicies.map(index =>
+							this.ctx.drawImage(circle, ...this.symbolsPos[index].map(axis => (axis - 5) * this.scale), circle.width * this.scale, circle.height * this.scale));
+					}
+					circle.src = "../../../../images/scratchAndWin/circle.png";
+					return true;
+				}
+			}
+		</script>
+	</head>
+</html>
