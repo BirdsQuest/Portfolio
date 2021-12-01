@@ -1,0 +1,46 @@
+enChargeBot:
+	1:
+	2:
+	3:
+	4:
+	5:
+	6:
+	7:
+	8:
+	9:
+	10:
+	11:
+	12:
+	13:
+	14:
+	15:
+	16:
+	17:
+	18:
+	19:
+	20:
+	21:
+	22:
+	23:
+	24:
+	25:
+	26:
+	27:
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+extendable questionBot;
+	authenticate credentials and parse user sent data;
+	log in user to get id, language and get current question/answer state;
+	if(user isn't registered){
+		register user and ask what language they prefer
+	}
+	##This is where the different enCharge screens come in
+	parse the answer further and store with any other answers
+	continue the question set
+	if(there are no more questions in the set){
+		handle the completed question set
+		reset to default
+	}
+	queue the next question to respond
+	respond any queued responses
