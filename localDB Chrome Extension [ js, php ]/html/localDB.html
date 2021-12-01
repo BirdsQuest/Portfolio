@@ -1,0 +1,229 @@
+<script src="../scripts/localDBDOM.js" language="javascript" type="text/javascript"></script>
+<style>
+.addButton{
+	cursor:pointer;
+	position: fixed;
+	z-index: 98;
+	font-weight: bold;
+	color: #fff;
+	background-color: #07a5e7;
+	padding: 4px 7px;
+	margin-top: -10px;
+	margin-right: -10px;
+	border-radius: 50%;
+	right: 40px;
+	bottom:40px;
+	transform:scale(2);
+	transition: all 0.5s ease;
+	-webkit-box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3);
+	box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3);
+}
+.addButton:hover {
+    background-color: green;
+    color: #fff;
+}
+.addButton.active{
+	transform:rotate(45deg) scale(2);
+    background-color: red;
+}
+.addButton.active:hover{
+    background-color: darkred;
+}
+.addButton.small{
+	position:initial;
+	transform:scale(1);
+	display: inline-block;
+}
+.addButton.small.active{
+	transform:rotate(45deg) scale(1);
+}
+
+/*---------------------------------------------[ Hash Tag ]-*/
+html, body {position:absolute; height: 100%;margin: 0;width:100%; }
+content{height:100%;width:100%;left:0;top:0;}
+.word{padding-right:10px;}
+.wordInput{padding-left:20px;}
+
+input:read-only {
+    outline: none;border:none;background:none;
+}
+
+
+
+/*Shadows and Rotation=============================================================================*/
+.tag {
+	/* Shadow under text */
+	-webkit-text-shadow: 1px 1px 3px rgb(0,0,0);
+	-moz-text-shadow: 1px 1px 3px rgb(0,0,0);
+	-o-text-shadow: 1px 1px 3px rgb(0,0,0);
+	text-shadow: 1px 1px 3px rgb(0,0,0);
+
+	/* Shadow under tag */
+	-webkit-box-shadow: 0 0 10px rgb(0,0,0);
+	-moz-box-shadow: 0 0 10px rgb(0,0,0);
+	-o-box-shadow: 0 0 10px rgb(0,0,0);
+	box-shadow: 0 0 10px rgb(0,0,0);
+
+	/* Rotation transformation */
+	-webkit-transform: rotate(-2deg);
+	-moz-transform: rotate(-2deg);
+	-o-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+}
+
+/*Randomizing trick with Selectors========================================================================*/
+.tag:nth-child(2n) {
+	background-color:#8ab9e4;
+
+	-webkit-transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	transform: rotate(2deg);
+}
+
+.tag:nth-child(4n) {
+	background-color:#9ab9e4;
+
+	-webkit-transform: rotate(-8deg);
+	-moz-transform: rotate(-8deg);
+	-o-transform: rotate(-8deg);
+	transform: rotate(-8deg);
+}
+
+.tag:nth-child(5n) {
+	background-color:#9ab9d4;
+
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+/*Adding Interactivity========================================================================*/
+.tag:nth-child(2n):hover {
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+
+.tag:nth-child(4n):hover {
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+
+.tag:nth-child(5n):hover {
+	-webkit-transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	transform: rotate(2deg);
+}
+/*Animations with transitions========================================================================*/
+.tag {
+	/* Transition between this and :hover state */
+	-webkit-transition: -webkit-transform 0.1s ease-in;
+	-moz-transition: -moz-transform 0.1s ease-in;
+	-o-transition: -o-transform 0.1s ease-in;
+	transition: transform 0.1s ease-in;
+}
+/*Embossed text with shadows========================================================================*/
+.tag {
+	/*Replace this on above tag:
+	Shadow under text
+	-webkit-text-shadow: 1px 1px 3px rgb(0,0,0);
+	-moz-text-shadow: 1px 1px 3px rgb(0,0,0);
+	-o-text-shadow: 1px 1px 3px rgb(0,0,0);
+	text-shadow: 1px 1px 3px rgb(0,0,0);*/
+	
+	.tag {
+	/* Shadow under text */
+	-webkit-text-shadow: rgba(0,0,0,0.2) 2px 0,
+		rgba(0,0,0,0.2) 0 2px,
+		rgba(255,255,255,0.2) -2px 0,
+		rgba(255,255,255,0.2) 0 -2px,
+		rgba(0,0,0,0.2) 2px 2px,
+		rgba(255,255,255,0.2) -2px -2px;
+	-moz-text-shadow: rgba(0,0,0,0.2) 2px 0,
+		rgba(0,0,0,0.2) 0 2px,
+		rgba(255,255,255,0.2) -2px 0,
+		rgba(255,255,255,0.2) 0 -2px,
+		rgba(0,0,0,0.2) 2px 2px,
+		rgba(255,255,255,0.2) -2px -2px;
+	-o-text-shadow: rgba(0,0,0,0.2) 2px 0,
+		rgba(0,0,0,0.2) 0 2px,
+		rgba(255,255,255,0.2) -2px 0,
+		rgba(255,255,255,0.2) 0 -2px,
+		rgba(0,0,0,0.2) 2px 2px,
+		rgba(255,255,255,0.2) -2px -2px;
+	text-shadow: rgba(0,0,0,0.2) 2px 0,
+		rgba(0,0,0,0.2) 0 2px,
+		rgba(255,255,255,0.2) -2px 0,
+		rgba(255,255,255,0.2) 0 -2px,
+		rgba(0,0,0,0.2) 2px 2px,
+		rgba(255,255,255,0.2) -2px -2px;
+}
+/*A little more show with Scaling========================================================================*/
+.tag:hover {
+	/* Scaling transformation */
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-o-transform: scale(1.2);
+	transform: scale(1.2);
+}
+
+
+/*---------------------------------------------[ Search Box ]-*/
+.input-container {
+  display:inline-block;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+@font-face {
+  font-family: 'icons';
+  src:  url('../fonts/icons.eot?zfey7');
+  src:  url('../fonts/icons.eot?zfey7#iefix') format('embedded-opentype'),
+    url('../fonts/icons.ttf?zfey7') format('truetype'),
+    url('../fonts/icons.woff?zfey7') format('woff'),
+    url('../fonts/icons.svg?zfey7#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ico-search:before{content: "\e986";}
+</style>

@@ -1,0 +1,13 @@
+{
+	"manifest_version": 2,
+	"name": "localDB",
+	"description": "A database stored in chrome.storage",
+	"version": "1",
+  "background":{"scripts":["scripts/localDB.js"]},
+  "permissions":["storage","unlimitedStorage"],
+  "icons":{"512":"images/icon.png"},
+	"content_scripts":[
+		{"matches":["file:///home*","http://127.0.0.1/*","https://*.randomcode.run/*"],"js":["scripts/injectContent.js"]}
+  ],
+	"browser_action":{"default_title": "Local DB"}
+}
