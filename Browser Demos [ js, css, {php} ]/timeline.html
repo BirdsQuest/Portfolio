@@ -14,308 +14,574 @@ randomcodode.run/
 ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
 <script>
 var content;
-const t=true,f=false,n=null,run={};
-function onLoad(func){
-	if(document.readyState==='complete'){func();}
-	else{window.onload=((oldLoad,func)=>{
-		return function(){
-			oldLoad && oldLoad();
-			func();
-		}	})(window.onload,func);
-}	}
-onLoad(e=>{
-	content=ACE(document.body,"main");
-	var url = window.location.pathname,
-			filename = url.substring(url.lastIndexOf('/')+1);
-	filename=filename.substring(0,filename.lastIndexOf('.'));
-	HEADER(filename);
-	run[filename]();
+const T = true,
+  F = false,
+  N = null,
+  run = {};
+function onLoad(func) {
+  if (document.readyState === "complete") {
+    func();
+  } else {
+    window.onload = ((oldLoad, func) => {
+      return function () {
+        oldLoad && oldLoad();
+        func();
+      };
+    })(window.onload, func);
+  }
+}
+onLoad((e) => {
+  content = ACE(document.body, "main");
+  var url = window.location.pathname,
+    filename = url.substring(url.lastIndexOf("/") + 1);
+  filename = filename.substring(0, filename.lastIndexOf("."));
+  HEADER(filename);
+  run[filename]();
 });
-function AE(element,parent=content){
-	var origElement=element;
-	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
-	else if(isDefined(element.DOM)){
-		while(element.DOM!=null){
-			element=element.DOM;
-		}
-	}
-	parent.appendChild(element);
-	if("appended" in origElement){origElement.appended();}
-	return origElement;
+function AE(element, parent = content) {
+  var origElement = element;
+  if (parent instanceof DOMObj) {
+    parent.appendChild(element.DOM);
+  } else if (isDefined(element.DOM)) {
+    while (element.DOM != N) {
+      element = element.DOM;
+    }
+  }
+  parent.appendChild(element);
+  if ("appended" in origElement) {
+    origElement.appended();
+  }
+  return origElement;
 }
-function ACE(parent=content){
-	var args=ArgToArr(arguments);
-	args.shift();
-	var element=CE(...args);
-	AE(element,parent);
-	return element;
+function ACE(parent = content) {
+  var args = ArgToArr(arguments);
+  args.shift();
+  var element = CE(...args);
+  AE(element, parent);
+  return element;
 }
-function CE(){
-	var info=ArgToArr(arguments),type,element,fields;
-	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
-		fields=cElement[info[0]];
-	}else{
-		fields=[info[0],"generic"];
-	}
-	element=document.createElement(fields[0]);
-	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
-	if(fields[1]=="generic"){fields=cElement["generic"];}
-	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
-	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
-	for(let index=1;index<fields.length;index++){
-		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
-		else if(info[index]==null){}
-		else if(fields[index]=="content"){
-			if(info[index]!=null){
-				if(info[index] instanceof Array){
-					for(let innerdex=0;innerdex<info[index].length;innerdex++){
-						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
-						AE(info[index][innerdex],element);
-					}
-				}else{element.innerText=info[index];}
-		}	}
-		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
-		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
-		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
-		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
-		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
-		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
-	}
-	return element;
+function CE() {
+  var info = ArgToArr(arguments),
+    type,
+    element,
+    fields;
+  if (cElement.hasOwnProperty(info[0])) {
+    //Check that it's in the valid command list
+    fields = cElement[info[0]];
+  } else {
+    fields = [info[0], "generic"];
+  }
+  element = document.createElement(fields[0]);
+  if (["svg", "polygon"].indexOf(fields[0]) != -1) {
+    element = document.createElementNS("http://www.w3.org/2000/svg", fields[0]);
+  }
+  if (fields[1] == "generic") {
+    fields = cElement["generic"];
+  } else if (fields[1] == "func") {
+    return cElement[info[0]][2](...info);
+  } else if (fields[0] == "domobj") {
+    return new fields[1](...info.shift());
+  }
+  for (let index = 1; index < fields.length; index++) {
+    if (fields[index] == "set") {
+      element[fields[++index]] = fields[++index];
+    } else if (info[index] == N) {
+    } else if (fields[index] == "content") {
+      if (info[index] != N) {
+        if (info[index] instanceof Array) {
+          for (let innerdex = 0; innerdex < info[index].length; innerdex++) {
+            if (typeof info[index][innerdex] == "string") {
+              info[index][innerdex] = document.createTextNode(
+                info[index][innerdex]
+              );
+            }
+            AE(info[index][innerdex], element);
+          }
+        } else {
+          element.innerText = info[index];
+        }
+      }
+    } else if (fields[index] == "keySet") {
+      forIn(info[index], (key, value) => {
+        element.setAttribute(key, value);
+      });
+    } else if (fields[index] == "rt") {
+      element.appendChild(CE("rt", info[index]));
+    } else if (fields[index] == "points") {
+      element.setAttribute(fields[index], info[index]);
+    } else if (["onclick"].indexOf(fields[index]) != -1) {
+      element.addEventListener("click", info[index]);
+    } else if (["innerText"].indexOf(fields[index]) != -1) {
+      element[fields[index]] = info[index];
+    } else if (info[index] != N) {
+      element.setAttribute(fields[index], info[index]);
+    }
+  }
+  return element;
 }
-function addCE(){
-	let args=ArgsToArr(arguments);
-	cElement[args.pop()]=args;
+function addCE() {
+  let args = ArgsToArr(arguments);
+  cElement[args.pop()] = args;
 }
-const cElement={
-	'generic':["","content","id","class","onclick","keySet"]
+const cElement = {
+  generic: ["", "content", "class", "onclick", "keySet"],
 };
 
-class DOMObj{
-	constructor(parent){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-		this.DOM=CE("div");
-		if(isDefined(this.preGen)){this.preGen();}
-		this.boundEvents={};
-		let keywords=[
-	    	//Keyboard Events
-	    	["keyUp","keyup"],["keyDown","keydown"],
-	    	//Mouse Events
-	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
-	    	//Element Events
-	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
-	    	//Drag/Drop Events
-		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
-		
-		];
+class DOMObj {
+  constructor(parent) {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+    this.DOM = CE("div");
+    if (isDefined(this.preGen)) {
+      this.preGen();
+    }
+    this.boundEvents = {};
+    let keywords = [
+      //Keyboard Events
+      ["keyUp", "keyup"],
+      ["keyDown", "keydown"],
+      //Mouse Events
+      ["onClick", "click"],
+      ["mouseUp", "mouseup"],
+      ["hover", "mousemove"],
+      ["mouseDown", "mousedown"],
+      ["mouseOut", "mouseout"],
+      ["mouseIn", "mouseenter"],
+      ["contextMenu", "contextmenu"],
+      //Element Events
+      ["onBlur", "focusout"],
+      ["onFocus", "onfocus"],
+      ["onChange", "change"],
+      //Drag/Drop Events
+      ["drag", "drag"],
+      ["dragStart", "dragstart"],
+      ["dragEnd", "dragend"],
+      ["dragOn", "dragenter"],
+      ["dragOff", "dragleave"],
+      ["dragOver", "dragover"],
+      ["drop", "drop"],
+    ];
 
-		this.generate();
-		
-		for(let id=0; id<keywords.length;id++){
-			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
-		}
-		if(isDefined(this.postGen)){this.postGen();}
-	}
-	addListener(listener,func,DOM=this.DOM){
-		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
-		this.boundEvents[listener]=func.bind(this);
-		DOM.addEventListener(listener,this.boundEvents[listener],false);
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return obj=>{obj[arg]=this[arg].bind(this)}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	removeListener(listener,DOM=this.DOM){
-		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
-			delete this.boundEvents[listener];
-		}catch(e){}
-	}
-	preventDefault(e){
-		if(e.preventDefault){e.preventDefault();}
-		if(e.stopPropagation){e.stopPropagation();}
-	}
-	generate(parent){return null;}
-	insertChild(parent,index){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(parent.DOM!=null){parent=parent.DOM;}
-		if(index>=parent.children.length){AE(DOM,parent);}
-		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
-	}
-	insertAfter(element){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(!isDOM(element)){element=element.DOM;}
-			element.parentNode.insertBefore(DOM, element.nextSibling);
-	}
-	appendChild(object){
-		while(object.DOM!=null){object=object.DOM;}
-		this.DOM.appendChild(object);
-	}
-	removeChild(object){this.DOM.removeChild(object);}
-	remove(){
-		if(this.parentNode!=null){
-			var object=this.DOM;
-			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
-			this.parentNode.removeChild(object);
-	}	}
-	toggleCSS(rule,DOM=this.DOM){
-		if(!DOM.classList.contains(rule)){
-			DOM.classList.add(rule);
-		}else{
-			DOM.classList.remove(rule);
-		}
-	}
-	overlaps(elem){
-		return !((this.bottom < elem.top) ||
-						(this.top > elem.bottom) ||
-						(this.right < elem.left) ||
-						(this.left > elem.right))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-	get height(){return this.DOM.offsetHeight;}
-	get width(){return this.DOM.offsetWidth;}
-	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
-	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
-	get top(){return this.DOM.offsetTop;}
-	get classList(){return this.DOM.classList;}
-	get left(){return this.DOM.offsetLeft;}
-	get right(){return this.left+this.width;}
-	get bottom(){return this.top+this.height;}
-	get innerHTML(){return this.DOM.innerHtml;}
-	set hidden(hidden){
-		if(hidden&&!this.DOM.classList.contains("hidden")){
-			this.DOM.classList.add("hidden");
-		}else if(!hidden&&this.DOM.classList.contains("hidden")){
-			this.DOM.classList.remove("hidden");
-		}
-	}
-	get innerText(){return this.DOM.innerText;}
-	set innerText(text){this.DOM.innerText=text;}
-	get className(){return this.DOM.className;}
-	set className(className){this.DOM.className=className;}
-	get childNodes(){return this.DOM.childNodes;}
-	get children(){return this.DOM.children;}
-	clearChildren(){
-		this.DOM.innerHTML="";
-	}
-	get parentNode(){
-		var node=this.DOM;
-		while(node.DOM!=null){node=node.DOM;}
-		return node.parentNode;
-	}
-	replaceDOM(object){
-		while(object.DOM!=null){object=object.DOM;}
-		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
-		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
-		this.DOM=object;
-	}
-}
-class ExtendedObj extends DOMObj{
-	constructor(args){super("args",args);}
-	expand(object){
-		for(let index=0;index<this.args.length;index++){
-			object[this.args[index++]]=this.args[index];
-		}
-	}
-}
-function ArgToArr(arg){return Array.prototype.slice.call(arg);}
-function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
+    this.generate();
 
-function isDefined(object){return typeof object!='undefined';}
+    for (let id = 0; id < keywords.length; id++) {
+      if (this[keywords[id][0]] != N) {
+        this.addListener(keywords[id][1], this[keywords[id][0]]);
+      }
+    }
+    if (isDefined(this.postGen)) {
+      this.postGen();
+    }
+  }
+  addListener(listener, func, DOM = this.DOM) {
+    if (this.boundEvents.hasOwnProperty(listener)) {
+      this.removeListener(listener, DOM);
+    }
+    this.boundEvents[listener] = func.bind(this);
+    DOM.addEventListener(listener, this.boundEvents[listener], F);
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  removeListener(listener, DOM = this.DOM) {
+    try {
+      DOM.removeEventListener(listener, this.boundEvents[listener]);
+      delete this.boundEvents[listener];
+    } catch (e) {}
+  }
+  preventDefault(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  }
+  generate(parent) {
+    return N;
+  }
+  insertChild(parent, index) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (parent.DOM != N) {
+      parent = parent.DOM;
+    }
+    if (index >= parent.children.length) {
+      AE(DOM, parent);
+    } else {
+      parent.insertBefore(DOM, parent.children[index].nextSibling);
+    }
+  }
+  insertAfter(element) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (!isDOM(element)) {
+      element = element.DOM;
+    }
+    element.parentNode.insertBefore(DOM, element.nextSibling);
+  }
+  appendChild(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    this.DOM.appendChild(object);
+  }
+  removeChild(object) {
+    this.DOM.removeChild(object);
+  }
+  remove() {
+    if (this.parentNode != N) {
+      var object = this.DOM;
+      while (object != N && object instanceof DOMObj) {
+        object = object.DOM;
+      }
+      this.parentNode.removeChild(object);
+    }
+  }
+  toggleCSS(rule, DOM = this.DOM) {
+    if (!DOM.classList.contains(rule)) {
+      DOM.classList.add(rule);
+    } else {
+      DOM.classList.remove(rule);
+    }
+  }
+  overlaps(elem) {
+    return !(
+      this.bottom < elem.top ||
+      this.top > elem.bottom ||
+      this.right < elem.left ||
+      this.left > elem.right
+    );
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+  get height() {
+    return this.DOM.offsetHeight;
+  }
+  get width() {
+    return this.DOM.offsetWidth;
+  }
+  set width(width) {
+    if (width != N) {
+      this.DOM.style.width = width + "px";
+    }
+  }
+  set height(height) {
+    if (height != N) {
+      this.DOM.style.height = height + "px";
+    }
+  }
+  get top() {
+    return this.DOM.offsetTop;
+  }
+  get classList() {
+    return this.DOM.classList;
+  }
+  get left() {
+    return this.DOM.offsetLeft;
+  }
+  get right() {
+    return this.left + this.width;
+  }
+  get bottom() {
+    return this.top + this.height;
+  }
+  get innerHTML() {
+    return this.DOM.innerHtml;
+  }
+  set hidden(hidden) {
+    if (hidden && !this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.add("hidden");
+    } else if (!hidden && this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.remove("hidden");
+    }
+  }
+  get innerText() {
+    return this.DOM.innerText;
+  }
+  set innerText(text) {
+    this.DOM.innerText = text;
+  }
+  get className() {
+    return this.DOM.className;
+  }
+  set className(className) {
+    this.DOM.className = className;
+  }
+  get childNodes() {
+    return this.DOM.childNodes;
+  }
+  get children() {
+    return this.DOM.children;
+  }
+  clearChildren() {
+    this.DOM.innerHTML = "";
+  }
+  get parentNode() {
+    var node = this.DOM;
+    while (node.DOM != N) {
+      node = node.DOM;
+    }
+    return node.parentNode;
+  }
+  replaceDOM(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    var index = Array.from(this.parentNode.children).indexOf(this.DOM); //only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+    this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+    this.DOM = object;
+  }
+}
+class ExtendedObj extends DOMObj {
+  constructor(args) {
+    super("args", args);
+  }
+  expand(object) {
+    for (let index = 0; index < this.args.length; index++) {
+      object[this.args[index++]] = this.args[index];
+    }
+  }
+}
+function ArgToArr(arg) {
+  return Array.prototype.slice.call(arg);
+}
+function forIn(object, callback) {
+  for (let key in object) {
+    callback(key, object[key]);
+  }
+}
+
+function isDefined(object) {
+  return typeof object != "undefined";
+}
 </script>
 <script>
-class SnakingTimeLine extends DOMObj{
-	constructor(data){super("data",data,"side","left");}
-	generate(){
-		this.className="timeline";
-		this.container=ACE(this.DOM,"div",[CE("h2","Vertical Left-Right Timeline",null,"titleText")],null,"container");
-		let index=0;
-		while(index<this.data.length-1){
-			this.addEntry(this.data[index++]);
-			this.addDivider();
-		}
-		this.addEntry(this.data[index]);
-	}
-	addEntry(entry){
-		let content=[
-			CE("div",[this.timeBox(entry[0])],null,"sidePath full "+this.side),
-			CE("div",[
-				CE("h5",entry[1])
-			],null,"contents "+(this.side))
-		];
-		if(entry.length>2){
-			ACE(content[1],"p",entry[2]);
-		}
-		if(this.side=="right"){content=content.reverse();}
-		ACE(this.container,"div",content,null,"row "+this.side);
-	}
-	addDivider(){
-		this.side=this.side=="left"?"right":"left";
-		ACE(this.container,"div",[
-			CE("div",[CE("div",null,null,"corner "+(this.side=="left"?"topLeft":"bottomLeft"))],null,"sidePath"),
-			CE("div",[CE("hr")],null,"basePath"),
-			CE("div",[CE("div",null,null,"corner "+(this.side=="left"?"bottomRight":"topRight"))],null,"sidePath")
-		],null,"row path");
-	}
-	timeBox(date){
-		let months=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
-		return CE("div",[
-			CE("div",date.getDate()),
-			CE("div",months[date.getMonth()]),
-			CE("div",date.getFullYear())
-		],null,"timeBox right");
-	}
+class SnakingTimeLine extends DOMObj {
+  constructor(data) {
+    super("data", data, "side", "left");
+  }
+  generate() {
+    this.className = "timeline";
+    this.container = ACE(
+      this.DOM,
+      "div",
+      [CE("h2", "Indie Game Advertising Timeline", "titleText")],
+      "container"
+    );
+    let index = 0;
+    while (index < this.data.length - 1) {
+      this.addEntry(this.data[index++]);
+      this.addDivider();
+    }
+    this.addEntry(this.data[index]);
+  }
+  addEntry(entry) {
+    let content = [
+      CE("div", [this.timeBox(entry[0])], "sidePath full " + this.side),
+      CE("div", [CE("h5", entry[1])], "contents " + this.side),
+    ];
+    if (entry.length > 2) {
+      ACE(content[1], "p", entry[2]);
+    }
+    if (this.side == "right") {
+      content = content.reverse();
+    }
+    ACE(this.container, "div", content, "row " + this.side);
+  }
+  addDivider() {
+    this.side = this.side == "left" ? "right" : "left";
+    ACE(
+      this.container,
+      "div",
+      [
+        CE(
+          "div",
+          [
+            CE(
+              "div",
+              N,
+              "corner " + (this.side == "left" ? "topLeft" : "bottomLeft")
+            ),
+          ],
+          "sidePath"
+        ),
+        CE("div", [CE("hr")], "basePath"),
+        CE(
+          "div",
+          [
+            CE(
+              "div",
+              N,
+              "corner " + (this.side == "left" ? "bottomRight" : "topRight")
+            ),
+          ],
+          "sidePath"
+        ),
+      ],
+      "row path"
+    );
+  }
+  timeBox(date) {
+    let months = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    return CE(
+      "div",
+      [
+        CE("div", date.getDate()),
+        CE("div", months[date.getMonth()]),
+        CE("div", date.getFullYear()),
+      ],
+      "timeBox right"
+    );
+  }
 }
 
-run.timeline=e=>AE(new SnakingTimeLine([
-	[new Date("November 1, 2018"),"Recieve Required Assets to start Organising PAX Submission"],
-	[new Date("November 9, 2018"),"PAX Deadline","Need to have in blah"],
-	[new Date("January 15 , 2018"),"Should hear From PAX East around now"],
-	[new Date("January 28, 2018"),"Bit Summit registration due"],
-	[new Date("March 7, 2018"),"Deadline for round one assets from developer"],
-	[new Date("March 12, 2018"),"Send printing items listed in Convention Booth Pack to the printing press"],
-	[new Date("March 14, 2018"),"dayOne website launched"],
-	[new Date("March 28, 2018"),"Initial media release"],
-	[new Date("April 2, 2018"),"Travel to Boston for PAX East"],
-	[new Date("April 5, 2018"),"PAX East Begins"],
-	[new Date("April 8, 2018"),"PAX East Ends"],
-	[new Date("April 12, 2018"),"Return to Japan"],
-	[new Date("May , 2018"),"First Day of Bit Summit"],
-	[new Date("May , 2018"),"Last Day of Bit Summit"],
-	[new Date("September , 2018"),"First Day of Tokyo Game Show"],
-	[new Date("September , 2018"),"Last Day of Tokyo Game Show"],
-	[new Date("October 1, 2018"),"Start Halloween Campaign"],
-	[new Date("January 14, 2019"),"Change to postRelease Website"],
-	[new Date("January 18, 2019"),"Release Date"],
-	[new Date("March 31, 2019"),"Finsh Post Release Schedule"]
-]));
+run.timeline = (e) =>
+  AE(
+    new SnakingTimeLine([
+      [
+        new Date("November 1, 2018"),
+        "Recieve Required Assets to start Organising PAX Submission",
+      ],
+      [
+      	new Date("November 9, 2018"),
+      	"PAX Deadline", "Need to have in blah"
+      	],
+      [
+      	new Date("January 15 , 2018"),
+      	"Should hear From PAX East around now"
+      ],
+      [
+      	new Date("January 28, 2018"),
+      	"Bit Summit registration due"
+      ],
+      [
+        new Date("March 7, 2018"),
+        "Deadline for round one assets from developer",
+      ],
+      [
+        new Date("March 12, 2018"),
+        "Send printing items listed in Convention Booth Pack to the printing press",
+      ],
+      [
+      	new Date("March 14, 2018"),
+      	"dayOne website launched"
+      ],
+      [
+      	new Date("March 28, 2018"),
+      	"Initial media release"
+      ],
+      [
+      	new Date("April 2, 2018"),
+      	"Travel to Boston for PAX East"
+      ],
+      [
+      	new Date("April 5, 2018"),
+      	"PAX East Begins"
+      ],
+      [
+      	new Date("April 8, 2018"),
+      	"PAX East Ends"
+      ],
+      [
+      	new Date("April 12, 2018"),
+      	"Return to Japan"
+      ],
+      [
+      	new Date("May , 2018"),
+      	"First Day of Bit Summit"
+      ],
+      [
+      	new Date("May , 2018"),
+      	"Last Day of Bit Summit"
+      ],
+      [
+      	new Date("September , 2018"),
+      	"First Day of Tokyo Game Show"
+      ],
+      [
+      	new Date("September , 2018"),
+      	"Last Day of Tokyo Game Show"
+      ],
+      [
+      	new Date("October 1, 2018"),
+      	"Start Halloween Campaign"
+      ],
+      [
+      	new Date("January 14, 2019"),
+      	"Change to postRelease Website"
+      ],
+      [
+      	new Date("January 18, 2019"),
+      	"Release Date"
+      ],
+      [
+      	new Date("March 31, 2019"),
+      	"Finsh Post Release Schedule"
+      ],
+    ])
+  );
+
 </script>
 <style>
-	/*==============================================TimeLine==========================================*/
+/*==============================================TimeLine==========================================*/
+
 @-ms-viewport {
 	width: device-width;
 }
-:root{
+:root {
 	--timelineBorder: #000;
 	--timelineText: #000;
 	--timelineAltText: #fff;
@@ -336,15 +602,30 @@ run.timeline=e=>AE(new SnakingTimeLine([
 	margin-right: auto;
 	margin-left: auto;
 }
-@media(min-width:576px){.timeline .container{max-width:540px;}}
-@media(min-width:768px){.timeline .container{max-width:720px;}}
-@media(min-width:992px){.timeline .container{max-width:960px;}}
-@media(min-width:1200px){.timeline .container{max-width:1140px;}}
-.timeline .titleText{
+@media(min-width:576px) {
+	.timeline .container {
+		max-width: 540px;
+	}
+}
+@media(min-width:768px) {
+	.timeline .container {
+		max-width: 720px;
+	}
+}
+@media(min-width:992px) {
+	.timeline .container {
+		max-width: 960px;
+	}
+}
+@media(min-width:1200px) {
+	.timeline .container {
+		max-width: 1140px;
+	}
+}
+.timeline .titleText {
 	padding-bottom: 1rem !important;
 	padding-top: 0.5rem !important;
 }
-
 .timeline .row {
 	display: -ms-flexbox;
 	display: flex;
@@ -393,10 +674,9 @@ run.timeline=e=>AE(new SnakingTimeLine([
 .timeline .row .sidePath.left::after {
 	left: 50%;
 }
-
-.timeline .contents{
+.timeline .contents {
 	-ms-flex: 0 0 50%;
-		flex: 0 0 50%;
+	flex: 0 0 50%;
 	max-width: 50%;
 }
 .timeline .contents.right {
@@ -405,14 +685,13 @@ run.timeline=e=>AE(new SnakingTimeLine([
 .timeline .contents.left {
 	text-align: left !important;
 }
-.timeline .contents h5{
+.timeline .contents h5 {
 	margin-top: 0;
 	margin-bottom: 0;
 	line-height: 1;
 	font-size: 1.25rem;
 }
-
-.timeline .timeBox{
+.timeline .timeBox {
 	justify-content: center;
 	display: flex;
 	flex-flow: row wrap;
@@ -425,21 +704,22 @@ run.timeline=e=>AE(new SnakingTimeLine([
 	font-size: 1em;
 	width: 65px;
 	left: 0;
-	padding-top:20px;
+	padding-top: 20px;
 	box-sizing: border-box;
 	text-align: center;
 	background-color: var(--timelineBorder);
 	color: var(--timelineAltText);
 }
 .timeline .timeBox>* {
-	margin:-15px;
+	margin: -15px;
 	flex: 1 1 160px;
 }
-
-
-@media screen and (max-width:640px){.timeline .timeBox{top:0;}}
-
-.timeline .sidePath{
+@media screen and (max-width:640px) {
+	.timeline .timeBox {
+		top: 0;
+	}
+}
+.timeline .sidePath {
 	position: relative;
 	width: 100%;
 	min-height: 1px;
@@ -450,9 +730,9 @@ run.timeline=e=>AE(new SnakingTimeLine([
 	max-width: 16.666667%;
 	text-align: center !important;
 }
-.timeline .basePath{
+.timeline .basePath {
 	-ms-flex: 0 0 66.666667%;
-		flex: 0 0 66.666667%;
+	flex: 0 0 66.666667%;
 	max-width: 66.666667%;
 }
 .timeline .path div {
@@ -500,5 +780,4 @@ run.timeline=e=>AE(new SnakingTimeLine([
 	left: 50%;
 	top: calc(50% - 3px);
 }
-
 </style>

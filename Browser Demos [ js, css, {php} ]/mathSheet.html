@@ -14,796 +14,1246 @@ randomcodode.run/
 ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
 <script>
 var content;
-const t=true,f=false,n=null,run={};
-if(isDefined(get)){get=window.location.href.split("/").splice(4);}else var get=[];
-function onLoad(func){
-	if(document.readyState==='complete'){func();}
-	else{window.onload=((oldLoad,func)=>{
-		return function(){
-			oldLoad && oldLoad();
-			func();
-		}	})(window.onload,func);
-}	}
-onLoad(e=>{
-	content=ACE(document.body,"main");
-	var url = window.location.pathname,
-			filename = url.substring(url.lastIndexOf('/')+1);
-	filename=filename.substring(0,filename.lastIndexOf('.'));
-	HEADER(filename);
-	run[filename]();
+const T = true,
+  F = false,
+  N = null,
+  run = {};
+if (isDefined(get)) {
+  get = window.location.href.split("/").splice(4);
+} else var get = [];
+function onLoad(func) {
+  if (document.readyState === "complete") {
+    func();
+  } else {
+    window.onload = ((oldLoad, func) => {
+      return function () {
+        oldLoad && oldLoad();
+        func();
+      };
+    })(window.onload, func);
+  }
+}
+onLoad((e) => {
+  content = ACE(document.body, "main");
+  var url = window.location.pathname,
+    filename = url.substring(url.lastIndexOf("/") + 1);
+  filename = filename.substring(0, filename.lastIndexOf("."));
+  HEADER(filename);
+  run[filename]();
 });
-function AE(element,parent=content){
-	var origElement=element;
-	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
-	else if(isDefined(element.DOM)){
-		while(element.DOM!=null){
-			element=element.DOM;
-		}
-	}
-	parent.appendChild(element);
-	if("appended" in origElement){origElement.appended();}
-	return origElement;
-}
-function ACE(parent=content){
-	var args=ArgToArr(arguments);
-	args.shift();
-	var element=CE(...args);
-	AE(element,parent);
-	return element;
-}
-function CE(){
-	var info=ArgToArr(arguments),type,element,fields;
-	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
-		fields=cElement[info[0]];
-	}else{
-		fields=[info[0],"generic"];
-	}
-	element=document.createElement(fields[0]);
-	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
-	if(fields[1]=="generic"){fields=cElement["generic"];}
-	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
-	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
-	for(let index=1;index<fields.length;index++){
-		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
-		else if(info[index]==null){}
-		else if(fields[index]=="content"){
-			if(info[index]!=null){
-				if(info[index] instanceof Array){
-					for(let innerdex=0;innerdex<info[index].length;innerdex++){
-						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
-						AE(info[index][innerdex],element);
-					}
-				}else{element.innerText=info[index];}
-		}	}
-		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
-		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
-		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
-		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
-		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
-		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
-	}
-	return element;
-}
-function addCE(){
-	let args=ArgsToArr(arguments);
-	cElement[args.pop()]=args;
-}
-const cElement={
-	'artcl':["article","generic"],
-	'btn':["input","value","id","class","onclick","set","type","button"],//Button
-	'tbx':["input","value","id","class","placeholder","onClick","keySet","set","type","textbox"],//TextBox
-	'stn':["section","generic"],//Content
-	'pbr':["div","set","class","pageBreak"],//Page Break
-
-	'ipt':["input","value","name","class","type","keySet"],//Input
-
-	'txtArea':["textarea","content","name","class","placeholder","cols","rows","wrap"],//Text Area  wrap="hard"||"soft"
-
-	'img':["img","id","src","alt","class","onclick","keySet"],//image
-	'generic':["","content","id","class","onclick","keySet"]
-};
-function br(parent=content){return ACE(parent,"br");}
-
-class DOMObj{
-	constructor(parent){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-		this.DOM=CE("div");
-		if(isDefined(this.preGen)){this.preGen();}
-		this.boundEvents={};
-		let keywords=[
-	    	//Keyboard Events
-	    	["keyUp","keyup"],["keyDown","keydown"],
-	    	//Mouse Events
-	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
-	    	//Element Events
-	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
-	    	//Drag/Drop Events
-		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
-		
-		];
-
-		this.generate();
-		
-		for(let id=0; id<keywords.length;id++){
-			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
-		}
-		if(isDefined(this.postGen)){this.postGen();}
-	}
-	addListener(listener,func,DOM=this.DOM){
-		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
-		this.boundEvents[listener]=func.bind(this);
-		DOM.addEventListener(listener,this.boundEvents[listener],false);
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return obj=>{obj[arg]=this[arg].bind(this)}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	removeListener(listener,DOM=this.DOM){
-		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
-			delete this.boundEvents[listener];
-		}catch(e){}
-	}
-	preventDefault(e){
-		if(e.preventDefault){e.preventDefault();}
-		if(e.stopPropagation){e.stopPropagation();}
-	}
-	generate(parent){return null;}
-	insertChild(parent,index){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(parent.DOM!=null){parent=parent.DOM;}
-		if(index>=parent.children.length){AE(DOM,parent);}
-		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
-	}
-	insertAfter(element){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(!isDOM(element)){element=element.DOM;}
-			element.parentNode.insertBefore(DOM, element.nextSibling);
-	}
-	appendChild(object){
-		while(object.DOM!=null){object=object.DOM;}
-		this.DOM.appendChild(object);
-	}
-	removeChild(object){this.DOM.removeChild(object);}
-	remove(){
-		if(this.parentNode!=null){
-			var object=this.DOM;
-			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
-			this.parentNode.removeChild(object);
-	}	}
-	toggleCSS(rule,DOM=this.DOM){
-		if(!DOM.classList.contains(rule)){
-			DOM.classList.add(rule);
-		}else{
-			DOM.classList.remove(rule);
-		}
-	}
-	overlaps(elem){
-		return !((this.bottom < elem.top) ||
-						(this.top > elem.bottom) ||
-						(this.right < elem.left) ||
-						(this.left > elem.right))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-	get height(){return this.DOM.offsetHeight;}
-	get width(){return this.DOM.offsetWidth;}
-	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
-	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
-	get top(){return this.DOM.offsetTop;}
-	get classList(){return this.DOM.classList;}
-	get left(){return this.DOM.offsetLeft;}
-	get right(){return this.left+this.width;}
-	get bottom(){return this.top+this.height;}
-	get innerHTML(){return this.DOM.innerHtml;}
-	set hidden(hidden){
-		if(hidden&&!this.DOM.classList.contains("hidden")){
-			this.DOM.classList.add("hidden");
-		}else if(!hidden&&this.DOM.classList.contains("hidden")){
-			this.DOM.classList.remove("hidden");
-		}
-	}
-	get innerText(){return this.DOM.innerText;}
-	set innerText(text){this.DOM.innerText=text;}
-	get className(){return this.DOM.className;}
-	set className(className){this.DOM.className=className;}
-	get childNodes(){return this.DOM.childNodes;}
-	get children(){return this.DOM.children;}
-	clearChildren(){
-		this.DOM.innerHTML="";
-	}
-	get parentNode(){
-		var node=this.DOM;
-		while(node.DOM!=null){node=node.DOM;}
-		return node.parentNode;
-	}
-	replaceDOM(object){
-		while(object.DOM!=null){object=object.DOM;}
-		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
-		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
-		this.DOM=object;
-	}
-}
-class ExtendedObj extends DOMObj{
-	constructor(args){super("args",args);}
-	expand(object){
-		for(let index=0;index<this.args.length;index++){
-			object[this.args[index++]]=this.args[index];
-		}
-	}
-}
-function ArgToArr(arg){return Array.prototype.slice.call(arg);}
-function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
-function isDefined(object){return typeof object!='undefined';}
-
-const idDict='mrjoc0ksfew1tvqui2zphdl3ynxba4gMRJO5CKSFE6WTVQU7IZPHD8LYNXB9AG';
-function encodeID(value){
-	if(value==null||typeof(value)!='number'){throw new Error('ID needs to be a number');}
-	value=parseInt(value+100000000000);
-
-	var result='',length=idDict.length;
-	for(let index=Math.floor(Math.log(value)/Math.log(length));index>=0;index--){
-		result+=idDict.substr((Math.floor(value/Math.pow(length,index))%length),1);
-	}
-
-	return result.split('').reverse().join('');
-}
-function decodeID(encoded){
-	if(encoded==null||typeof encoded!='string'){throw new Error('Encoded ID needs to be a string.');}
-
-    var encoded=encoded.split('').reverse().join('');
-    var result=0;
-
-    for(let index=0;index<=(encoded.length-1);index++){
-      result=result+idDict.indexOf(encoded.substr(index,1))*(Math.pow(dict.length,(encoded.length-1)-index));
+function AE(element, parent = content) {
+  var origElement = element;
+  if (parent instanceof DOMObj) {
+    parent.appendChild(element.DOM);
+  } else if (isDefined(element.DOM)) {
+    while (element.DOM != N) {
+      element = element.DOM;
     }
-    return result-100000000000;
+  }
+  parent.appendChild(element);
+  if ("appended" in origElement) {
+    origElement.appended();
+  }
+  return origElement;
+}
+function ACE(parent = content) {
+  var args = ArgToArr(arguments);
+  args.shift();
+  var element = CE(...args);
+  AE(element, parent);
+  return element;
+}
+function CE() {
+  var info = ArgToArr(arguments),
+    type,
+    element,
+    fields;
+  if (cElement.hasOwnProperty(info[0])) {
+    //Check that it's in the valid command list
+    fields = cElement[info[0]];
+  } else {
+    fields = [info[0], "generic"];
+  }
+  element = document.createElement(fields[0]);
+  if (["svg", "polygon"].indexOf(fields[0]) != -1) {
+    element = document.createElementNS("http://www.w3.org/2000/svg", fields[0]);
+  }
+  if (fields[1] == "generic") {
+    fields = cElement["generic"];
+  } else if (fields[1] == "func") {
+    return cElement[info[0]][2](...info);
+  } else if (fields[0] == "domobj") {
+    return new fields[1](...info.shift());
+  }
+  for (let index = 1; index < fields.length; index++) {
+    if (fields[index] == "set") {
+      element[fields[++index]] = fields[++index];
+    } else if (info[index] == N) {
+    } else if (fields[index] == "content") {
+      if (info[index] != N) {
+        if (info[index] instanceof Array) {
+          for (let innerdex = 0; innerdex < info[index].length; innerdex++) {
+            if (typeof info[index][innerdex] == "string") {
+              info[index][innerdex] = document.createTextNode(
+                info[index][innerdex]
+              );
+            }
+            AE(info[index][innerdex], element);
+          }
+        } else {
+          element.innerText = info[index];
+        }
+      }
+    } else if (fields[index] == "keySet") {
+      forIn(info[index], (key, value) => {
+        element.setAttribute(key, value);
+      });
+    } else if (fields[index] == "rt") {
+      element.appendChild(CE("rt", info[index]));
+    } else if (fields[index] == "points") {
+      element.setAttribute(fields[index], info[index]);
+    } else if (["onclick"].indexOf(fields[index]) != -1) {
+      element.addEventListener("click", info[index]);
+    } else if (["innerText"].indexOf(fields[index]) != -1) {
+      element[fields[index]] = info[index];
+    } else if (info[index] != N) {
+      element.setAttribute(fields[index], info[index]);
+    }
+  }
+  return element;
+}
+function addCE() {
+  let args = ArgsToArr(arguments);
+  cElement[args.pop()] = args;
+}
+const cElement = {
+  artcl: ["article", "generic"],
+  btn: ["input", "value", "class", "onclick", "set", "type", "button"], //Button
+  tbx: [
+    "input",
+    "value",
+    "class",
+    "placeholder",
+    "onClick",
+    "keySet",
+    "set",
+    "type",
+    "textbox",
+  ], //TextBox
+  stn: ["section", "generic"], //Content
+  pbr: ["div", "set", "className", "pageBreak"], //Page Break
+  lbl: ["label", "innerText", "htmlFor"], //Label
+
+  ipt: ["input", "value", "name", "class", "type", "keySet"], //Input
+
+  txtArea: [
+    "textarea",
+    "content",
+    "name",
+    "class",
+    "placeholder",
+    "cols",
+    "rows",
+    "wrap",
+  ], //Text Area  wrap="hard"||"soft"
+
+  generic: ["", "content", "class", "onclick", "keySet"],
+};
+function br(parent = content) {
+  return ACE(parent, "br");
 }
 
-var random=((()=>{
-	//https://searchcode.com/codesearch/raw/81106957/
-	var global=window;//global window object
-		pool=[],     // pool: entropy pool starts empty
-		math=Math,   // math: package containing random, pow, and seedrandom
-		width=256,    // width: each RC4 output is 0 <= x < 256
-		chunks=6,      // chunks: at least six RC4 outputs for each double
-		digits=52,     // digits: there are 52 significant digits in a double
-		module=(typeof module) == 'object' && module,    // present in node.js
-		define=(typeof define) == 'function' && define,  // present with an AMD loader
-		rngname='random';// rngname: name for Math.random and Math.seedrandom
-	
-	// The following constants are related to IEEE 754 limits.
-	var startdenom = math.pow(width, chunks),
-		significance = math.pow(2, digits),
-		overflow = significance * 2,
-		mask = width - 1,
-		nodecrypto;
-	
-	// seedrandom()
-	// This is the seedrandom function described above.
-	var impl = math['seed' + rngname] = function(seed, options, callback) {
-		var key = [];
-		options = (options == true) ? { entropy: true } : (options || {});
-		
-		// Flatten the seed string or build one from local entropy if needed.
-		var shortseed = mixkey(flatten(
-			options.entropy ? [seed, tostring(pool)] :
-			(seed == null) ? autoseed() : seed, 3), key);
-		
-		// Use the seed to initialize an ARC4 generator.
-		var arc4 = new ARC4(key);
-		
-		// Mix the randomness into accumulated entropy.
-		mixkey(tostring(arc4.S), pool);
-		
-		// Calling convention: what to return as a function of prng, seed, is_math.
-		return (options.pass || callback ||
-			// If called as a method of Math (Math.seedrandom()), mutate Math.random
-			// because that is how seedrandom.js has worked since v1.0.  Otherwise,
-			// it is a newer calling convention, so return the prng directly.
-			function(prng, seed, is_math_call) {
-				if (is_math_call) { math[rngname] = prng; return seed; }
-				else return prng;
-			})(
-		
-		// This function returns a random double in [0, 1) that contains
-		// randomness in every bit of the mantissa of the IEEE 754 value.
-		function() {
-			var n = arc4.g(chunks),             // Start with a numerator n < 2 ^ 48
-				d = startdenom,                 //   and denominator d = 2 ^ 48.
-				x = 0;                          //   and no 'extra last byte'.
-			while (n < significance) {          // Fill up all significant digits by
-			n = (n + x) * width;              //   shifting numerator and
-			d *= width;                       //   denominator and generating a
-			x = arc4.g(1);                    //   new least-significant-byte.
-			}
-			while (n >= overflow) {             // To avoid rounding up, before adding
-			n /= 2;                           //   last byte, shift everything
-			d /= 2;                           //   right using integer math until
-			x >>>= 1;                         //   we have exactly the desired bits.
-			}
-			return (n + x) / d;                 // Form the number within [0, 1).
-		}, shortseed, 'global' in options ? options.global : (this == math));
-	};
-	
-	// ARC4
-	// An ARC4 implementation.  The constructor takes a key in the form of
-	// an array of at most (width) integers that should be 0 <= x < (width).
-	// The g(count) method returns a pseudorandom integer that concatenates
-	// the next (count) outputs from ARC4.  Its return value is a number x
-	// that is in the range 0 <= x < (width ^ count).
-	//constructor
-	function ARC4(key) {
-		var t, keylen = key.length,
-			me = this, i = 0, j = me.i = me.j = 0, s = me.S = [];
-		
-		// The empty key [] is treated as [0].
-		if (!keylen) { key = [keylen++]; }
-		
-		// Set up S using the standard key scheduling algorithm.
-		while (i < width) {
-			s[i] = i++;
-		}
-		for (i = 0; i < width; i++) {
-			s[i] = s[j = mask & (j + key[i % keylen] + (t = s[i]))];
-			s[j] = t;
-		}
-		
-		// The "g" method returns the next (count) outputs as one number.
-		(me.g = function(count) {
-			// Using instance members instead of closure state nearly doubles speed.
-			var t, r = 0,
-				i = me.i, j = me.j, s = me.S;
-			while (count--) {
-			t = s[i = mask & (i + 1)];
-			r = r * width + s[mask & ((s[i] = s[j = mask & (j + t)]) + (s[j] = t))];
-			}
-			me.i = i; me.j = j;
-			return r;
-			// For robust unpredictability, the function call below automatically
-			// discards an initial batch of values.  This is called RC4-drop[256].
-			// See http://google.com/search?q=rsa+fluhrer+response&btnI
-		})(width);
-	}
-	
-	// flatten()
-	// Converts an object tree to nested arrays of strings.
-	function flatten(obj, depth) {
-		var result = [], typ = (typeof obj), prop;
-		if (depth && typ == 'object') {
-			for (prop in obj) {
-			try { result.push(flatten(obj[prop], depth - 1)); } catch (e) {}
-			}
-		}
-		return (result.length ? result : typ == 'string' ? obj : obj + '\0');
-	}
-	
-	// mixkey()
-	// Mixes a string seed into a key that is an array of integers, and
-	// returns a shortened string seed that is equivalent to the result key.
-	function mixkey(seed, key) {
-		var stringseed = seed + '', smear, j = 0;
-		while (j < stringseed.length) {
-			key[mask & j] =
-			mask & ((smear ^= key[mask & j] * 19) + stringseed.charCodeAt(j++));
-		}
-		return tostring(key);
-	}
-	
-	// autoseed()
-	// Returns an object for autoseeding, using window.crypto if available.
-	//@param {Uint8Array|Navigator=} seed
-	function autoseed(seed) {
-	try {
-		if (nodecrypto) return tostring(nodecrypto.randomBytes(width));
-		global.crypto.getRandomValues(seed = new Uint8Array(width));
-		return tostring(seed);
-	} catch (e) {
-		return [+new Date, global, (seed = global.navigator) && seed.plugins,
-		global.screen, tostring(pool)];
-	}
-	}
+class DOMObj {
+  constructor(parent) {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+    this.DOM = CE("div");
+    if (isDefined(this.preGen)) {
+      this.preGen();
+    }
+    this.boundEvents = {};
+    let keywords = [
+      //Keyboard Events
+      ["keyUp", "keyup"],
+      ["keyDown", "keydown"],
+      //Mouse Events
+      ["onClick", "click"],
+      ["mouseUp", "mouseup"],
+      ["hover", "mousemove"],
+      ["mouseDown", "mousedown"],
+      ["mouseOut", "mouseout"],
+      ["mouseIn", "mouseenter"],
+      ["contextMenu", "contextmenu"],
+      //Element Events
+      ["onBlur", "focusout"],
+      ["onFocus", "onfocus"],
+      ["onChange", "change"],
+      //Drag/Drop Events
+      ["drag", "drag"],
+      ["dragStart", "dragstart"],
+      ["dragEnd", "dragend"],
+      ["dragOn", "dragenter"],
+      ["dragOff", "dragleave"],
+      ["dragOver", "dragover"],
+      ["drop", "drop"],
+    ];
 
-	// tostring()
-	// Converts an array of charcodes to a string
+    this.generate();
 
-	function tostring(a) {
-		return String.fromCharCode.apply(0, a);
-	}
+    for (let id = 0; id < keywords.length; id++) {
+      if (this[keywords[id][0]] != N) {
+        this.addListener(keywords[id][1], this[keywords[id][0]]);
+      }
+    }
+    if (isDefined(this.postGen)) {
+      this.postGen();
+    }
+  }
+  addListener(listener, func, DOM = this.DOM) {
+    if (this.boundEvents.hasOwnProperty(listener)) {
+      this.removeListener(listener, DOM);
+    }
+    this.boundEvents[listener] = func.bind(this);
+    DOM.addEventListener(listener, this.boundEvents[listener], F);
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  removeListener(listener, DOM = this.DOM) {
+    try {
+      DOM.removeEventListener(listener, this.boundEvents[listener]);
+      delete this.boundEvents[listener];
+    } catch (e) {}
+  }
+  preventDefault(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  }
+  generate(parent) {
+    return N;
+  }
+  insertChild(parent, index) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (parent.DOM != N) {
+      parent = parent.DOM;
+    }
+    if (index >= parent.children.length) {
+      AE(DOM, parent);
+    } else {
+      parent.insertBefore(DOM, parent.children[index].nextSibling);
+    }
+  }
+  insertAfter(element) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (!isDOM(element)) {
+      element = element.DOM;
+    }
+    element.parentNode.insertBefore(DOM, element.nextSibling);
+  }
+  appendChild(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    this.DOM.appendChild(object);
+  }
+  removeChild(object) {
+    this.DOM.removeChild(object);
+  }
+  remove() {
+    if (this.parentNode != N) {
+      var object = this.DOM;
+      while (object != N && object instanceof DOMObj) {
+        object = object.DOM;
+      }
+      this.parentNode.removeChild(object);
+    }
+  }
+  toggleCSS(rule, DOM = this.DOM) {
+    if (!DOM.classList.contains(rule)) {
+      DOM.classList.add(rule);
+    } else {
+      DOM.classList.remove(rule);
+    }
+  }
+  overlaps(elem) {
+    return !(
+      this.bottom < elem.top ||
+      this.top > elem.bottom ||
+      this.right < elem.left ||
+      this.left > elem.right
+    );
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+  get height() {
+    return this.DOM.offsetHeight;
+  }
+  get width() {
+    return this.DOM.offsetWidth;
+  }
+  set width(width) {
+    if (width != N) {
+      this.DOM.style.width = width + "px";
+    }
+  }
+  set height(height) {
+    if (height != N) {
+      this.DOM.style.height = height + "px";
+    }
+  }
+  get top() {
+    return this.DOM.offsetTop;
+  }
+  get classList() {
+    return this.DOM.classList;
+  }
+  get left() {
+    return this.DOM.offsetLeft;
+  }
+  get right() {
+    return this.left + this.width;
+  }
+  get bottom() {
+    return this.top + this.height;
+  }
+  get innerHTML() {
+    return this.DOM.innerHtml;
+  }
+  set hidden(hidden) {
+    if (hidden && !this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.add("hidden");
+    } else if (!hidden && this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.remove("hidden");
+    }
+  }
+  get innerText() {
+    return this.DOM.innerText;
+  }
+  set innerText(text) {
+    this.DOM.innerText = text;
+  }
+  get className() {
+    return this.DOM.className;
+  }
+  set className(className) {
+    this.DOM.className = className;
+  }
+  get childNodes() {
+    return this.DOM.childNodes;
+  }
+  get children() {
+    return this.DOM.children;
+  }
+  clearChildren() {
+    this.DOM.innerHTML = "";
+  }
+  get parentNode() {
+    var node = this.DOM;
+    while (node.DOM != N) {
+      node = node.DOM;
+    }
+    return node.parentNode;
+  }
+  replaceDOM(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    var index = Array.from(this.parentNode.children).indexOf(this.DOM); //only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+    this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+    this.DOM = object;
+  }
+}
+class ExtendedObj extends DOMObj {
+  constructor(args) {
+    super("args", args);
+  }
+  expand(object) {
+    for (let index = 0; index < this.args.length; index++) {
+      object[this.args[index++]] = this.args[index];
+    }
+  }
+}
+function ArgToArr(arg) {
+  return Array.prototype.slice.call(arg);
+}
+function forIn(object, callback) {
+  for (let key in object) {
+    callback(key, object[key]);
+  }
+}
+function isDefined(object) {
+  return typeof object != "undefined";
+}
 
-	// When seedrandom.js is loaded, we immediately mix a few bits
-	// from the built-in RNG into the entropy pool.  Because we do
-	// not want to interfere with deterministic PRNG state later,
-	// seedrandom will not call math.random on its own again after
-	// initialization.
-	mixkey(math[rngname](), pool);
+const idDict = "mrjoc0ksfew1tvqui2zphdl3ynxba4gMRJO5CKSFE6WTVQU7IZPHD8LYNXB9AG";
+function encodeID(value) {
+  if (value == N || typeof value != "number") {
+    throw new Error("ID needs to be a number");
+  }
+  value = parseInt(value + 100000000000);
 
-	// Nodejs and AMD support: export the implementation as a module using
-	// either convention.
+  var result = "",
+    length = idDict.length;
+  for (
+    let index = Math.floor(Math.log(value) / Math.log(length));
+    index >= 0;
+    index--
+  ) {
+    result += idDict.substr(
+      Math.floor(value / Math.pow(length, index)) % length,
+      1
+    );
+  }
 
-	if (module && module.exports) {
-		module.exports = impl;
-		try {
-			// When in node.js, try using crypto package for autoseeding.
-			nodecrypto = require('crypto');
-		} catch (ex) {}
-		} else if (define && define.amd) {
-			define(function() { return impl; });
-		}
-	
-	// Node.js native crypto support.
-	// End anonymous scope, and pass initial values.
-	
-	Math.totalDice=(count=1,sides=6)=>{
-		let total=0;
-		for(let index=0;index<count;index++){
-			total+=Math.random(1,sides);
-		}
-		return total;
-	}
-	Math.generateSeed=()=>{
-		let seed=encodeID(Math.random()*(Math.random()*1000)*1000);
-		Math.seedrandom(seed);
-		return seed;
-	};
-})());
-random=(max=1,min=0)=>{return Math.floor(Math.random()*(max-min)+min);};
+  return result.split("").reverse().join("");
+}
+function decodeID(encoded) {
+  if (encoded == N || typeof encoded != "string") {
+    throw new Error("Encoded ID needs to be a string.");
+  }
 
-Array.generate=(size,action)=>{return ([...Array(size).keys()]).map(action);}
+  var encoded = encoded.split("").reverse().join("");
+  var result = 0;
+
+  for (let index = 0; index <= encoded.length - 1; index++) {
+    result =
+      result +
+      idDict.indexOf(encoded.substr(index, 1)) *
+        Math.pow(dict.length, encoded.length - 1 - index);
+  }
+  return result - 100000000000;
+}
+
+var random = (() => {
+  //https://searchcode.com/codesearch/raw/81106957/
+  var global = window; //global window object
+  (pool = []), // pool: entropy pool starts empty
+    (math = Math), // math: package containing random, pow, and seedrandom
+    (width = 256), // width: each RC4 output is 0 <= x < 256
+    (chunks = 6), // chunks: at least six RC4 outputs for each double
+    (digits = 52), // digits: there are 52 significant digits in a double
+    (module = typeof module == "object" && module), // present in node.js
+    (define = typeof define == "function" && define), // present with an AMD loader
+    (rngname = "random"); // rngname: name for Math.random and Math.seedrandom
+
+  // The following constants are related to IEEE 754 limits.
+  var startdenom = math.pow(width, chunks),
+    significance = math.pow(2, digits),
+    overflow = significance * 2,
+    mask = width - 1,
+    nodecrypto;
+
+  // seedrandom()
+  // This is the seedrandom function described above.
+  var impl = (math["seed" + rngname] = function (seed, options, callback) {
+    var key = [];
+    options = options == T ? { entropy: T } : options || {};
+
+    // Flatten the seed string or build one from local entropy if needed.
+    var shortseed = mixkey(
+      flatten(
+        options.entropy
+          ? [seed, tostring(pool)]
+          : seed == N
+          ? autoseed()
+          : seed,
+        3
+      ),
+      key
+    );
+
+    // Use the seed to initialize an ARC4 generator.
+    var arc4 = new ARC4(key);
+
+    // Mix the randomness into accumulated entropy.
+    mixkey(tostring(arc4.S), pool);
+
+    // Calling convention: what to return as a function of prng, seed, is_math.
+    return (
+      options.pass ||
+      callback ||
+      // If called as a method of Math (Math.seedrandom()), mutate Math.random
+      // because that is how seedrandom.js has worked since v1.0.  Otherwise,
+      // it is a newer calling convention, so return the prng directly.
+      function (prng, seed, is_math_call) {
+        if (is_math_call) {
+          math[rngname] = prng;
+          return seed;
+        } else return prng;
+      }
+    )(
+      // This function returns a random double in [0, 1) that contains
+      // randomness in every bit of the mantissa of the IEEE 754 value.
+      function () {
+        var n = arc4.g(chunks), // Start with a numerator n < 2 ^ 48
+          d = startdenom, //   and denominator d = 2 ^ 48.
+          x = 0; //   and no 'extra last byte'.
+        while (n < significance) {
+          // Fill up all significant digits by
+          n = (n + x) * width; //   shifting numerator and
+          d *= width; //   denominator and generating a
+          x = arc4.g(1); //   new least-significant-byte.
+        }
+        while (n >= overflow) {
+          // To avoid rounding up, before adding
+          n /= 2; //   last byte, shift everything
+          d /= 2; //   right using integer math until
+          x >>>= 1; //   we have exactly the desired bits.
+        }
+        return (n + x) / d; // Form the number within [0, 1).
+      },
+      shortseed,
+      "global" in options ? options.global : this == math
+    );
+  });
+
+  // ARC4
+  // An ARC4 implementation.  The constructor takes a key in the form of
+  // an array of at most (width) integers that should be 0 <= x < (width).
+  // The g(count) method returns a pseudorandom integer that concatenates
+  // the next (count) outputs from ARC4.  Its return value is a number x
+  // that is in the range 0 <= x < (width ^ count).
+  //constructor
+  function ARC4(key) {
+    var t,
+      keylen = key.length,
+      me = this,
+      i = 0,
+      j = (me.i = me.j = 0),
+      s = (me.S = []);
+
+    // The empty key [] is treated as [0].
+    if (!keylen) {
+      key = [keylen++];
+    }
+
+    // Set up S using the standard key scheduling algorithm.
+    while (i < width) {
+      s[i] = i++;
+    }
+    for (i = 0; i < width; i++) {
+      s[i] = s[(j = mask & (j + key[i % keylen] + (t = s[i])))];
+      s[j] = t;
+    }
+
+    // The "g" method returns the next (count) outputs as one number.
+    (me.g = function (count) {
+      // Using instance members instead of closure state nearly doubles speed.
+      var t,
+        r = 0,
+        i = me.i,
+        j = me.j,
+        s = me.S;
+      while (count--) {
+        t = s[(i = mask & (i + 1))];
+        r =
+          r * width + s[mask & ((s[i] = s[(j = mask & (j + t))]) + (s[j] = t))];
+      }
+      me.i = i;
+      me.j = j;
+      return r;
+      // For robust unpredictability, the function call below automatically
+      // discards an initial batch of values.  This is called RC4-drop[256].
+      // See http://google.com/search?q=rsa+fluhrer+response&btnI
+    })(width);
+  }
+
+  // flatten()
+  // Converts an object tree to nested arrays of strings.
+  function flatten(obj, depth) {
+    var result = [],
+      typ = typeof obj,
+      prop;
+    if (depth && typ == "object") {
+      for (prop in obj) {
+        try {
+          result.push(flatten(obj[prop], depth - 1));
+        } catch (e) {}
+      }
+    }
+    return result.length ? result : typ == "string" ? obj : obj + "\0";
+  }
+
+  // mixkey()
+  // Mixes a string seed into a key that is an array of integers, and
+  // returns a shortened string seed that is equivalent to the result key.
+  function mixkey(seed, key) {
+    var stringseed = seed + "",
+      smear,
+      j = 0;
+    while (j < stringseed.length) {
+      key[mask & j] =
+        mask & ((smear ^= key[mask & j] * 19) + stringseed.charCodeAt(j++));
+    }
+    return tostring(key);
+  }
+
+  // autoseed()
+  // Returns an object for autoseeding, using window.crypto if available.
+  //@param {Uint8Array|Navigator=} seed
+  function autoseed(seed) {
+    try {
+      if (nodecrypto) return tostring(nodecrypto.randomBytes(width));
+      global.crypto.getRandomValues((seed = new Uint8Array(width)));
+      return tostring(seed);
+    } catch (e) {
+      return [
+        +new Date(),
+        global,
+        (seed = global.navigator) && seed.plugins,
+        global.screen,
+        tostring(pool),
+      ];
+    }
+  }
+
+  // tostring()
+  // Converts an array of charcodes to a string
+
+  function tostring(a) {
+    return String.fromCharCode.apply(0, a);
+  }
+
+  // When seedrandom.js is loaded, we immediately mix a few bits
+  // from the built-in RNG into the entropy pool.  Because we do
+  // not want to interfere with deterministic PRNG state later,
+  // seedrandom will not call math.random on its own again after
+  // initialization.
+  mixkey(math[rngname](), pool);
+
+  // Nodejs and AMD support: export the implementation as a module using
+  // either convention.
+
+  if (module && module.exports) {
+    module.exports = impl;
+    try {
+      // When in node.js, try using crypto package for autoseeding.
+      nodecrypto = require("crypto");
+    } catch (ex) {}
+  } else if (define && define.amd) {
+    define(function () {
+      return impl;
+    });
+  }
+
+  // Node.js native crypto support.
+  // End anonymous scope, and pass initial values.
+
+  Math.totalDice = (count = 1, sides = 6) => {
+    let total = 0;
+    for (let index = 0; index < count; index++) {
+      total += Math.random(1, sides);
+    }
+    return total;
+  };
+  Math.generateSeed = () => {
+    let seed = encodeID(Math.random() * (Math.random() * 1000) * 1000);
+    Math.seedrandom(seed);
+    return seed;
+  };
+})();
+random = (max = 1, min = 0) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+Array.generate = (size, action) => {
+  return [...Array(size).keys()].map(action);
+};
 </script>
 <script>
-class A4 extends DOMObj{
-	constructor(content,type,id,css){
-		super("content",content||[],"type",type,"id",id,"css",css);
-	}
-	generate(){
-		this.header=CE("artcl");
-		if(typeof this.content=="undefined"){
-			this.content="Sorry, the content has not been initialised properly and can not be displayed.";
-		}else if(!(this.content instanceof Array||typeof this.content=="string")){
-			this.content=[this.content];
-		}
-		this.content=CE("artcl",this.content,this.id);
-		this.footer=CE("artcl");
-		this.DOM=CE("stn",
-			[this.header,this.content,this.footer,ACE(this.sheets,"pbr")],
-			this.id,
-			(this.css!=null?this.css+" ":"")+(this.type!=null?this.type+" ":"")+"a4");
-		delete this.id;
-		delete this.css;
-	}
-	set(section,content,clear=false){
-		if(!isDefined(section)){log.error("Page section is not defined");return;}
-		if(typeof content=="undefined"){
-			content=document.createTextNode("Sorry, the content has not been initialised properly and can not be displayed.");
-		}
-		if(content instanceof Array){
-			fir(content,(index,element)=>{AE(element,section);});
-		}else{AE(content,section);}
-	}
-	setHeader(content,clear){this.set(this.header,content,clear);}
-	setContent(content,clear){this.set(this.content,content,clear);}
-	setFooter(content,clear){this.set(this.footer,content,clear);}
+class A4 extends DOMObj {
+  constructor(content, type, id, css) {
+    super("content", content || [], "type", type, "id", id, "css", css);
+  }
+  generate() {
+    this.header = CE("artcl");
+    if (typeof this.content == "undefined") {
+      this.content =
+        "Sorry, the content has not been initialised properly and can not be displayed.";
+    } else if (
+      !(this.content instanceof Array || typeof this.content == "string")
+    ) {
+      this.content = [this.content];
+    }
+    this.content = CE("artcl", this.content, N, N, { id: this.id });
+    this.footer = CE("artcl");
+    this.DOM = CE(
+      "stn",
+      [this.header, this.content, this.footer, ACE(this.sheets, "pbr")],
+      (this.css != N ? this.css + " " : "") +
+        (this.type != N ? this.type + " " : "") +
+        "a4",
+      N,
+      N,
+      { id: this.id }
+    );
+    delete this.id;
+    delete this.css;
+  }
+  set(section, content, clear = F) {
+    if (!isDefined(section)) {
+      log.error("Page section is not defined");
+      return;
+    }
+    if (typeof content == "undefined") {
+      content = document.createTextNode(
+        "Sorry, the content has not been initialised properly and can not be displayed."
+      );
+    }
+    if (content instanceof Array) {
+      fir(content, (index, element) => {
+        AE(element, section);
+      });
+    } else {
+      AE(content, section);
+    }
+  }
+  setHeader(content, clear) {
+    this.set(this.header, content, clear);
+  }
+  setContent(content, clear) {
+    this.set(this.content, content, clear);
+  }
+  setFooter(content, clear) {
+    this.set(this.footer, content, clear);
+  }
 }
-A4.RULED="ruled";
-A4.GRAPH="graph";
-A4.BLUEPRINTS="blueprints";
-A4.DOTMATRIX="dotMatrix";
-A4.ROCKETBOOK="rocketbook";
-cElement["A4"]=["domobj",A4];
-run.a4=e=>{
-	AE(new A4(loremIpsum,A4.RULED));
-	AE(new A4("",A4.ROCKETBOOK));
+A4.RULED = "ruled";
+A4.GRAPH = "graph";
+A4.BLUEPRINTS = "blueprints";
+A4.DOTMATRIX = "dotMatrix";
+A4.ROCKETBOOK = "rocketbook";
+cElement["A4"] = ["domobj", A4];
+run.a4 = (e) => {
+  AE(new A4(loremIpsum, A4.RULED));
+  AE(new A4("", A4.ROCKETBOOK));
+};
+var loremIpsum = [
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'",
+  "Did you know...",
+  "Lorem Ipsum comes from the 1914 Loeb Classical Library Edition of the De Finibus, Book 1, sections 32–3:",
+  "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?",
+  "At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat…\n\n",
+  "In Enlglish, it actually says...\n",
+  "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?",
+  "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammeled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.",
+];
+for (let index = 0; index < loremIpsum.length; index++) {
+  loremIpsum[index] = CE("p", loremIpsum[index]);
 }
-var loremIpsum=["Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'","Did you know...","Lorem Ipsum comes from the 1914 Loeb Classical Library Edition of the De Finibus, Book 1, sections 32–3:","Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?","At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat…\n\n","In Enlglish, it actually says...\n","But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?","On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammeled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."];
-for(let index=0;index<loremIpsum.length;index++){
-	loremIpsum[index]=CE("p",loremIpsum[index]);
-}
-loremIpsum=[CE("h1","Lorem Ipsum"),loremIpsum[0],CE("br"),loremIpsum[1],loremIpsum[2],loremIpsum[3],CE("br"),loremIpsum[4],CE("br"),loremIpsum[5],loremIpsum[6],CE("br"),loremIpsum[7]];
+loremIpsum = [
+  CE("h1", "Lorem Ipsum"),
+  loremIpsum[0],
+  CE("br"),
+  loremIpsum[1],
+  loremIpsum[2],
+  loremIpsum[3],
+  CE("br"),
+  loremIpsum[4],
+  CE("br"),
+  loremIpsum[5],
+  loremIpsum[6],
+  CE("br"),
+  loremIpsum[7],
+];
 </script><!-- A4 -->
 <script>
-class MathSheet extends DOMObj{
-	constructor(name,dayCount,date,seed,additionCount=10,subtractionCount=10,multiplicationCount=10,divisionCount=10){
-		super("name",name,"days",dayCount||1,"startDate",date||new Date(),"seed",seed,"additionCount",additionCount,"subtractionCount",subtractionCount,"multiplicationCount",multiplicationCount,"divisionCount",divisionCount);
-	}
-	generate(){
-		if(this.seed==null){this.generateSeed();}
-		this.seedRandom();
-		this.id=CE("tbx",this.seed,"id");
-		this.id.value=this.seed;
-		this.teacherName=CE("tbx",localStorage.getItem("teacherName")||"","teacher");
-		this.date=CE("ipt",new Date().toISOString().split('T')[0],"date",null,"date");
-		this.daysInput=CE("ipt",this.days,"days",null,"number");
-		this.daysInput.value=localStorage.getItem("dayCount")||1;
-		this.printAnswerSheets=CE("ipt",null,"includeAnswers",null,"checkbox");
-		this.printAnswerSheets.checked=localStorage.getItem("printAnswers")||false;
-		this.studentNames=CE("txtArea",n,"names",null,"One name per line",5,"hard");
-		this.studentNames.value=localStorage.getItem("studentNames")||"";
-		let controls=new A4([
-			CE("lbl","Sheet ID","id"),
-			this.id,CE("br"),
-			CE("lbl","Teacher/Class Name","teacher"),
-			this.teacherName,CE("br"),
-			CE("lbl","What Date","date"),
-			this.date,CE("br"),
-			CE("lbl","How Many Days","days"),
-			this.daysInput,CE("br"),
-			CE("lbl","Include Answer Sheets","includeAnswers"),
-			this.printAnswerSheets,CE("br"),
-			CE("lbl","Student Names","names"),
-			this.studentNames,CE("br"),
-			CE("btn","Print",null,null,e=>this.print()),CE("br"),
-			CE("div",["This page is a demonstration of the randomly generated worksheet functionality that the Soar education platform will have. I appologise that this is currently in its alpha build and thus it may be prone to being down at any given point and its use is limited. When fully released, the page will remain free but only as for long as I can afford to feed myself and pay server costs so koha/donations are always welcome.",CE("br"),CE("br"),
-				"If you would like to know more about Soar or wish to support its development, please don't hesitate to contact Matt Bird via ",
-				CE("a","mailto:soar@birdsQuest.com?Subject=Mathsheet%20enquiry","soar@BirdsQuest.com"),
-				CE("div","\nHe aha te mea nui o te ao?\nHe tamariki, he tamariki, he tamariki.\nKo ratou te heke mai!\n\nIn the future, this worksheet generator is going to be much more robust. It is important to note that this is only pertaining to this worksheet generator, which is only a very small part of what Soar will be and contain. I truly aim to shape the future and create tsunami of changes.\nHere's a peek at my TODO list for the current page.")]),
-				CE("ul",[
-					CE("li","Extend the math equations that can be used"),
-					CE("li","Input concepts/learned ideas on a time release to coencide with the class"),
-					CE("li","Include areas to show workings near questions"),
-					CE("li","English/Language Lessons using M@Bot(the chat bot AI I've been building) to form random sentences based on the words that have already been taught to the class. Ask for fill in the blanks, identifying grammar/syntax, spelling words, solving symonyms/antonyms, crosswords and so on."),
-					CE("li","Other classes like History, Physics, Chemestry, Biology, Philosophy, Psycology, ect where it can ask questions from a pool. Also, more engaging currently unexplored methods of asking questions."),
-					CE("li","Print onto RocketBook style paper for easier scanning into computer thus easier marking."),
-					CE("li","Localise answer sections for scanned paper, so the computer can pull out the answers itself."),
-					CE("li","Teachers log directly into database to view students metrics, assign work, ect"),
-					CE("li","Allow Students, via their student page, to answer directly in the browser or RocketBook photo and submit directly to teacher, where any questions are marked where possible and the grades are published to the students home page with any notes.(Teacher can set it to auto or allow them to review first)"),
-					CE("li","Completely individual, personalised sheets that focus and build upon where the student was weak on the previous sheets in an SRS fashion")
-				])
-		],A4.RULED,"controls","no-print");
-		controls.setHeader(CE("h1","Soar: Math Sheet Generator"));
-		AE(controls.DOM,this.DOM);
-		this.sheets=ACE(this.DOM,"div");
-		this.showSheets();
-		delete this.days;
-	}
-	generateSeed(){
-		this.seed=encodeID(Math.random()*(Math.random()*1000)*1000);
-	}
-	seedRandom(){
-		Math.seedrandom(this.seed);
-	}
-	showSheets(){
-		this.sheets.innerText="";
-		let names=this.getNames();
-		let sheets=Array.generate(this.dayCount,e=>this.makeSheet("",e));
-		for(let index=0;index<names.length;index++){
-			for(let innerdex=0;innerdex<this.dayCount;innerdex++){
-			    let sheet=sheets[innerdex].cloneNode(t);
-			    sheet.children[0].children[0].innerText=names[index];
-				ACE(this.sheets,"pbr");
-				AE(sheet,this.sheets);
-		    }
-		}
-		
-		if(this.printAnswerSheets.checked){
-		    for(let index=0;index<this.dayCount;index++){
-		        sheets[index].children[0].children[0].innerText="Answer Key";
-		        sheets[index].children[0].lastChild.innerText=this.seed;
-		        [1,2,3,4].forEach(s=>
-		        [...sheets[index].children[s].children].forEach(e=>{
-		            let a=parseInt(e.children[2].innerText),
-		                b=parseInt(e.children[4].innerText);
-		         ACE(e,"td",(s==1?(a+b):s==2?(a-b):s==3?(a*b):(a/b)));
-		      }));
-			  ACE(this.sheets,"pbr");
-			  AE(sheets[index],this.sheets);
-		    }
-		}
-	}
-	getNames(){
-		if(this.studentNames.value==""){return [];}
-		return this.studentNames.value.split("\n");
-	}
-	makeSheet(name,dayOffset=0,showAnswers=f){
-	    return CE("spn",[
-			this.nameAndDate(name,dayOffset),
-			this.additionRows,
-			this.subtractionRows,
-			this.multiplicationionRows,
-			this.divisionionRows
-		],n,"page");
-	}
-	nameAndDate(name,dayOffset=0){
-		var div=document.createElement("div");
-		div.id="nameAndDate";
-		var now = new Date();
-		var month = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
-		div.innerHTML="<b>"+name+"</b><br>"+month[now.getMonth()]+" "+(now.getDate()+dayOffset)+", "+now.getFullYear()+"<br><b>/ "+this.count("all")+"</b>";
-		return div;
-	}
+class MathSheet extends DOMObj {
+  constructor(
+    name,
+    dayCount,
+    date,
+    seed,
+    additionCount = 10,
+    subtractionCount = 10,
+    multiplicationCount = 10,
+    divisionCount = 10
+  ) {
+    super(
+      "name",
+      name,
+      "days",
+      dayCount || 1,
+      "startDate",
+      date || new Date(),
+      "seed",
+      seed,
+      "additionCount",
+      additionCount,
+      "subtractionCount",
+      subtractionCount,
+      "multiplicationCount",
+      multiplicationCount,
+      "divisionCount",
+      divisionCount
+    );
+  }
+  generate() {
+    if (this.seed == N) {
+      this.generateSeed();
+    }
+    this.seedRandom();
+    this.id = CE("tbx", this.seed, N, N, N, { id: "id" });
+    this.id.value = this.seed;
+    this.teacherName = CE(
+      "tbx",
+      localStorage.getItem("teacherName") || "",
+      N,
+      N,
+      N,
+      { id: "teacher" }
+    );
+    this.date = CE(
+      "ipt",
+      new Date().toISOString().split("T")[0],
+      "date",
+      N,
+      "date"
+    );
+    this.daysInput = CE("ipt", this.days, "days", N, "number");
+    this.daysInput.value = localStorage.getItem("dayCount") || 1;
+    this.printAnswerSheets = CE("ipt", N, "includeAnswers", N, "checkbox");
+    this.printAnswerSheets.checked = localStorage.getItem("printAnswers") || F;
+    this.studentNames = CE(
+      "txtArea",
+      N,
+      "names",
+      N,
+      "One name per line",
+      5,
+      "hard"
+    );
+    this.studentNames.value = localStorage.getItem("studentNames") || "";
+    let controls = new A4(
+      [
+        CE("lbl", "Sheet ID", "id"),
+        this.id,
+        CE("br"),
+        CE("lbl", "Teacher/Class Name", "teacher"),
+        this.teacherName,
+        CE("br"),
+        CE("lbl", "What Date", "date"),
+        this.date,
+        CE("br"),
+        CE("lbl", "How Many Days", "days"),
+        this.daysInput,
+        CE("br"),
+        CE("lbl", "Include Answer Sheets", "includeAnswers"),
+        this.printAnswerSheets,
+        CE("br"),
+        CE("lbl", "Student Names", "names"),
+        this.studentNames,
+        CE("br"),
+        CE("btn", "Print", N, (e) => this.print()),
+        CE("br"),
+        CE("div", [
+          "This page is a demonstration of the randomly generated worksheet functionality that the Soar education platform will have. I appologise that this is currently in its alpha build and thus it may be prone to being down at any given point and its use is limited. When fully released, the page will remain free but only as for long as I can afford to feed myself and pay server costs so koha/donations are always welcome.",
+          CE("br"),
+          CE("br"),
+          "If you would like to know more about Soar or wish to support its development, please don't hesitate to contact Matt Bird via ",
+          CE(
+            "a",
+            "mailto:soar@birdsQuest.com?Subject=Mathsheet%20enquiry",
+            "soar@BirdsQuest.com"
+          ),
+          CE(
+            "div",
+            "\nHe aha te mea nui o te ao?\nHe tamariki, he tamariki, he tamariki.\nKo ratou te heke mai!\n\nIn the future, this worksheet generator is going to be much more robust. It is important to note that this is only pertaining to this worksheet generator, which is only a very small part of what Soar will be and contain. I truly aim to shape the future and create tsunami of changes.\nHere's a peek at my TODO list for the current page."
+          ),
+        ]),
+        CE("ul", [
+          CE("li", "Extend the math equations that can be used"),
+          CE(
+            "li",
+            "Input concepts/learned ideas on a time release to coencide with the class"
+          ),
+          CE("li", "Include areas to show workings near questions"),
+          CE(
+            "li",
+            "English/Language Lessons using M@Bot(the chat bot AI I've been building) to form random sentences based on the words that have already been taught to the class. Ask for fill in the blanks, identifying grammar/syntax, spelling words, solving symonyms/antonyms, crosswords and so on."
+          ),
+          CE(
+            "li",
+            "Other classes like History, Physics, Chemestry, Biology, Philosophy, Psycology, ect where it can ask questions from a pool. Also, more engaging currently unexplored methods of asking questions."
+          ),
+          CE(
+            "li",
+            "Print onto RocketBook style paper for easier scanning into computer thus easier marking."
+          ),
+          CE(
+            "li",
+            "Localise answer sections for scanned paper, so the computer can pull out the answers itself."
+          ),
+          CE(
+            "li",
+            "Teachers log directly into database to view students metrics, assign work, ect"
+          ),
+          CE(
+            "li",
+            "Allow Students, via their student page, to answer directly in the browser or RocketBook photo and submit directly to teacher, where any questions are marked where possible and the grades are published to the students home page with any notes.(Teacher can set it to auto or allow them to review first)"
+          ),
+          CE(
+            "li",
+            "Completely individual, personalised sheets that focus and build upon where the student was weak on the previous sheets in an SRS fashion"
+          ),
+        ]),
+      ],
+      A4.RULED,
+      "controls",
+      "no-print"
+    );
+    controls.setHeader(CE("h1", "Soar: Math Sheet Generator"));
+    AE(controls.DOM, this.DOM);
+    this.sheets = ACE(this.DOM, "div");
+    this.showSheets();
+    delete this.days;
+  }
+  generateSeed() {
+    this.seed = encodeID(Math.random() * (Math.random() * 1000) * 1000);
+  }
+  seedRandom() {
+    Math.seedrandom(this.seed);
+  }
+  showSheets() {
+    this.sheets.innerText = "";
+    let names = this.getNames();
+    let sheets = Array.generate(this.dayCount, (e) => this.makeSheet("", e));
+    for (let index = 0; index < names.length; index++) {
+      for (let innerdex = 0; innerdex < this.dayCount; innerdex++) {
+        let sheet = sheets[innerdex].cloneNode(T);
+        sheet.children[0].children[0].innerText = names[index];
+        AE(sheet, this.sheets);
+        ACE(this.sheets, "pbr");
+      }
+    }
 
-	get additionRows(){
-		var table=CE("table"),
-			countOffset=this.count("add");
-		for(var index=1;index<=this.additionCount;index++){
-			this.row(countOffset+index,this.additionNum,"+",this.additionNum,table)
-		}
-		return table;
-	}
+    if (this.printAnswerSheets.checked) {
+      for (let index = 0; index < this.dayCount; index++) {
+        sheets[index].children[0].children[0].innerText = "Answer Key";
+        sheets[index].children[0].lastChild.innerText = this.seed;
+        [1, 2, 3, 4].forEach((s) =>
+          [...sheets[index].children[s].children].forEach((e) => {
+            let a = parseInt(e.children[2].innerText),
+              b = parseInt(e.children[4].innerText);
+            ACE(
+              e,
+              "td",
+              s == 1 ? a + b : s == 2 ? a - b : s == 3 ? a * b : a / b
+            );
+          })
+        );
+        AE(sheets[index], this.sheets);
+        ACE(this.sheets, "pbr");
+      }
+    }
+  }
+  getNames() {
+    if (this.studentNames.value == "") {
+      return [];
+    }
+    return this.studentNames.value.split("\n");
+  }
+  makeSheet(name, dayOffset = 0, showAnswers = F) {
+    return CE(
+      "span",
+      [
+        this.nameAndDate(name, dayOffset),
+        this.additionRows,
+        this.subtractionRows,
+        this.multiplicationionRows,
+        this.divisionionRows,
+      ],
+      "page"
+    );
+  }
+  nameAndDate(name, dayOffset = 0) {
+    var div = CE("div");
+    div.id = "nameAndDate";
+    var now = new Date();
+    var month = new Array(
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    );
+    div.innerHTML =
+      "<b>" +
+      name +
+      "</b><br>" +
+      month[now.getMonth()] +
+      " " +
+      (now.getDate() + dayOffset) +
+      ", " +
+      now.getFullYear() +
+      "<br><b>/ " +
+      this.count("all") +
+      "</b>";
+    return div;
+  }
 
-	get subtractionRows(){
-		var table=document.createElement("table"),
-			countOffset=this.count("sub");
-		for(var index=1;index<=this.subtractionCount;index++){
-			var num=this.subtrationNum();
-			this.row(countOffset+index,num,"-",this.subtrationNum(num),table);
-		}
-		return table;
-	}
+  get additionRows() {
+    var table = CE("table"),
+      countOffset = this.count("add");
+    for (var index = 1; index <= this.additionCount; index++) {
+      this.row(
+        countOffset + index,
+        this.additionNum,
+        "+",
+        this.additionNum,
+        table
+      );
+    }
+    return table;
+  }
 
-	get multiplicationionRows(){
-		var table=document.createElement("table"),
-			countOffset=this.count("mul");
-		for(var index=1;index<=this.multiplicationCount;index++){
-			this.row(countOffset+index,this.multiplicationNum,"×",this.multiplicationNum,table);
-		}
-		return table;
-	}
+  get subtractionRows() {
+    var table = CE("table"),
+      countOffset = this.count("sub");
+    for (var index = 1; index <= this.subtractionCount; index++) {
+      var num = this.subtrationNum();
+      this.row(countOffset + index, num, "-", this.subtrationNum(num), table);
+    }
+    return table;
+  }
 
-	get divisionionRows(){
-		var table=document.createElement("table"),
-			countOffset=this.count("div");
-		for(var index=1;index<=this.divisionCount;index++){
-			var divisor=this.multiplicationNum,
-				quotient=this.multiplicationNum;
-			this.row(countOffset+index,divisor*quotient,"÷",divisor,table);
-		}
-		return table;
-	}
+  get multiplicationionRows() {
+    var table = CE("table"),
+      countOffset = this.count("mul");
+    for (var index = 1; index <= this.multiplicationCount; index++) {
+      this.row(
+        countOffset + index,
+        this.multiplicationNum,
+        "×",
+        this.multiplicationNum,
+        table
+      );
+    }
+    return table;
+  }
 
-	row(questionNum,firstNum,sign,secondNum,table){
-		var row=document.createElement("tr");
-		this.cell(questionNum,row);
-		this.cell(")",row);
-		this.cell(firstNum,row);
-		this.cell(sign,row);
-		this.cell(secondNum,row);
-		this.cell("=",row);
-		table.appendChild(row);
-	}
-	cell(text, row){
-		var cell=document.createElement("td");
-		cell.innerHTML=text;
-		row.appendChild(cell);
-	}
+  get divisionionRows() {
+    var table = CE("table"),
+      countOffset = this.count("div");
+    for (var index = 1; index <= this.divisionCount; index++) {
+      var divisor = this.multiplicationNum,
+        quotient = this.multiplicationNum;
+      this.row(countOffset + index, divisor * quotient, "÷", divisor, table);
+    }
+    return table;
+  }
 
-	print(e){
-	    localStorage.setItem("teacherName",this.teacherName.value)
-	    localStorage.setItem("dayCount",this.dayCount)
-	    localStorage.setItem("printAnswers",this.printAnswerSheets.checked)
-	    localStorage.setItem("studentNames",this.studentNames.value)
-	    this.showSheets();
-	    window.print();
-	}
-	
-	count(depth){
-		var count=0;
-		switch(depth){
-			case "all":count+=this.divisionCount;
-			case "div":count+=this.multiplicationCount;
-			case "mul":count+=this.subtractionCount;
-			case "sub":count+=this.additionCount;
-		}
-		return count;
-	}
-	get dayCount(){return +this.daysInput.value;}
-	get additionNum(){return this.random(additionMax);}
-	get multiplicationNum(){return this.random(multiplicationMax);}
-	subtrationNum(firstNum){return this.random((firstNum==null?subtractionMax:firstNum));}
-	random(max){return Math.floor((Math.random()*max)+1);}
+  row(questionNum, firstNum, sign, secondNum, table) {
+    var row = CE("tr");
+    this.cell(questionNum, row);
+    this.cell(")", row);
+    this.cell(firstNum, row);
+    this.cell(sign, row);
+    this.cell(secondNum, row);
+    this.cell("=", row);
+    AE(row, table);
+  }
+  cell(text, row) {
+    var cell = CE("td");
+    cell.innerHTML = text;
+    AE(cell, row);
+  }
+
+  print(e) {
+    localStorage.setItem("teacherName", this.teacherName.value);
+    localStorage.setItem("dayCount", this.dayCount);
+    localStorage.setItem("printAnswers", this.printAnswerSheets.checked);
+    localStorage.setItem("studentNames", this.studentNames.value);
+    this.showSheets();
+    window.print();
+  }
+
+  count(depth) {
+    var count = 0;
+    switch (depth) {
+      case "all":
+        count += this.divisionCount;
+      case "div":
+        count += this.multiplicationCount;
+      case "mul":
+        count += this.subtractionCount;
+      case "sub":
+        count += this.additionCount;
+    }
+    return count;
+  }
+  get dayCount() {
+    return +this.daysInput.value;
+  }
+  get additionNum() {
+    return this.random(additionMax);
+  }
+  get multiplicationNum() {
+    return this.random(multiplicationMax);
+  }
+  subtrationNum(firstNum) {
+    return this.random(firstNum == N ? subtractionMax : firstNum);
+  }
+  random(max) {
+    return Math.floor(Math.random() * max + 1);
+  }
 }
 
-var additionMax=300,subtractionMax=300,multiplicationMax=12,divisionMax=144;
-run.mathSheet=e=>{
-	var days=get.length>0?get[0]:1,
-		autoPrint=get.length>1;
-	
-	var sheet=new MathSheet("Alex Stephenson",days);
-	AE(sheet);
-	if(autoPrint){sheet.print();}
-}
+var additionMax = 300,
+  subtractionMax = 300,
+  multiplicationMax = 12,
+  divisionMax = 144;
+run.mathSheet = (e) => {
+  var days = get.length > 0 ? get[0] : 1,
+    autoPrint = get.length > 1;
 
+  var sheet = new MathSheet("Alex Stephenson", days);
+  AE(sheet);
+  if (autoPrint) {
+    sheet.print();
+  }
+};
 </script><!-- MathSheet -->
 <style>
 @import url('https://fonts.googleapis.com/css?family=Schoolbell');
-td{text-align: right;padding-right: 8px;}
-tr{margin: 0px;}
-#nameAndDate{
-	float:right;
-	margin-right:0px;
-	clear:both;
+td {
+	text-align: right;
+	padding-right: 8px;
 }
-br.pageBreak {
-	page-break-after: always;
+tr {
+	margin: 0px;
 }
-.page{
+#nameAndDate {
+	float: right;
+	margin-right: 0px;
+	clear: both;
+}
+.page {
 	display: none;
 }
-@media print{
-	.page{display: initial;}
-	.no-print, .no-print *{display: none !important;}
+@media print {
+	.page {
+		display: initial;
+	}
+	.no-print, .no-print * {
+		display: none !important;
+	}
 }
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-body{background:url(./images/a4/wood.jpg) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;}
-.ruled{
+
+body {
+	background: url(./images/a4/wood.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.ruled {
 	font: normal 15px/1.5 "Schoolbell", sans-serif;
 	background: #f5f5f5;
 	position: relative;
 	line-height: 20px;
-	
 	/*The blue lines come from repeating gradients with box shadows below them to show the blue*/
 	border: 1px solid #15438e;
 	background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #f5f5f5)) 0 4px;
 	background: -webkit-linear-gradient(top, #d9eaf3 0%, #f5f5f5 8%) 0 4px;
 	-webkit-background-size: 100% 20px;
 	-webkit-border-radius: 3px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
-	
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 	background: -moz-linear-gradient(top, #d9eaf3 0%, #f5f5f5 8%) 0 4px;
 	-moz-background-size: 100% 20px;
 	-moz-border-radius: 3px;
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
-        
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 	background: -ms-linear-gradient(top, #d9eaf3 0%, #f5f5f5 8%) 0 4px;
 	-ms-background-size: 100% 20px;
-	
 	background: -o-linear-gradient(top, #d9eaf3 0%, #f5f5f5 8%) 0 4px;
 	-o-background-size: 100% 20px;
-	
 	background: linear-gradient(top, #d9eaf3 0%, #f5f5f5 8%) 0 4px;
 	background-size: 100% 20px;
 	border-radius: 3px;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 }
 /*Set the top margin of the page*/
-.ruled article:first-of-type{
+
+.ruled article:first-of-type {
 	background-color: #f5f5f5;
 	padding-left: 1.65cm;
-   min-height: 1.5cm;
-	padding-left:auto;
-	padding-right:auto;
-	width:19.25cm;
+	min-height: 1.5cm;
+	padding-left: auto;
+	padding-right: auto;
+	width: 19.25cm;
 }
-.ruled article:first-of-type h1{
-	padding-top:1.48cm;
+.ruled article:first-of-type h1 {
+	padding-top: 1.48cm;
 }
 /*This pads the lines*/
-.ruled article:nth-of-type(2){
+
+.ruled article:nth-of-type(2) {
 	padding-top: 0.58%;
 	margin-left: 1.75cm;
 	margin-right: 0.2cm;
 }
 /*This removes the spacing between p and header elements, thus keeping things on line*/
-.ruled article p,h1,h2,h3,h4,h5,h6{
-	margin:0px;
-	padding:0px;
-	width:100%;
+
+.ruled article p, h1, h2, h3, h4, h5, h6 {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
 }
 /*Set the left margin and red line*/
+
 .ruled:before {
 	content: '';
 	position: absolute;
@@ -814,41 +1264,28 @@ body{background:url(./images/a4/wood.jpg) no-repeat center center fixed;
 	border: 1px solid;
 	border-color: transparent #ffaa9f;
 }
-br.pageBreak {
-	page-break-after: always;
+.pageBreak {
+	break-after: page;
 }
-.page{
+.page {
 	display: none;
 }
-
 .a4 {
 	margin-top: 1cm;
 	margin-bottom: 1cm;
 	margin-left: auto;
 	margin-right: auto;
 	border: 1px solid #000000;
-	width:21cm;
-	height:29.7cm;
-	width:21cm;
+	width: 21cm;
+	height: 29.7cm;
+	width: 21cm;
 }
-
-@media print{
-	.page{display: initial;}
-	.no-print, .no-print *{display: none !important;}
+@media print {
+	.page {
+		display: initial;
+	}
+	.no-print, .no-print * {
+		display: none !important;
+	}
 }
 </style><!-- MathSheet -->
-<script>
-	//TODO: English(And other language) Lessons, use M@Bot(the chat bot AI I've been building) to form random sentences based on the words that have been taught to the class. Ask for fill in the blanks, identifying grammar/syntax, spelling words, solving symonyms/antonyms, crosswords and so on.
-//TODO: Other classes like History, Physics, Chemestry, Biology, Philosophy, Psycology, ect where it can ask questions from a pool. Also, more engaging currently unexplored methods of asking questions.
-//TODO: Input concepts/learned ideas on a time release to coencide with the class
-//TODO: Print onto RocketBook style paper for easier scanning into computer thus easier marking.
-//TODO: Localise answer sections for scanned paper, so the computer can pull out the answers itself.
-//TODO: Include areas to show workings
-//TODO: Teachers log directly into database to view students metrics, assign work, ect
-//TODO: Allow Students, via their student page, to answer directly in the browser or RocketBook photo and submit directly to teacher, where any questions are marked where possible and the grades are published to the students home page with any notes.(Teacher can set it to auto or allow them to review first)
-//TODO: Completely individual, personalised sheets that focus and build upon where the student was weak on the previous sheets in an SRS fashion
-
-//https://www.math-only-math.com/
-
-
-</script><!-- MathSheet -->

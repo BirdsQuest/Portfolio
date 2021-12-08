@@ -14,475 +14,787 @@ randomcodode.run/
 ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
 <script>
 var content;
-const t=true,f=false,n=null,run={};
-function onLoad(func){
-	if(document.readyState==='complete'){func();}
-	else{window.onload=((oldLoad,func)=>{
-		return function(){
-			oldLoad && oldLoad();
-			func();
-		}	})(window.onload,func);
-}	}
-onLoad(e=>{
-	content=ACE(document.body,"main");
-	var url = window.location.pathname,
-			filename = url.substring(url.lastIndexOf('/')+1);
-	filename=filename.substring(0,filename.lastIndexOf('.'));
-	HEADER(filename);
-	run[filename]();
+const T = true,
+  F = false,
+  N = null,
+  run = {};
+function onLoad(func) {
+  if (document.readyState === "complete") {
+    func();
+  } else {
+    window.onload = ((oldLoad, func) => {
+      return function () {
+        oldLoad && oldLoad();
+        func();
+      };
+    })(window.onload, func);
+  }
+}
+onLoad((e) => {
+  content = ACE(document.body, "main");
+  var url = window.location.pathname,
+    filename = url.substring(url.lastIndexOf("/") + 1);
+  filename = filename.substring(0, filename.lastIndexOf("."));
+  HEADER(filename);
+  run[filename]();
 });
-function AE(element,parent=content){
-	var origElement=element;
-	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
-	else if(isDefined(element.DOM)){
-		while(element.DOM!=null){
-			element=element.DOM;
-		}
-	}
-	parent.appendChild(element);
-	if("appended" in origElement){origElement.appended();}
-	return origElement;
+function AE(element, parent = content) {
+  var origElement = element;
+  if (parent instanceof DOMObj) {
+    parent.appendChild(element.DOM);
+  } else if (isDefined(element.DOM)) {
+    while (element.DOM != null) {
+      element = element.DOM;
+    }
+  }
+  parent.appendChild(element);
+  if ("appended" in origElement) {
+    origElement.appended();
+  }
+  return origElement;
 }
-function ACE(parent=content){
-	var args=ArgToArr(arguments);
-	args.shift();
-	var element=CE(...args);
-	AE(element,parent);
-	return element;
+function ACE(parent = content) {
+  var args = ArgToArr(arguments);
+  args.shift();
+  var element = CE(...args);
+  AE(element, parent);
+  return element;
 }
-function CE(){
-	var info=ArgToArr(arguments),type,element,fields;
-	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
-		fields=cElement[info[0]];
-	}else{
-		fields=[info[0],"generic"];
-	}
-	element=document.createElement(fields[0]);
-	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
-	if(fields[1]=="generic"){fields=cElement["generic"];}
-	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
-	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
-	for(let index=1;index<fields.length;index++){
-		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
-		else if(info[index]==null){}
-		else if(fields[index]=="content"){
-			if(info[index]!=null){
-				if(info[index] instanceof Array){
-					for(let innerdex=0;innerdex<info[index].length;innerdex++){
-						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
-						AE(info[index][innerdex],element);
-					}
-				}else{element.innerText=info[index];}
-		}	}
-		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
-		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
-		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
-		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
-		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
-		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
-	}
-	return element;
+function CE() {
+  var info = ArgToArr(arguments),
+    type,
+    element,
+    fields;
+  if (cElement.hasOwnProperty(info[0])) {
+    //Check that it's in the valid command list
+    fields = cElement[info[0]];
+  } else {
+    fields = [info[0], "generic"];
+  }
+  element = document.createElement(fields[0]);
+  if (["svg", "polygon"].indexOf(fields[0]) != -1) {
+    element = document.createElementNS("http://www.w3.org/2000/svg", fields[0]);
+  }
+  if (fields[1] == "generic") {
+    fields = cElement["generic"];
+  } else if (fields[1] == "func") {
+    return cElement[info[0]][2](...info);
+  } else if (fields[0] == "domobj") {
+    return new fields[1](...info.shift());
+  }
+  for (let index = 1; index < fields.length; index++) {
+    if (fields[index] == "set") {
+      element[fields[++index]] = fields[++index];
+    } else if (info[index] == null) {
+    } else if (fields[index] == "content") {
+      if (info[index] != null) {
+        if (info[index] instanceof Array) {
+          for (let innerdex = 0; innerdex < info[index].length; innerdex++) {
+            if (typeof info[index][innerdex] == "string") {
+              info[index][innerdex] = document.createTextNode(
+                info[index][innerdex]
+              );
+            }
+            AE(info[index][innerdex], element);
+          }
+        } else {
+          element.innerText = info[index];
+        }
+      }
+    } else if (fields[index] == "keySet") {
+      forIn(info[index], (key, value) => {
+        element.setAttribute(key, value);
+      });
+    } else if (fields[index] == "rt") {
+      element.appendChild(CE("rt", info[index]));
+    } else if (fields[index] == "points") {
+      element.setAttribute(fields[index], info[index]);
+    } else if (["onclick"].indexOf(fields[index]) != -1) {
+      element.addEventListener("click", info[index]);
+    } else if (["innerText"].indexOf(fields[index]) != -1) {
+      element[fields[index]] = info[index];
+    } else if (info[index] != null) {
+      element.setAttribute(fields[index], info[index]);
+    }
+  }
+  return element;
 }
-function addCE(){
-	let args=ArgsToArr(arguments);
-	cElement[args.pop()]=args;
+function addCE() {
+  let args = ArgsToArr(arguments);
+  cElement[args.pop()] = args;
 }
-const cElement={
-	'img':["img","id","src","alt","class","onclick","keySet"],
-	'generic':["","content","id","class","onclick","keySet"]
+const cElement = {
+  img: ["img", "src", "alt", "class", "onclick", "keySet"],
+  generic: ["", "content", "class", "onclick", "keySet"],
 };
-function br(parent=content){return ACE(parent,"br");}
-
-class DOMObj{
-	constructor(parent){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-		this.DOM=CE("div");
-		if(isDefined(this.preGen)){this.preGen();}
-		this.boundEvents={};
-		let keywords=[
-	    	//Keyboard Events
-	    	["keyUp","keyup"],["keyDown","keydown"],
-	    	//Mouse Events
-	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
-	    	//Element Events
-	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
-	    	//Drag/Drop Events
-		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
-		
-		];
-
-		this.generate();
-		
-		for(let id=0; id<keywords.length;id++){
-			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
-		}
-		if(isDefined(this.postGen)){this.postGen();}
-	}
-	addListener(listener,func,DOM=this.DOM){
-		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
-		this.boundEvents[listener]=func.bind(this);
-		DOM.addEventListener(listener,this.boundEvents[listener],false);
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return obj=>{obj[arg]=this[arg].bind(this)}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	removeListener(listener,DOM=this.DOM){
-		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
-			delete this.boundEvents[listener];
-		}catch(e){}
-	}
-	preventDefault(e){
-		if(e.preventDefault){e.preventDefault();}
-		if(e.stopPropagation){e.stopPropagation();}
-	}
-	generate(parent){return null;}
-	insertChild(parent,index){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(parent.DOM!=null){parent=parent.DOM;}
-		if(index>=parent.children.length){AE(DOM,parent);}
-		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
-	}
-	insertAfter(element){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(!isDOM(element)){element=element.DOM;}
-			element.parentNode.insertBefore(DOM, element.nextSibling);
-	}
-	appendChild(object){
-		while(object.DOM!=null){object=object.DOM;}
-		this.DOM.appendChild(object);
-	}
-	removeChild(object){this.DOM.removeChild(object);}
-	remove(){
-		if(this.parentNode!=null){
-			var object=this.DOM;
-			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
-			this.parentNode.removeChild(object);
-	}	}
-	toggleCSS(rule,DOM=this.DOM){
-		if(!DOM.classList.contains(rule)){
-			DOM.classList.add(rule);
-		}else{
-			DOM.classList.remove(rule);
-		}
-	}
-	overlaps(elem){
-		return !((this.bottom < elem.top) ||
-						(this.top > elem.bottom) ||
-						(this.right < elem.left) ||
-						(this.left > elem.right))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-	get height(){return this.DOM.offsetHeight;}
-	get width(){return this.DOM.offsetWidth;}
-	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
-	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
-	get top(){return this.DOM.offsetTop;}
-	get classList(){return this.DOM.classList;}
-	get left(){return this.DOM.offsetLeft;}
-	get right(){return this.left+this.width;}
-	get bottom(){return this.top+this.height;}
-	get innerHTML(){return this.DOM.innerHtml;}
-	set hidden(hidden){
-		if(hidden&&!this.DOM.classList.contains("hidden")){
-			this.DOM.classList.add("hidden");
-		}else if(!hidden&&this.DOM.classList.contains("hidden")){
-			this.DOM.classList.remove("hidden");
-		}
-	}
-	get innerText(){return this.DOM.innerText;}
-	set innerText(text){this.DOM.innerText=text;}
-	get className(){return this.DOM.className;}
-	set className(className){this.DOM.className=className;}
-	get childNodes(){return this.DOM.childNodes;}
-	get children(){return this.DOM.children;}
-	clearChildren(){
-		this.DOM.innerHTML="";
-	}
-	get parentNode(){
-		var node=this.DOM;
-		while(node.DOM!=null){node=node.DOM;}
-		return node.parentNode;
-	}
-	replaceDOM(object){
-		while(object.DOM!=null){object=object.DOM;}
-		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
-		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
-		this.DOM=object;
-	}
+function br(parent = content) {
+  return ACE(parent, "br");
 }
-class ExtendedObj extends DOMObj{
-	constructor(args){super("args",args);}
-	expand(object){
-		for(let index=0;index<this.args.length;index++){
-			object[this.args[index++]]=this.args[index];
-		}
-	}
-}
-function ArgToArr(arg){return Array.prototype.slice.call(arg);}
-function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
 
-function isDefined(object){return typeof object!='undefined';}
-Array.generate=(size,action)=>{return ([...Array(size).keys()]).map(action);}
-function linkTo(url,newTab){
-	if(newTab==null){window.location=url;}
-	else{
-		if(newTab=="tab"){newTab='_blank';}
-		return window.open(...arguments);
-	}
+class DOMObj {
+  constructor(parent) {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+    this.DOM = CE("div");
+    if (isDefined(this.preGen)) {
+      this.preGen();
+    }
+    this.boundEvents = {};
+    let keywords = [
+      //Keyboard Events
+      ["keyUp", "keyup"],
+      ["keyDown", "keydown"],
+      //Mouse Events
+      ["onClick", "click"],
+      ["mouseUp", "mouseup"],
+      ["hover", "mousemove"],
+      ["mouseDown", "mousedown"],
+      ["mouseOut", "mouseout"],
+      ["mouseIn", "mouseenter"],
+      ["contextMenu", "contextmenu"],
+      //Element Events
+      ["onBlur", "focusout"],
+      ["onFocus", "onfocus"],
+      ["onChange", "change"],
+      //Drag/Drop Events
+      ["drag", "drag"],
+      ["dragStart", "dragstart"],
+      ["dragEnd", "dragend"],
+      ["dragOn", "dragenter"],
+      ["dragOff", "dragleave"],
+      ["dragOver", "dragover"],
+      ["drop", "drop"],
+    ];
+
+    this.generate();
+
+    for (let id = 0; id < keywords.length; id++) {
+      if (this[keywords[id][0]] != null) {
+        this.addListener(keywords[id][1], this[keywords[id][0]]);
+      }
+    }
+    if (isDefined(this.postGen)) {
+      this.postGen();
+    }
+  }
+  addListener(listener, func, DOM = this.DOM) {
+    if (this.boundEvents.hasOwnProperty(listener)) {
+      this.removeListener(listener, DOM);
+    }
+    this.boundEvents[listener] = func.bind(this);
+    DOM.addEventListener(listener, this.boundEvents[listener], false);
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  removeListener(listener, DOM = this.DOM) {
+    try {
+      DOM.removeEventListener(listener, this.boundEvents[listener]);
+      delete this.boundEvents[listener];
+    } catch (e) {}
+  }
+  preventDefault(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  }
+  generate(parent) {
+    return null;
+  }
+  insertChild(parent, index) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (parent.DOM != null) {
+      parent = parent.DOM;
+    }
+    if (index >= parent.children.length) {
+      AE(DOM, parent);
+    } else {
+      parent.insertBefore(DOM, parent.children[index].nextSibling);
+    }
+  }
+  insertAfter(element) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (!isDOM(element)) {
+      element = element.DOM;
+    }
+    element.parentNode.insertBefore(DOM, element.nextSibling);
+  }
+  appendChild(object) {
+    while (object.DOM != null) {
+      object = object.DOM;
+    }
+    this.DOM.appendChild(object);
+  }
+  removeChild(object) {
+    this.DOM.removeChild(object);
+  }
+  remove() {
+    if (this.parentNode != null) {
+      var object = this.DOM;
+      while (object != null && object instanceof DOMObj) {
+        object = object.DOM;
+      }
+      this.parentNode.removeChild(object);
+    }
+  }
+  toggleCSS(rule, DOM = this.DOM) {
+    if (!DOM.classList.contains(rule)) {
+      DOM.classList.add(rule);
+    } else {
+      DOM.classList.remove(rule);
+    }
+  }
+  overlaps(elem) {
+    return !(
+      this.bottom < elem.top ||
+      this.top > elem.bottom ||
+      this.right < elem.left ||
+      this.left > elem.right
+    );
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != null) {
+      property.get = getter;
+    }
+    if (setter != null) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+  get height() {
+    return this.DOM.offsetHeight;
+  }
+  get width() {
+    return this.DOM.offsetWidth;
+  }
+  set width(width) {
+    if (width != null) {
+      this.DOM.style.width = width + "px";
+    }
+  }
+  set height(height) {
+    if (height != null) {
+      this.DOM.style.height = height + "px";
+    }
+  }
+  get top() {
+    return this.DOM.offsetTop;
+  }
+  get classList() {
+    return this.DOM.classList;
+  }
+  get left() {
+    return this.DOM.offsetLeft;
+  }
+  get right() {
+    return this.left + this.width;
+  }
+  get bottom() {
+    return this.top + this.height;
+  }
+  get innerHTML() {
+    return this.DOM.innerHtml;
+  }
+  set hidden(hidden) {
+    if (hidden && !this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.add("hidden");
+    } else if (!hidden && this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.remove("hidden");
+    }
+  }
+  get innerText() {
+    return this.DOM.innerText;
+  }
+  set innerText(text) {
+    this.DOM.innerText = text;
+  }
+  get className() {
+    return this.DOM.className;
+  }
+  set className(className) {
+    this.DOM.className = className;
+  }
+  get childNodes() {
+    return this.DOM.childNodes;
+  }
+  get children() {
+    return this.DOM.children;
+  }
+  clearChildren() {
+    this.DOM.innerHTML = "";
+  }
+  get parentNode() {
+    var node = this.DOM;
+    while (node.DOM != null) {
+      node = node.DOM;
+    }
+    return node.parentNode;
+  }
+  replaceDOM(object) {
+    while (object.DOM != null) {
+      object = object.DOM;
+    }
+    var index = Array.from(this.parentNode.children).indexOf(this.DOM); //only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+    this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+    this.DOM = object;
+  }
+}
+class ExtendedObj extends DOMObj {
+  constructor(args) {
+    super("args", args);
+  }
+  expand(object) {
+    for (let index = 0; index < this.args.length; index++) {
+      object[this.args[index++]] = this.args[index];
+    }
+  }
+}
+function ArgToArr(arg) {
+  return Array.prototype.slice.call(arg);
+}
+function forIn(object, callback) {
+  for (let key in object) {
+    callback(key, object[key]);
+  }
+}
+
+function isDefined(object) {
+  return typeof object != "undefined";
+}
+Array.generate = (size, action) => {
+  return [...Array(size).keys()].map(action);
+};
+function linkTo(url, newTab) {
+  if (newTab == null) {
+    window.location = url;
+  } else {
+    if (newTab == "tab") {
+      newTab = "_blank";
+    }
+    return window.open(...arguments);
+  }
 }
 </script>
 <script>
-run["pacBanner"]=()=>{
-	console.log("ᗧ••••••••••••••••••••••••••••••");
-	new Banner(
-		"Banner",//ID
-		10,//Wait Time in Seconds
-		500*1.4,//Width
-		200*1.4,//Height
-		"./images/pacBanner/",//File Directory
-		//[Filename,onClick Function,Alt Text]
-		[
-		["pacman.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Pac-Man");},					"A game in which the player moves through a maze, avoiding ghosts and eating pallets and fruit"],
-		["breakout.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Breakout_(video_game)");},				"A layer of bricks lines the top third of the screen. A ball travels across the screen, bouncing off the top and side walls of the screen. When a brick is hit, the ball bounces away and the brick is destroyed."],
-		["frogger.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Frogger");},				"The player guides frogs across a highway and a river to get them home."],
-		["mario.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Super_Mario_Bros.");},	"The objective is to run and jump through the Mushroom Kingdom, survive Bowser's forces, and save Princess Toadstool."],
-		["spaceInvaders.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Space_Invaders");},					"The aim of the game is to destroy attacking alien spacecraft"],
-		["tetris.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Tetris");},					"A puzzle game in which falling tetrominoes must be manipulated to form complete lines, which are then cleared from the grid."],
-		["zelda.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/The_Legend_of_Zelda");},				"The player takes the role of Link, as they explore Hyrule in an attempt to reforge the Triforce by saving Princess Zelda and ridding the land of Hyrule from Ganon and his evil forces."]
-	]).setTheme("pacman").attachTo(document.body.children[0]);
-	let i=0;
-	while((i++) < 40){
-		br(document.body.children[0]);
-		
-	}
+run["pacBanner"] = () => {
+  console.log("ᗧ••••••••••••••••••••••••••••••");
+  new Banner(
+    "Banner", //ID
+    10, //Wait Time in Seconds
+    500 * 1.4, //Width
+    200 * 1.4, //Height
+    "./images/pacBanner/", //File Directory
+    //[Filename,onClick Function,Alt Text]
+    [
+      [
+        "pacman.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Pac-Man");
+        },
+        "A game in which the player moves through a maze, avoiding ghosts and eating pallets and fruit",
+      ],
+      [
+        "breakout.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Breakout_(video_game)");
+        },
+        "A layer of bricks lines the top third of the screen. A ball travels across the screen, bouncing off the top and side walls of the screen. When a brick is hit, the ball bounces away and the brick is destroyed.",
+      ],
+      [
+        "frogger.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Frogger");
+        },
+        "The player guides frogs across a highway and a river to get them home.",
+      ],
+      [
+        "mario.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Super_Mario_Bros.");
+        },
+        "The objective is to run and jump through the Mushroom Kingdom, survive Bowser's forces, and save Princess Toadstool.",
+      ],
+      [
+        "spaceInvaders.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Space_Invaders");
+        },
+        "The aim of the game is to destroy attacking alien spacecraft",
+      ],
+      [
+        "tetris.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Tetris");
+        },
+        "A puzzle game in which falling tetrominoes must be manipulated to form complete lines, which are then cleared from the grid.",
+      ],
+      [
+        "zelda.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/The_Legend_of_Zelda");
+        },
+        "The player takes the role of Link, as they explore Hyrule in an attempt to reforge the Triforce by saving Princess Zelda and ridding the land of Hyrule from Ganon and his evil forces.",
+      ],
+    ]
+  )
+    .setTheme("pacman")
+    .attachTo(document.body.children[0]);
+  let i = 0;
+  while (i++ < 40) {
+    br(document.body.children[0]);
+  }
 };
-run["banner"]=()=>{
-	new Banner(
-		"Banner",//ID
-		10,//Wait Time in Seconds
-		5,//Width
-		2,//Height
-		"./images/banner/",//File Directory
-		//[Filename,onClick Function,Alt Text]
-		[
-		["0.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Outsourcing");},				"Outsource office worker"],
-		["1.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Id,_ego_and_super-ego#Ego");},	"Feeding the ego"],
-		["2.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Happiness");},					"Happiness Kit"],
-		["3.jpg",()=>{linkTo("https://en.wikipedia.org/wiki/Lung_cancer");},				"Burning money away"]
-	]).attachTo(content);
+run["banner"] = () => {
+  new Banner(
+    "Banner", //ID
+    10, //Wait Time in Seconds
+    5, //Width
+    2, //Height
+    "./images/banner/", //File Directory
+    //[Filename,onClick Function,Alt Text]
+    [
+      [
+        "0.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Outsourcing");
+        },
+        "Outsource office worker",
+      ],
+      [
+        "1.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Id,_ego_and_super-ego#Ego");
+        },
+        "Feeding the ego",
+      ],
+      [
+        "2.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Happiness");
+        },
+        "Happiness Kit",
+      ],
+      [
+        "3.jpg",
+        () => {
+          linkTo("https://en.wikipedia.org/wiki/Lung_cancer");
+        },
+        "Burning money away",
+      ],
+    ]
+  ).attachTo(content);
 };
 
+class Banner extends DOMObj {
+  constructor(id, waitTime, width, height, fileDir, files, start) {
+    super(
+      "id",
+      id,
+      "waitTime",
+      waitTime,
+      "fileDir",
+      fileDir,
+      "files",
+      files,
+      "next",
+      start || 0,
+      "origWidth",
+      width,
+      "origHeight",
+      height
+    );
+  }
+  generate() {
+    this.DOM.id = this.id;
+    this.className = "banner unselectable";
+    (this.leftNav = CE(
+      "div",
+      "\u2039",
+      "navDir prev",
+      this.moveBack.bind(this)
+    )), //Left Arrow
+      (this.rightNav = CE(
+        "div",
+        "\u203A",
+        "navDir next",
+        this.moveNext.bind(this)
+      )); //Right Arrow
+    this.dots = new NavDots(
+      this.DOM,
+      this.files.length,
+      this.jumpTo.bind(this)
+    ); //Navagation Dots
 
-class Banner extends DOMObj{
-	constructor(id,waitTime,width,height,fileDir,files,start){
-		super("id",id,"waitTime",waitTime,"fileDir",fileDir,"files",files,"next",start||0,"origWidth",width,"origHeight",height);
-	}
-	generate(){
-		this.DOM.id=this.id;
-		this.className="banner unselectable";
-		this.leftNav=CE("div","\u2039",null,"navDir prev",this.moveBack.bind(this)),//Left Arrow
-		this.rightNav=CE("div","\u203A",null,"navDir next",this.moveNext.bind(this))//Right Arrow
-		this.dots=new NavDots(this.DOM,this.files.length,this.jumpTo.bind(this));//Navagation Dots
-		
-		([...Array.generate(this.files.length,((arg)=>{
-				return CE("img",null,this.fileDir+this.files[arg][Banner.FILENAME],
-					this.files[arg][Banner.ALT],"transparent",this.files[arg][Banner.FUNCTION]);
-				}).bind(this)),
-			this.leftNav,this.rightNav,this.dots
-		]).map(((element)=>{
-			AE(element,this.DOM);
-		}).bind(this));
-	}
-	setTheme(theme){
-		let current=this.current;
-		this.removeChild(this.dots.DOM);
-		this.className="banner unselectable";
-		this.leftNav.className="navDir prev";
-		this.rightNav.className="navDir next";
+    [
+      ...Array.generate(
+        this.files.length,
+        ((arg) => {
+          return CE(
+            "img",
+            this.fileDir + this.files[arg][Banner.FILENAME],
+            this.files[arg][Banner.ALT],
+            "transparent",
+            this.files[arg][Banner.FUNCTION]
+          );
+        }).bind(this)
+      ),
+      this.leftNav,
+      this.rightNav,
+      this.dots,
+    ].map(
+      ((element) => {
+        AE(element, this.DOM);
+      }).bind(this)
+    );
+  }
+  setTheme(theme) {
+    let current = this.current;
+    this.removeChild(this.dots.DOM);
+    this.className = "banner unselectable";
+    this.leftNav.className = "navDir prev";
+    this.rightNav.className = "navDir next";
 
-		switch(theme){
-			case "pacman":
-				this.dots=new PacDots(this.DOM,this.files.length,this.jumpTo.bind(this),current);
-				this.leftNav.classList.add("pacDir");
-				this.rightNav.classList.add("pacDir");
-				break;
-			default:
-				this.dots=new NavDots(this.DOM,this.files.length,this.jumpTo.bind(this),current);
-		}
-		return this;
-	}
-	get current(){
-		return this.dots.current;
-	}
-	attachTo(parent){
-		if(parent!=null){AE(this.DOM,parent);}
-		this.attached();
-	}
-	attached(){
-		this.startRoatation();
-		this.dots.x=this.dots.getX(this.current);
-		this.dots.y=this.dots.y;
-	}
-	set waitTime(seconds){
-		this.timeTillNext=seconds*1000;
-	}
-	get waitTime(){
-		return this.timeTillNext;
-	}
-	startRoatation(){
-		if(this.timer!=null){clearTimeout(this.timer);}
-		this.DOM.childNodes[this.current].classList.remove("transparent");
-		this.rotate();
-	}
-	rotate(){
-		this.timer=setTimeout(this.moveNext.bind(this), this.waitTime);
-	}
-	
-	moveNext(){
-		if(this.current+1>=this.DOM.childNodes.length-3){this.moveTo(0);}
-		else{this.moveTo(this.current+1);}
-	}
-	moveBack(){
-		if(this.current==0){this.moveTo(this.DOM.childNodes.length-4);}
-		else{this.moveTo(this.current-1);}
-	}
-	jumpTo(id){
-		this.moveTo.call(this,id);
-	}
-	moveTo(index){
-		if(this.current!=index){
-		clearTimeout(this.timer);
-		this.toggleVisibility(this.current);
-		this.dots.moveTo(index);
-		this.toggleVisibility(this.current);
-		this.rotate();
-	}	}
-	toggleVisibility(id){
-		this.DOM.childNodes[id].classList.toggle("transparent");
-	}
+    switch (theme) {
+      case "pacman":
+        this.dots = new PacDots(
+          this.DOM,
+          this.files.length,
+          this.jumpTo.bind(this),
+          current
+        );
+        this.leftNav.classList.add("pacDir");
+        this.rightNav.classList.add("pacDir");
+        break;
+      default:
+        this.dots = new NavDots(
+          this.DOM,
+          this.files.length,
+          this.jumpTo.bind(this),
+          current
+        );
+    }
+    return this;
+  }
+  get current() {
+    return this.dots.current;
+  }
+  attachTo(parent) {
+    if (parent != null) {
+      AE(this.DOM, parent);
+    }
+    this.attached();
+  }
+  attached() {
+    this.startRoatation();
+    this.dots.x = this.dots.getX(this.current);
+    this.dots.y = this.dots.y;
+  }
+  set waitTime(seconds) {
+    this.timeTillNext = seconds * 1000;
+  }
+  get waitTime() {
+    return this.timeTillNext;
+  }
+  startRoatation() {
+    if (this.timer != null) {
+      clearTimeout(this.timer);
+    }
+    this.DOM.childNodes[this.current].classList.remove("transparent");
+    this.rotate();
+  }
+  rotate() {
+    this.timer = setTimeout(this.moveNext.bind(this), this.waitTime);
+  }
+
+  moveNext() {
+    if (this.current + 1 >= this.DOM.childNodes.length - 3) {
+      this.moveTo(0);
+    } else {
+      this.moveTo(this.current + 1);
+    }
+  }
+  moveBack() {
+    if (this.current == 0) {
+      this.moveTo(this.DOM.childNodes.length - 4);
+    } else {
+      this.moveTo(this.current - 1);
+    }
+  }
+  jumpTo(id) {
+    this.moveTo.call(this, id);
+  }
+  moveTo(index) {
+    if (this.current != index) {
+      clearTimeout(this.timer);
+      this.toggleVisibility(this.current);
+      this.dots.moveTo(index);
+      this.toggleVisibility(this.current);
+      this.rotate();
+    }
+  }
+  toggleVisibility(id) {
+    this.DOM.childNodes[id].classList.toggle("transparent");
+  }
 }
-Banner.FILENAME=0;
-Banner.FUNCTION=1;
-Banner.ALT=2;
+Banner.FILENAME = 0;
+Banner.FUNCTION = 1;
+Banner.ALT = 2;
 
-class NavDots extends DOMObj{
-	constructor(parent,dotCount,callback,current,speed){
-		super("dots",[],"dotCount",dotCount,"current",current||0,"callback",callback||function(){},"speed",speed||16);
-		
-		parent.appendChild(this.DOM);
-		this.x=this.getX(this.current);
-		this.y=this.y;
-	}
-	generate(){
-		this.className="navDots";
-		this.dots=Array.generate(this.dotCount,((index)=>{
-			return CE("li","\u2022",null,"navDot",this.jumpTo.bind(this));
-		}).bind(this));
+class NavDots extends DOMObj {
+  constructor(parent, dotCount, callback, current, speed) {
+    super(
+      "dots",
+      [],
+      "dotCount",
+      dotCount,
+      "current",
+      current || 0,
+      "callback",
+      callback || function () {},
+      "speed",
+      speed || 16
+    );
 
-		var dots=ACE(this.DOM,"ul",this.dots);
-		this.navDot=ACE(dots,"div",null,"currentNavDot");
-	}
-	pxToVW(px){
-		return (100*px/window.innerWidth)+"vw";
-	}
-	set x(x){
-		this.navDot.style.left=this.pxToVW(x);
-	}
-	set y(y){
-		this.navDot.style.top=this.pxToVW(y);
-	}
-	get y(){
-		this.navDot.style.top=this.pxToVW(this.DOM.offsetHeight/8+this.navDot.offsetHeight/8);
-	}
-	getX(id){
-		return this.dots[id].offsetLeft+this.navDot.offsetWidth/2.2;
-	}
-	moveTo(id){
-		var oldX=this.navDot.offsetLeft,//Get the current x value
-			newX=this.getX(id),//And the target x value
-			travel=this.speed*(oldX<newX?1:-1),
-			difference=(newX-oldX),
-			traversal=0,
-			move=()=>{
-				traversal+=travel;
-				this.navDot.style.left=this.pxToVW(traversal+oldX);
-				if(Math.abs(traversal)<Math.abs(difference)){
-					this.animation=setTimeout(move,100);
-				}else{
-					this.navDot.className="";
-					this.navDot.style.left=this.pxToVW(newX);
-			}	};
-		this.current=id;
-		
-		clearTimeout(this.animation);
-		this.animation=setTimeout(move,100);
-		return travel;
-	}
-	jumpTo(e){
-		var id=Array.prototype.indexOf.call(this.dots,e.srcElement||e.target);
-		if(id!=this.current){
-			this.callback(id);
-			this.moveTo(id);
-}	}
+    parent.appendChild(this.DOM);
+    this.x = this.getX(this.current);
+    this.y = this.y;
+  }
+  generate() {
+    this.className = "navDots";
+    this.dots = Array.generate(
+      this.dotCount,
+      ((index) => {
+        return CE("li", "\u2022", "navDot", this.jumpTo.bind(this));
+      }).bind(this)
+    );
+
+    var dots = ACE(this.DOM, "ul", this.dots);
+    this.navDot = ACE(dots, "div", N, N, N, { id: "currentNavDot" });
+  }
+  pxToVW(px) {
+    return (100 * px) / window.innerWidth + "vw";
+  }
+  set x(x) {
+    this.navDot.style.left = this.pxToVW(x);
+  }
+  set y(y) {
+    this.navDot.style.top = this.pxToVW(y);
+  }
+  get y() {
+    this.navDot.style.top = this.pxToVW(
+      this.DOM.offsetHeight / 8 + this.navDot.offsetHeight / 8
+    );
+  }
+  getX(id) {
+    return this.dots[id].offsetLeft + this.navDot.offsetWidth / 2.2;
+  }
+  moveTo(id) {
+    var oldX = this.navDot.offsetLeft, //Get the current x value
+      newX = this.getX(id), //And the target x value
+      travel = this.speed * (oldX < newX ? 1 : -1),
+      difference = newX - oldX,
+      traversal = 0,
+      move = () => {
+        traversal += travel;
+        this.navDot.style.left = this.pxToVW(traversal + oldX);
+        if (Math.abs(traversal) < Math.abs(difference)) {
+          this.animation = setTimeout(move, 100);
+        } else {
+          this.navDot.className = "";
+          this.navDot.style.left = this.pxToVW(newX);
+        }
+      };
+    this.current = id;
+
+    clearTimeout(this.animation);
+    this.animation = setTimeout(move, 100);
+    return travel;
+  }
+  jumpTo(e) {
+    var id = Array.prototype.indexOf.call(this.dots, e.srcElement || e.target);
+    if (id != this.current) {
+      this.callback(id);
+      this.moveTo(id);
+    }
+  }
 }
 
-class PacDots extends NavDots{
-	constructor(parent,dotCount,callback,current,speed){
-		super(parent,dotCount,callback,current,speed||4);
-		this.className="PacDots";
-		this.navDot.id="PacMan";
-	}
-	moveTo(id){
-		let travel=super.moveTo(id);
-		this.navDot.className="bite";
-		if(travel<1){this.navDot.classList.toggle("right");}
-}	}
+class PacDots extends NavDots {
+  constructor(parent, dotCount, callback, current, speed) {
+    super(parent, dotCount, callback, current, speed || 4);
+    this.className = "PacDots";
+    this.navDot.id = "PacMan";
+  }
+  moveTo(id) {
+    let travel = super.moveTo(id);
+    this.navDot.className = "bite";
+    if (travel < 1) {
+      this.navDot.classList.toggle("right");
+    }
+  }
+}
 </script>
 <style>
-html,body{
-	margin:0px;
-	width:100%;
-	height:100%;
-	padding:0px;
+html, body {
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	padding: 0px;
 }
-.container{
-width:100%;
+.container {
+	width: 100%;
 }
-.spacer{
+.spacer {
 	display: block;
 }
 /*Fading Banner*/
-.banner{
+
+.banner {
 	position: relative;
-	width:100vw;
-	height:40vw;
+	width: 100vw;
+	height: 40vw;
 }
 .banner img {
-	left:0px;
-	width:100%;
-	height:100%;
+	left: 0px;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	transition: opacity 1.5s ease-in-out;
 	-o-transition: opacity 1.5s ease-in-out;
@@ -491,19 +803,23 @@ width:100%;
 }
 .banner img.transparent {
 	pointer-events: none;
-	opacity:0;-moz-animation: hide 0s ease-in 2s forwards;
-	-webkit-animation: hide 0s ease-in 2s forwards;/* Firefox */
-	-o-animation: hide 0s ease-in 2s forwards;/* Safari and Chrome */
-	animation: hide 0s ease-in 2s forwards; /* Opera */
+	opacity: 0;
+	-moz-animation: hide 0s ease-in 2s forwards;
+	-webkit-animation: hide 0s ease-in 2s forwards;
+	/* Firefox */
+	-o-animation: hide 0s ease-in 2s forwards;
+	/* Safari and Chrome */
+	animation: hide 0s ease-in 2s forwards;
+	/* Opera */
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
 @keyframes hide, @-webkit-keyframes hide {
 	to {
-		width:0;
-		height:0;
-		overflow:hidden;
-    }
+		width: 0;
+		height: 0;
+		overflow: hidden;
+	}
 }
 /*
 1px		0.14641288433382138VW
@@ -525,36 +841,40 @@ width:100%;
 16px	2.34vw
 24px	3.51vw
 */
+
 /* Navagation Arrows*/
+
 .navDir {
 	opacity: 0;
-    height: 100%;
+	height: 100%;
 	cursor: pointer;
-    position: absolute;
+	position: absolute;
 	transition: opacity 0.6s;
-
 	color: #ffffff;
-	font-size:30vw;
+	font-size: 30vw;
 	line-height: 100%;
 	text-align: center;
-	vertical-align:middle;
+	vertical-align: middle;
 }
-
-.navDir.next { right: 0; }
-.banner:hover > .navDir { opacity: 0.75; }
-.banner .navDir:hover { opacity: 1; }
-
+.navDir.next {
+	right: 0;
+}
+.banner:hover>.navDir {
+	opacity: 0.75;
+}
+.banner .navDir:hover {
+	opacity: 1;
+}
 /* NavDots */
-.navDots{
+
+.navDots {
 	cursor: default;
-	padding: 0.58vw 0.58vw 0.58vw  0.58vw;
+	padding: 0.58vw 0.58vw 0.58vw 0.58vw;
 	display: inline-block;
-	bottom:1.32vw;
-	position:absolute;
-	
+	bottom: 1.32vw;
+	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-  
 	margin: 0 auto;
 }
 .navDots ul {
@@ -575,28 +895,25 @@ width:100%;
 #currentNavDot {
 	width: 1.76vw;
 	height: 1.76vw;
-	position:absolute;
+	position: absolute;
 	border-radius: 100%;
 	display: inline-block;
 	background-color: #ffffff;
 }
-
 /* Pac-Dots */
-.PacDots{
+
+.PacDots {
 	background: #030303;
 	border: 0.29vw solid #5757ff;
 	cursor: default;
 	border-radius: 1.17vw;
-	padding: 0.58vw 0.58vw 0.58vw  0.58vw;
+	padding: 0.58vw 0.58vw 0.58vw 0.58vw;
 	display: inline-block;
-	bottom:1.32vw;
-	position:absolute;
-	
+	bottom: 1.32vw;
+	position: absolute;
 	left: 50%;
-  transform: translateX(-50%);
-  
-  margin: 0 auto;
-	
+	transform: translateX(-50%);
+	margin: 0 auto;
 }
 .PacDots ul {
 	color: #ffffab;
@@ -617,44 +934,47 @@ width:100%;
 #PacMan {
 	width: 1.76vw;
 	height: 1.76vw;
-	position:absolute;
+	position: absolute;
 	border-radius: 100%;
 	display: inline-block;
 	background-color: #ffff57;
 }
-#PacMan.bite{
-	background:rgba(0,0,0,0);
-    transform: rotate(90deg);
+#PacMan.bite {
+	background: rgba(0, 0, 0, 0);
+	transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
 	animation: biting .2s .1s steps(1, end) infinite;
-	background-image: linear-gradient(45deg, #ffff57 50%, transparent 50%),
-					  linear-gradient(-45deg, #ffff57 50%, transparent 50%);
+	background-image: linear-gradient(45deg, #ffff57 50%, transparent 50%), linear-gradient(-45deg, #ffff57 50%, transparent 50%);
 }
-#PacMan.right{
-	-ms-transform: rotate(270deg); /* IE 9 */
-	-webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+#PacMan.right {
+	-ms-transform: rotate(270deg);
+	/* IE 9 */
+	-webkit-transform: rotate(270deg);
+	/* Chrome, Safari, Opera */
 	transform: rotate(270deg);
 }
 @keyframes biting {
-	50% { background-color: #ffff57; }
+	50% {
+		background-color: #ffff57;
+	}
 }
-.pacDir{
+.pacDir {
 	color: #030303;
 	-webkit-text-stroke: 0.29vw #5757ff;
-	 text-shadow:
-       0.15vw 0.15vw 0 #5757ff,
-     -0.15vw -0.15vw 0 #5757ff,
-      0.15vw -0.15vw 0 #5757ff,
-      -0.15vw 0.15vw 0 #5757ff,
-       0.15vw 0.15vw 0 #5757ff;
+	text-shadow: 0.15vw 0.15vw 0 #5757ff, -0.15vw -0.15vw 0 #5757ff, 0.15vw -0.15vw 0 #5757ff, -0.15vw 0.15vw 0 #5757ff, 0.15vw 0.15vw 0 #5757ff;
 }
 .unselectable {
 	user-select: none;
-	-webkit-user-select: none; /* Chrome/Safari/Opera */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	-webkit-touch-callout: none; /* iOS Safari */
-	-khtml-user-select: none; /* Konqueror */
-	-moz-user-select: none; /* Firefox */
+	-webkit-user-select: none;
+	/* Chrome/Safari/Opera */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-khtml-user-select: none;
+	/* Konqueror */
+	-moz-user-select: none;
+	/* Firefox */
 }
 </style>

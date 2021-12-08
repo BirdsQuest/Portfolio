@@ -14,430 +14,729 @@ randomcodode.run/
 ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
 <script>
 var content;
-const t=true,f=false,n=null,run={};
-function onLoad(func){
-	if(document.readyState==='complete'){func();}
-	else{window.onload=((oldLoad,func)=>{
-		return function(){
-			oldLoad && oldLoad();
-			func();
-		}	})(window.onload,func);
-}	}
-onLoad(e=>{
-	content=ACE(document.body,"main");
-	var url = window.location.pathname,
-			filename = url.substring(url.lastIndexOf('/')+1);
-	filename=filename.substring(0,filename.lastIndexOf('.'));
-	HEADER(filename);
-	run[filename]();
+const T = true,
+  F = false,
+  N = null,
+  run = {};
+function onLoad(func) {
+  if (document.readyState === "complete") {
+    func();
+  } else {
+    window.onload = ((oldLoad, func) => {
+      return function () {
+        oldLoad && oldLoad();
+        func();
+      };
+    })(window.onload, func);
+  }
+}
+onLoad((e) => {
+  content = ACE(document.body, "main");
+  var url = window.location.pathname,
+    filename = url.substring(url.lastIndexOf("/") + 1);
+  filename = filename.substring(0, filename.lastIndexOf("."));
+  HEADER(filename);
+  run[filename]();
 });
-function AE(element,parent=content){
-	var origElement=element;
-	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
-	else if(isDefined(element.DOM)){
-		while(element.DOM!=null){
-			element=element.DOM;
-		}
-	}
-	parent.appendChild(element);
-	if("appended" in origElement){origElement.appended();}
-	return origElement;
+function AE(element, parent = content) {
+  var origElement = element;
+  if (parent instanceof DOMObj) {
+    parent.appendChild(element.DOM);
+  } else if (isDefined(element.DOM)) {
+    while (element.DOM != N) {
+      element = element.DOM;
+    }
+  }
+  parent.appendChild(element);
+  if ("appended" in origElement) {
+    origElement.appended();
+  }
+  return origElement;
 }
-function ACE(parent=content){
-	var args=ArgToArr(arguments);
-	args.shift();
-	var element=CE(...args);
-	AE(element,parent);
-	return element;
+function ACE(parent = content) {
+  var args = ArgToArr(arguments);
+  args.shift();
+  var element = CE(...args);
+  AE(element, parent);
+  return element;
 }
-function CE(){
-	var info=ArgToArr(arguments),type,element,fields;
-	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
-		fields=cElement[info[0]];
-	}else{
-		fields=[info[0],"generic"];
-	}
-	element=document.createElement(fields[0]);
-	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
-	if(fields[1]=="generic"){fields=cElement["generic"];}
-	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
-	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
-	for(let index=1;index<fields.length;index++){
-		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
-		else if(info[index]==null){}
-		else if(fields[index]=="content"){
-			if(info[index]!=null){
-				if(info[index] instanceof Array){
-					for(let innerdex=0;innerdex<info[index].length;innerdex++){
-						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
-						AE(info[index][innerdex],element);
-					}
-				}else{element.innerText=info[index];}
-		}	}
-		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
-		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
-		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
-		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
-		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
-		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
-	}
-	return element;
+function CE() {
+  var info = ArgToArr(arguments),
+    type,
+    element,
+    fields;
+  if (cElement.hasOwnProperty(info[0])) {
+    //Check that it's in the valid command list
+    fields = cElement[info[0]];
+  } else {
+    fields = [info[0], "generic"];
+  }
+  element = document.createElement(fields[0]);
+  if (["svg", "polygon"].indexOf(fields[0]) != -1) {
+    element = document.createElementNS("http://www.w3.org/2000/svg", fields[0]);
+  }
+  if (fields[1] == "generic") {
+    fields = cElement["generic"];
+  } else if (fields[1] == "func") {
+    return cElement[info[0]][2](...info);
+  } else if (fields[0] == "domobj") {
+    return new fields[1](...info.shift());
+  }
+  for (let index = 1; index < fields.length; index++) {
+    if (fields[index] == "set") {
+      element[fields[++index]] = fields[++index];
+    } else if (info[index] == N) {
+    } else if (fields[index] == "content") {
+      if (info[index] != N) {
+        if (info[index] instanceof Array) {
+          for (let innerdex = 0; innerdex < info[index].length; innerdex++) {
+            if (typeof info[index][innerdex] == "string") {
+              info[index][innerdex] = document.createTextNode(
+                info[index][innerdex]
+              );
+            }
+            AE(info[index][innerdex], element);
+          }
+        } else {
+          element.innerText = info[index];
+        }
+      }
+    } else if (fields[index] == "keySet") {
+      forIn(info[index], (key, value) => {
+        element.setAttribute(key, value);
+      });
+    } else if (fields[index] == "rt") {
+      element.appendChild(CE("rt", info[index]));
+    } else if (fields[index] == "points") {
+      element.setAttribute(fields[index], info[index]);
+    } else if (["onclick"].indexOf(fields[index]) != -1) {
+      element.addEventListener("click", info[index]);
+    } else if (["innerText"].indexOf(fields[index]) != -1) {
+      element[fields[index]] = info[index];
+    } else if (info[index] != N) {
+      element.setAttribute(fields[index], info[index]);
+    }
+  }
+  return element;
 }
-function addCE(){
-	let args=ArgsToArr(arguments);
-	cElement[args.pop()]=args;
+function addCE() {
+  let args = ArgsToArr(arguments);
+  cElement[args.pop()] = args;
 }
-const cElement={
-	'img':["img","id","src","alt","class","onclick","keySet"],//image
-	'generic':["","content","id","class","onclick","keySet"]
+const cElement = {
+  generic: ["", "content", "class", "onclick", "keySet"],
 };
-function br(parent=content){return ACE(parent,"br");}
-
-class DOMObj{
-	constructor(parent){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-		this.DOM=CE("div");
-		if(isDefined(this.preGen)){this.preGen();}
-		this.boundEvents={};
-		let keywords=[
-	    	//Keyboard Events
-	    	["keyUp","keyup"],["keyDown","keydown"],
-	    	//Mouse Events
-	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
-	    	//Element Events
-	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
-	    	//Drag/Drop Events
-		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
-		
-		];
-
-		this.generate();
-		
-		for(let id=0; id<keywords.length;id++){
-			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
-		}
-		if(isDefined(this.postGen)){this.postGen();}
-	}
-	addListener(listener,func,DOM=this.DOM){
-		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
-		this.boundEvents[listener]=func.bind(this);
-		DOM.addEventListener(listener,this.boundEvents[listener],false);
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return obj=>{obj[arg]=this[arg].bind(this)}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	removeListener(listener,DOM=this.DOM){
-		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
-			delete this.boundEvents[listener];
-		}catch(e){}
-	}
-	preventDefault(e){
-		if(e.preventDefault){e.preventDefault();}
-		if(e.stopPropagation){e.stopPropagation();}
-	}
-	generate(parent){return null;}
-	insertChild(parent,index){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(parent.DOM!=null){parent=parent.DOM;}
-		if(index>=parent.children.length){AE(DOM,parent);}
-		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
-	}
-	insertAfter(element){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(!isDOM(element)){element=element.DOM;}
-			element.parentNode.insertBefore(DOM, element.nextSibling);
-	}
-	appendChild(object){
-		while(object.DOM!=null){object=object.DOM;}
-		this.DOM.appendChild(object);
-	}
-	removeChild(object){this.DOM.removeChild(object);}
-	remove(){
-		if(this.parentNode!=null){
-			var object=this.DOM;
-			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
-			this.parentNode.removeChild(object);
-	}	}
-	toggleCSS(rule,DOM=this.DOM){
-		if(!DOM.classList.contains(rule)){
-			DOM.classList.add(rule);
-		}else{
-			DOM.classList.remove(rule);
-		}
-	}
-	overlaps(elem){
-		return !((this.bottom < elem.top) ||
-						(this.top > elem.bottom) ||
-						(this.right < elem.left) ||
-						(this.left > elem.right))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-	get height(){return this.DOM.offsetHeight;}
-	get width(){return this.DOM.offsetWidth;}
-	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
-	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
-	get top(){return this.DOM.offsetTop;}
-	get classList(){return this.DOM.classList;}
-	get left(){return this.DOM.offsetLeft;}
-	get right(){return this.left+this.width;}
-	get bottom(){return this.top+this.height;}
-	get innerHTML(){return this.DOM.innerHtml;}
-	set hidden(hidden){
-		if(hidden&&!this.DOM.classList.contains("hidden")){
-			this.DOM.classList.add("hidden");
-		}else if(!hidden&&this.DOM.classList.contains("hidden")){
-			this.DOM.classList.remove("hidden");
-		}
-	}
-	get innerText(){return this.DOM.innerText;}
-	set innerText(text){this.DOM.innerText=text;}
-	get className(){return this.DOM.className;}
-	set className(className){this.DOM.className=className;}
-	get childNodes(){return this.DOM.childNodes;}
-	get children(){return this.DOM.children;}
-	clearChildren(){
-		this.DOM.innerHTML="";
-	}
-	get parentNode(){
-		var node=this.DOM;
-		while(node.DOM!=null){node=node.DOM;}
-		return node.parentNode;
-	}
-	replaceDOM(object){
-		while(object.DOM!=null){object=object.DOM;}
-		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
-		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
-		this.DOM=object;
-	}
+function br(parent = content) {
+  return ACE(parent, "br");
 }
-class ExtendedObj extends DOMObj{
-	constructor(args){super("args",args);}
-	expand(object){
-		for(let index=0;index<this.args.length;index++){
-			object[this.args[index++]]=this.args[index];
-		}
-	}
-}
-function ArgToArr(arg){return Array.prototype.slice.call(arg);}
-function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
 
-function isDefined(object){return typeof object!='undefined';}
+class DOMObj {
+  constructor(parent) {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+    this.DOM = CE("div");
+    if (isDefined(this.preGen)) {
+      this.preGen();
+    }
+    this.boundEvents = {};
+    let keywords = [
+      //Keyboard Events
+      ["keyUp", "keyup"],
+      ["keyDown", "keydown"],
+      //Mouse Events
+      ["onClick", "click"],
+      ["mouseUp", "mouseup"],
+      ["hover", "mousemove"],
+      ["mouseDown", "mousedown"],
+      ["mouseOut", "mouseout"],
+      ["mouseIn", "mouseenter"],
+      ["contextMenu", "contextmenu"],
+      //Element Events
+      ["onBlur", "focusout"],
+      ["onFocus", "onfocus"],
+      ["onChange", "change"],
+      //Drag/Drop Events
+      ["drag", "drag"],
+      ["dragStart", "dragstart"],
+      ["dragEnd", "dragend"],
+      ["dragOn", "dragenter"],
+      ["dragOff", "dragleave"],
+      ["dragOver", "dragover"],
+      ["drop", "drop"],
+    ];
 
-const	image={};
-onLoad(()=>{
-	B64Img.preload();
-	if(B64Img.has("background")){document.body.style.backgroundImage="url('"+B64Img.get("background").src+"')";}
-	if(B64Img.has("favicon")){CE("favico",B64Img.get("favicon").src);}
-});
-class Obj{
-	constructor(){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-	}
-	static null(){
-		var object=new Obj(), fields=arguments;
-		for(let index=0;index<fields.length;index++){
-			object[fields[index]]=null;
-		}
-		return object;
-	}
-	static extendable(variableCount,args){
-		return new ExtendedObj(ArgToArr(args).slice(variableCount));
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return (obj)=>{obj[arg]=this[arg].bind(this);}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
+    this.generate();
+
+    for (let id = 0; id < keywords.length; id++) {
+      if (this[keywords[id][0]] != N) {
+        this.addListener(keywords[id][1], this[keywords[id][0]]);
+      }
+    }
+    if (isDefined(this.postGen)) {
+      this.postGen();
+    }
+  }
+  addListener(listener, func, DOM = this.DOM) {
+    if (this.boundEvents.hasOwnProperty(listener)) {
+      this.removeListener(listener, DOM);
+    }
+    this.boundEvents[listener] = func.bind(this);
+    DOM.addEventListener(listener, this.boundEvents[listener], F);
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  removeListener(listener, DOM = this.DOM) {
+    try {
+      DOM.removeEventListener(listener, this.boundEvents[listener]);
+      delete this.boundEvents[listener];
+    } catch (e) {}
+  }
+  preventDefault(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  }
+  generate(parent) {
+    return N;
+  }
+  insertChild(parent, index) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (parent.DOM != N) {
+      parent = parent.DOM;
+    }
+    if (index >= parent.children.length) {
+      AE(DOM, parent);
+    } else {
+      parent.insertBefore(DOM, parent.children[index].nextSibling);
+    }
+  }
+  insertAfter(element) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (!isDOM(element)) {
+      element = element.DOM;
+    }
+    element.parentNode.insertBefore(DOM, element.nextSibling);
+  }
+  appendChild(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    this.DOM.appendChild(object);
+  }
+  removeChild(object) {
+    this.DOM.removeChild(object);
+  }
+  remove() {
+    if (this.parentNode != N) {
+      var object = this.DOM;
+      while (object != N && object instanceof DOMObj) {
+        object = object.DOM;
+      }
+      this.parentNode.removeChild(object);
+    }
+  }
+  toggleCSS(rule, DOM = this.DOM) {
+    if (!DOM.classList.contains(rule)) {
+      DOM.classList.add(rule);
+    } else {
+      DOM.classList.remove(rule);
+    }
+  }
+  overlaps(elem) {
+    return !(
+      this.bottom < elem.top ||
+      this.top > elem.bottom ||
+      this.right < elem.left ||
+      this.left > elem.right
+    );
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+  get height() {
+    return this.DOM.offsetHeight;
+  }
+  get width() {
+    return this.DOM.offsetWidth;
+  }
+  set width(width) {
+    if (width != N) {
+      this.DOM.style.width = width + "px";
+    }
+  }
+  set height(height) {
+    if (height != N) {
+      this.DOM.style.height = height + "px";
+    }
+  }
+  get top() {
+    return this.DOM.offsetTop;
+  }
+  get classList() {
+    return this.DOM.classList;
+  }
+  get left() {
+    return this.DOM.offsetLeft;
+  }
+  get right() {
+    return this.left + this.width;
+  }
+  get bottom() {
+    return this.top + this.height;
+  }
+  get innerHTML() {
+    return this.DOM.innerHtml;
+  }
+  set hidden(hidden) {
+    if (hidden && !this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.add("hidden");
+    } else if (!hidden && this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.remove("hidden");
+    }
+  }
+  get innerText() {
+    return this.DOM.innerText;
+  }
+  set innerText(text) {
+    this.DOM.innerText = text;
+  }
+  get className() {
+    return this.DOM.className;
+  }
+  set className(className) {
+    this.DOM.className = className;
+  }
+  get childNodes() {
+    return this.DOM.childNodes;
+  }
+  get children() {
+    return this.DOM.children;
+  }
+  clearChildren() {
+    this.DOM.innerHTML = "";
+  }
+  get parentNode() {
+    var node = this.DOM;
+    while (node.DOM != N) {
+      node = node.DOM;
+    }
+    return node.parentNode;
+  }
+  replaceDOM(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    var index = Array.from(this.parentNode.children).indexOf(this.DOM); //only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+    this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+    this.DOM = object;
+  }
 }
-class SimpleLoader extends Obj{
-	constructor(finishedLoading,items){super("finishedLoading",finishedLoading,"items",items||0);}
-	addItem(){this.items++;}
-	addItems(ammount=0){this.items+=ammount;}
-	removeItem(){this.items--;this.checkLoader();}
-	checkLoader(){
-		if(this.items!=0){
-			this.load();
-		}else if(this.finishedLoading!=null){this.finishedLoading();}
-	}
-	load(){
-			if(this.items==0){
-				this.finishedLoading();}
-	}
+class ExtendedObj extends DOMObj {
+  constructor(args) {
+    super("args", args);
+  }
+  expand(object) {
+    for (let index = 0; index < this.args.length; index++) {
+      object[this.args[index++]] = this.args[index];
+    }
+  }
 }
-function isArray(array){return array instanceof Array;}
-function hasKey(object,key){return object.hasOwnProperty(key);}
+function ArgToArr(arg) {
+  return Array.prototype.slice.call(arg);
+}
+function forIn(object, callback) {
+  for (let key in object) {
+    callback(key, object[key]);
+  }
+}
+
+function isDefined(object) {
+  return typeof object != "undefined";
+}
+
+class Obj {
+  constructor() {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+  }
+  static null() {
+    var object = new Obj(),
+      fields = arguments;
+    for (let index = 0; index < fields.length; index++) {
+      object[fields[index]] = N;
+    }
+    return object;
+  }
+  static extendable(variableCount, args) {
+    return new ExtendedObj(ArgToArr(args).slice(variableCount));
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+}
+class SimpleLoader extends Obj {
+  constructor(finishedLoading, items) {
+    super("finishedLoading", finishedLoading, "items", items || 0);
+  }
+  addItem() {
+    this.items++;
+  }
+  addItems(ammount = 0) {
+    this.items += ammount;
+  }
+  removeItem() {
+    this.items--;
+    this.checkLoader();
+  }
+  checkLoader() {
+    if (this.items != 0) {
+      this.load();
+    } else if (this.finishedLoading != N) {
+      this.finishedLoading();
+    }
+  }
+  load() {
+    if (this.items == 0) {
+      this.finishedLoading();
+    }
+  }
+}
+function isArray(array) {
+  return array instanceof Array;
+}
+function hasKey(object, key) {
+  return object.hasOwnProperty(key);
+}
 </script>
 <script>
-run.gameTime=e=>{AE(new GameTime());};
-class GameTime extends DOMObj{
-	constructor(ticks){super("currentRealDate",new Date(),"running",true,"ticks",ticks||[]);}
-	generate(){
-		this.className="gameTime";
-		this.clock=ACE(this.DOM,"div","00:00");
-		this.calendar=ACE(this.DOM,"div","1/1/2000");
-		this.seasonDOM=ACE(this.DOM,"div");
-		this.partOfDayDOM=ACE(this.DOM,"div");
-		this.getTime();
-		this.onTick=setInterval(()=>{
-			if(!this.running){clearInterval(this.onTick);}
-			this.getTime();
-			this.ticks.map((tick)=>{tick();});
-		},15000);
-	}
-	getTime(){
-		this.currentRealDate=new Date();
-		//2 hour day cycle and two hour night cycle
-		let epoch="2019-01-01";
-		//Days Since Epoch
-		let days=Math.round(Math.abs((new Date(...epoch.split("-")).getTime()-this.currentRealDate.getTime())/(24*60*60*1000)));
+run.gameTime = (e) => {
+  AE(new GameTime());
+};
+class GameTime extends DOMObj {
+  constructor(ticks) {
+    super("currentRealDate", new Date(), "running", T, "ticks", ticks || []);
+  }
+  generate() {
+    this.className = "gameTime";
+    this.clock = ACE(this.DOM, "div", "00:00");
+    this.calendar = ACE(this.DOM, "div", "1/1/2000");
+    this.seasonDOM = ACE(this.DOM, "div");
+    this.partOfDayDOM = ACE(this.DOM, "div");
+    this.getTime();
+    this.onTick = setInterval(() => {
+      if (!this.running) {
+        clearInterval(this.onTick);
+      }
+      this.getTime();
+      this.ticks.map((tick) => {
+        tick();
+      });
+    }, 15000);
+  }
+  getTime() {
+    this.currentRealDate = new Date();
+    //2 hour day cycle and two hour night cycle
+    let epoch = "2019-01-01";
+    //Days Since Epoch
+    let days = Math.round(
+      Math.abs(
+        (new Date(...epoch.split("-")).getTime() -
+          this.currentRealDate.getTime()) /
+          (24 * 60 * 60 * 1000)
+      )
+    );
 
-		days*=4;//4 ingame days to one real day
-		let day=new Date(this.currentRealDate.valueOf());
-    day.setDate(day.getDate()+days);
-		
-		let hour=day.getHours()*4;
-		let minute=day.getMinutes()*4;
-		let second=day.getSeconds()*4;
-		
-		let bleedTime=Math.floor(second/60);
-		second=("0"+(second-bleedTime*60)).slice(-2);
-		
-		minute+=bleedTime;
-		bleedTime=Math.floor(minute/60);
-		minute=("0"+(minute-bleedTime*60)).slice(-2);
-		
-		hour+=bleedTime;
-		bleedTime=Math.floor(hour/24);
-		hour-=bleedTime*24;
-		
-		day.setDate(day.getDate()+bleedTime);
-		day.setHours(hour);
-		day.setMinutes(minute);
-		day.setSeconds(second);
-		this.date=day;
-		this.clock.innerText=this.time;
-		this.calendar.innerText=this.fullDate;
-		this.seasonDOM.innerText=GameTime.SEASONS[this.season];
-		this.partOfDayDOM.innerText=GameTime.PARTSOFDAY[this.partOfDay];
-		return day;
-	}
-	get time(){
-		let hour=this.hour,amPM=hour<12?"am":"pm";
-		if(amPM=="pm"){hour-=12;}
-		if(hour==0){hour=12;}
-		else{hour=("0"+hour).slice(-2);}
-		return hour+":"+("0"+this.minute).slice(-2)+amPM;
-	}
-	get hour(){return this.date.getHours();}
-	get minute(){return this.date.getMinutes();}
-	get weekDay(){return this.date.getDay();}
-	get day(){return this.date.getDate();}
-	get month(){return this.date.getMonth();}
-	get monthName(){return GameTime.MONTHS[this.month];}
-	get year(){return this.date.getFullYear();}
-	get fullDate(){return `${this.day}/${this.month}/${this.year}`;}
-	get partOfDay(){
-		let hour=this.hour;
-		if(hour<1){hour=0;}
-		else if(hour<5){hour=1;}//#3164c6
-		else if(hour==5&&this.minute<31){hour=2;}//#7c4199
-		else if(hour<6){hour=3;}//#f15858
-		else if(hour<12){hour=4;}//#ffce64
-		else if(hour<13){hour=5;}
-		else if(hour<17){hour=6;}
-		else if(hour<18){hour=7;}
-		else if(hour==18&&this.minute<31){hour=8;}
-		else if(hour<20||hour==20&&this.minute<31){hour=9;}//#3164c6
-		else{hour=10;}//#312e57
-		//Set background
-		let image=GameTime.IMAGES.indexOf(hour);
-		if(image==-1){image--}
-		if(image<0){GameTime.IMAGES.length-1;}
-		document.body.style.backgroundImage="url('images/gameTime/tod"+GameTime.IMAGES[image]+".png')";
-		return hour;
-	}
-	get season(){
-		let season=this.date.getMonth();
-		if(season<3){season=0;}
-		else if(season<6){season=1;}
-		else if(season<9){season=2;}
-		else if(season<12){season=3;}
-		else{season=0;}
-		//TODO: set weather effects
-		
-		return season;
-	}
+    days *= 4; //4 ingame days to one real day
+    let day = new Date(this.currentRealDate.valueOf());
+    day.setDate(day.getDate() + days);
+
+    let hour = day.getHours() * 4;
+    let minute = day.getMinutes() * 4;
+    let second = day.getSeconds() * 4;
+
+    let bleedTime = Math.floor(second / 60);
+    second = ("0" + (second - bleedTime * 60)).slice(-2);
+
+    minute += bleedTime;
+    bleedTime = Math.floor(minute / 60);
+    minute = ("0" + (minute - bleedTime * 60)).slice(-2);
+
+    hour += bleedTime;
+    bleedTime = Math.floor(hour / 24);
+    hour -= bleedTime * 24;
+
+    day.setDate(day.getDate() + bleedTime);
+    day.setHours(hour);
+    day.setMinutes(minute);
+    day.setSeconds(second);
+    this.date = day;
+    this.clock.innerText = this.time;
+    this.calendar.innerText = this.fullDate;
+    this.seasonDOM.innerText = GameTime.SEASONS[this.season];
+    this.partOfDayDOM.innerText = GameTime.PARTSOFDAY[this.partOfDay];
+    return day;
+  }
+  get time() {
+    let hour = this.hour,
+      amPM = hour < 12 ? "am" : "pm";
+    if (amPM == "pm") {
+      hour -= 12;
+    }
+    if (hour == 0) {
+      hour = 12;
+    } else {
+      hour = ("0" + hour).slice(-2);
+    }
+    return hour + ":" + ("0" + this.minute).slice(-2) + amPM;
+  }
+  get hour() {
+    return this.date.getHours();
+  }
+  get minute() {
+    return this.date.getMinutes();
+  }
+  get weekDay() {
+    return this.date.getDay();
+  }
+  get day() {
+    return this.date.getDate();
+  }
+  get month() {
+    return this.date.getMonth();
+  }
+  get monthName() {
+    return GameTime.MONTHS[this.month];
+  }
+  get year() {
+    return this.date.getFullYear();
+  }
+  get fullDate() {
+    return `${this.day}/${this.month}/${this.year}`;
+  }
+  get partOfDay() {
+    let hour = this.hour;
+    if (hour < 1) {
+      hour = 0;
+    } else if (hour < 5) {
+      hour = 1;
+    } //#3164c6
+    else if (hour == 5 && this.minute < 31) {
+      hour = 2;
+    } //#7c4199
+    else if (hour < 6) {
+      hour = 3;
+    } //#f15858
+    else if (hour < 12) {
+      hour = 4;
+    } //#ffce64
+    else if (hour < 13) {
+      hour = 5;
+    } else if (hour < 17) {
+      hour = 6;
+    } else if (hour < 18) {
+      hour = 7;
+    } else if (hour == 18 && this.minute < 31) {
+      hour = 8;
+    } else if (hour < 20 || (hour == 20 && this.minute < 31)) {
+      hour = 9;
+    } //#3164c6
+    else {
+      hour = 10;
+    } //#312e57
+    //Set background
+    let image = GameTime.IMAGES.indexOf(hour);
+    if (image == -1) {
+      image--;
+    }
+    if (image < 0) {
+      GameTime.IMAGES.length - 1;
+    }
+    document.body.style.backgroundImage =
+      "url('images/gameTime/tod" + GameTime.IMAGES[image] + ".png')";
+    return hour;
+  }
+  get season() {
+    let season = this.date.getMonth();
+    if (season < 3) {
+      season = 0;
+    } else if (season < 6) {
+      season = 1;
+    } else if (season < 9) {
+      season = 2;
+    } else if (season < 12) {
+      season = 3;
+    } else {
+      season = 0;
+    }
+    //TODO: set weather effects
+
+    return season;
+  }
 }
-GameTime.SEASONS=["Winter","Spring","Summer","Autumn"];
-GameTime.PARTSOFDAY=["Midnight","Early Morning","Sunrise","Dawn","Morning","Noon","Afternoon","Twilight","Sunset","Evening","Night"];
-GameTime.IMAGES=[1,3,4,6,7,8,9,10];
-GameTime.MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+GameTime.SEASONS = ["Winter", "Spring", "Summer", "Autumn"];
+GameTime.PARTSOFDAY = [
+  "Midnight",
+  "Early Morning",
+  "Sunrise",
+  "Dawn",
+  "Morning",
+  "Noon",
+  "Afternoon",
+  "Twilight",
+  "Sunset",
+  "Evening",
+  "Night",
+];
+GameTime.IMAGES = [1, 3, 4, 6, 7, 8, 9, 10];
+GameTime.MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-class Weather extends DOMObj{
-	constructor(){super();}
-	generate(){
-	}
+class Weather extends DOMObj {
+  constructor() {
+    super();
+  }
+  generate() {}
 }
-
 </script>
 <style>
-body{height:100%;background-size: cover;}
-.gameTime{
-	margin:10%;
-	opacity:0.5;
-	border:solid;
-	border-radius:10px;
-	background-color:white;
-	padding:20px;
-	font-weight:bold;
-	font-size:50px;
-	text-align:center;
+body {
+	height: 100%;
+	background-size: cover;
 }
-.gameTime .date{height:173px;position:relative;}
-.gameTime .date .topBar{background:red;margin:auto;height: 50px;position:absolute;}
-.gameTime .date .month{color:white;height:50px;top:0;left:0;position:absolute;}
-.gameTime .date .weekday{top:15px;bottom:32px;position:absolute;}
-.gameTime .date .day{top:89px;bottom:152;position:absolute;}
-.gameTime .date .year{top:160;font-size:12;position:absolute;}
+.gameTime {
+	margin: 10%;
+	opacity: 0.5;
+	border: solid;
+	border-radius: 10px;
+	background-color: white;
+	padding: 20px;
+	font-weight: bold;
+	font-size: 50px;
+	text-align: center;
+}
+.gameTime .date {
+	height: 173px;
+	position: relative;
+}
+.gameTime .date .topBar {
+	background: red;
+	margin: auto;
+	height: 50px;
+	position: absolute;
+}
+.gameTime .date .month {
+	color: white;
+	height: 50px;
+	top: 0;
+	left: 0;
+	position: absolute;
+}
+.gameTime .date .weekday {
+	top: 15px;
+	bottom: 32px;
+	position: absolute;
+}
+.gameTime .date .day {
+	top: 89px;
+	bottom: 152;
+	position: absolute;
+}
+.gameTime .date .year {
+	top: 160;
+	font-size: 12;
+	position: absolute;
+}
 </style>

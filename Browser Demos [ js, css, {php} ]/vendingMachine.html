@@ -14,366 +14,657 @@ randomcodode.run/
 ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
 <script>
 var content;
-const t=true,f=false,n=null,run={};
-function onLoad(func){
-	if(document.readyState==='complete'){func();}
-	else{window.onload=((oldLoad,func)=>{
-		return function(){
-			oldLoad && oldLoad();
-			func();
-		}	})(window.onload,func);
-}	}
-onLoad(e=>{
-	content=ACE(document.body,"main");
-	var url = window.location.pathname,
-			filename = url.substring(url.lastIndexOf('/')+1);
-	filename=filename.substring(0,filename.lastIndexOf('.'));
-	HEADER(filename);
-	run[filename]();
+const T = true,
+  F = false,
+  N = null,
+  run = {};
+function onLoad(func) {
+  if (document.readyState === "complete") {
+    func();
+  } else {
+    window.onload = ((oldLoad, func) => {
+      return function () {
+        oldLoad && oldLoad();
+        func();
+      };
+    })(window.onload, func);
+  }
+}
+onLoad((e) => {
+  content = ACE(document.body, "main");
+  var url = window.location.pathname,
+    filename = url.substring(url.lastIndexOf("/") + 1);
+  filename = filename.substring(0, filename.lastIndexOf("."));
+  HEADER(filename);
+  run[filename]();
 });
-function AE(element,parent=content){
-	var origElement=element;
-	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
-	else if(isDefined(element.DOM)){
-		while(element.DOM!=null){
-			element=element.DOM;
-		}
-	}
-	parent.appendChild(element);
-	if("appended" in origElement){origElement.appended();}
-	return origElement;
+function AE(element, parent = content) {
+  var origElement = element;
+  if (parent instanceof DOMObj) {
+    parent.appendChild(element.DOM);
+  } else if (isDefined(element.DOM)) {
+    while (element.DOM != N) {
+      element = element.DOM;
+    }
+  }
+  parent.appendChild(element);
+  if ("appended" in origElement) {
+    origElement.appended();
+  }
+  return origElement;
 }
-function ACE(parent=content){
-	var args=ArgToArr(arguments);
-	args.shift();
-	var element=CE(...args);
-	AE(element,parent);
-	return element;
+function ACE(parent = content) {
+  var args = ArgToArr(arguments);
+  args.shift();
+  var element = CE(...args);
+  AE(element, parent);
+  return element;
 }
-function CE(){
-	var info=ArgToArr(arguments),type,element,fields;
-	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
-		fields=cElement[info[0]];
-	}else{
-		fields=[info[0],"generic"];
-	}
-	element=document.createElement(fields[0]);
-	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
-	if(fields[1]=="generic"){fields=cElement["generic"];}
-	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
-	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
-	for(let index=1;index<fields.length;index++){
-		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
-		else if(info[index]==null){}
-		else if(fields[index]=="content"){
-			if(info[index]!=null){
-				if(info[index] instanceof Array){
-					for(let innerdex=0;innerdex<info[index].length;innerdex++){
-						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
-						AE(info[index][innerdex],element);
-					}
-				}else{element.innerText=info[index];}
-		}	}
-		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
-		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
-		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
-		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
-		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
-		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
-	}
-	return element;
+function CE() {
+  var info = ArgToArr(arguments),
+    type,
+    element,
+    fields;
+  if (cElement.hasOwnProperty(info[0])) {
+    //Check that it's in the valid command list
+    fields = cElement[info[0]];
+  } else {
+    fields = [info[0], "generic"];
+  }
+  element = document.createElement(fields[0]);
+  if (["svg", "polygon"].indexOf(fields[0]) != -1) {
+    element = document.createElementNS("http://www.w3.org/2000/svg", fields[0]);
+  }
+  if (fields[1] == "generic") {
+    fields = cElement["generic"];
+  } else if (fields[1] == "func") {
+    return cElement[info[0]][2](...info);
+  } else if (fields[0] == "domobj") {
+    return new fields[1](...info.shift());
+  }
+  for (let index = 1; index < fields.length; index++) {
+    if (fields[index] == "set") {
+      element[fields[++index]] = fields[++index];
+    } else if (info[index] == N) {
+    } else if (fields[index] == "content") {
+      if (info[index] != N) {
+        if (info[index] instanceof Array) {
+          for (let innerdex = 0; innerdex < info[index].length; innerdex++) {
+            if (typeof info[index][innerdex] == "string") {
+              info[index][innerdex] = document.createTextNode(
+                info[index][innerdex]
+              );
+            }
+            AE(info[index][innerdex], element);
+          }
+        } else {
+          element.innerText = info[index];
+        }
+      }
+    } else if (fields[index] == "keySet") {
+      forIn(info[index], (key, value) => {
+        element.setAttribute(key, value);
+      });
+    } else if (fields[index] == "rt") {
+      element.appendChild(CE("rt", info[index]));
+    } else if (fields[index] == "points") {
+      element.setAttribute(fields[index], info[index]);
+    } else if (["onclick"].indexOf(fields[index]) != -1) {
+      element.addEventListener("click", info[index]);
+    } else if (["innerText"].indexOf(fields[index]) != -1) {
+      element[fields[index]] = info[index];
+    } else if (info[index] != N) {
+      element.setAttribute(fields[index], info[index]);
+    }
+  }
+  return element;
 }
-function addCE(){
-	let args=ArgsToArr(arguments);
-	cElement[args.pop()]=args;
+function addCE() {
+  let args = ArgsToArr(arguments);
+  cElement[args.pop()] = args;
 }
-const cElement={
-	'cvs':["canvas","id","class","onclick","left","top","width","height"],//Canvas
-	'img':["img","id","src","alt","class","onclick","keySet"],//image
-	'generic':["","content","id","class","onclick","keySet"]
+const cElement = {
+  cvs: ["canvas", "width", "height", "class", "onclick", "keySet"], //Canvas
+  img: ["img", "src", "alt", "class", "onclick", "keySet"], //image
+  generic: ["", "content", "class", "onclick", "keySet"],
 };
-function br(parent=content){return ACE(parent,"br");}
-
-class DOMObj{
-	constructor(parent){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-		this.DOM=CE("div");
-		if(isDefined(this.preGen)){this.preGen();}
-		this.boundEvents={};
-		let keywords=[
-	    	//Keyboard Events
-	    	["keyUp","keyup"],["keyDown","keydown"],
-	    	//Mouse Events
-	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
-	    	//Element Events
-	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
-	    	//Drag/Drop Events
-		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
-		
-		];
-
-		this.generate();
-		
-		for(let id=0; id<keywords.length;id++){
-			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
-		}
-		if(isDefined(this.postGen)){this.postGen();}
-	}
-	addListener(listener,func,DOM=this.DOM){
-		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
-		this.boundEvents[listener]=func.bind(this);
-		DOM.addEventListener(listener,this.boundEvents[listener],false);
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return obj=>{obj[arg]=this[arg].bind(this)}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	removeListener(listener,DOM=this.DOM){
-		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
-			delete this.boundEvents[listener];
-		}catch(e){}
-	}
-	preventDefault(e){
-		if(e.preventDefault){e.preventDefault();}
-		if(e.stopPropagation){e.stopPropagation();}
-	}
-	generate(parent){return null;}
-	insertChild(parent,index){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(parent.DOM!=null){parent=parent.DOM;}
-		if(index>=parent.children.length){AE(DOM,parent);}
-		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
-	}
-	insertAfter(element){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(!isDOM(element)){element=element.DOM;}
-			element.parentNode.insertBefore(DOM, element.nextSibling);
-	}
-	appendChild(object){
-		while(object.DOM!=null){object=object.DOM;}
-		this.DOM.appendChild(object);
-	}
-	removeChild(object){this.DOM.removeChild(object);}
-	remove(){
-		if(this.parentNode!=null){
-			var object=this.DOM;
-			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
-			this.parentNode.removeChild(object);
-	}	}
-	toggleCSS(rule,DOM=this.DOM){
-		if(!DOM.classList.contains(rule)){
-			DOM.classList.add(rule);
-		}else{
-			DOM.classList.remove(rule);
-		}
-	}
-	overlaps(elem){
-		return !((this.bottom < elem.top) ||
-						(this.top > elem.bottom) ||
-						(this.right < elem.left) ||
-						(this.left > elem.right))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-	get height(){return this.DOM.offsetHeight;}
-	get width(){return this.DOM.offsetWidth;}
-	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
-	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
-	get top(){return this.DOM.offsetTop;}
-	get classList(){return this.DOM.classList;}
-	get left(){return this.DOM.offsetLeft;}
-	get right(){return this.left+this.width;}
-	get bottom(){return this.top+this.height;}
-	get innerHTML(){return this.DOM.innerHtml;}
-	set hidden(hidden){
-		if(hidden&&!this.DOM.classList.contains("hidden")){
-			this.DOM.classList.add("hidden");
-		}else if(!hidden&&this.DOM.classList.contains("hidden")){
-			this.DOM.classList.remove("hidden");
-		}
-	}
-	get innerText(){return this.DOM.innerText;}
-	set innerText(text){this.DOM.innerText=text;}
-	get className(){return this.DOM.className;}
-	set className(className){this.DOM.className=className;}
-	get childNodes(){return this.DOM.childNodes;}
-	get children(){return this.DOM.children;}
-	clearChildren(){
-		this.DOM.innerHTML="";
-	}
-	get parentNode(){
-		var node=this.DOM;
-		while(node.DOM!=null){node=node.DOM;}
-		return node.parentNode;
-	}
-	replaceDOM(object){
-		while(object.DOM!=null){object=object.DOM;}
-		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
-		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
-		this.DOM=object;
-	}
+function br(parent = content) {
+  return ACE(parent, "br");
 }
-class ExtendedObj extends DOMObj{
-	constructor(args){super("args",args);}
-	expand(object){
-		for(let index=0;index<this.args.length;index++){
-			object[this.args[index++]]=this.args[index];
-		}
-	}
-}
-function ArgToArr(arg){return Array.prototype.slice.call(arg);}
-function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
 
-function isDefined(object){return typeof object!='undefined';}
+class DOMObj {
+  constructor(parent) {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+    this.DOM = CE("div");
+    if (isDefined(this.preGen)) {
+      this.preGen();
+    }
+    this.boundEvents = {};
+    let keywords = [
+      //Keyboard Events
+      ["keyUp", "keyup"],
+      ["keyDown", "keydown"],
+      //Mouse Events
+      ["onClick", "click"],
+      ["mouseUp", "mouseup"],
+      ["hover", "mousemove"],
+      ["mouseDown", "mousedown"],
+      ["mouseOut", "mouseout"],
+      ["mouseIn", "mouseenter"],
+      ["contextMenu", "contextmenu"],
+      //Element Events
+      ["onBlur", "focusout"],
+      ["onFocus", "onfocus"],
+      ["onChange", "change"],
+      //Drag/Drop Events
+      ["drag", "drag"],
+      ["dragStart", "dragstart"],
+      ["dragEnd", "dragend"],
+      ["dragOn", "dragenter"],
+      ["dragOff", "dragleave"],
+      ["dragOver", "dragover"],
+      ["drop", "drop"],
+    ];
 
-class Obj{
-	constructor(){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-	}
-	static null(){
-		var object=new Obj(), fields=arguments;
-		for(let index=0;index<fields.length;index++){
-			object[fields[index]]=null;
-		}
-		return object;
-	}
-	static extendable(variableCount,args){
-		return new ExtendedObj(ArgToArr(args).slice(variableCount));
-	}
-	shareVars(){
-		let args=ArgToArr(arguments).map((arg)=>{
-			if(isFunc(this[arg])){
-				return (obj)=>{obj[arg]=this[arg].bind(this);}
-			}else{
-				return (obj)=>{Object.defineProperty(obj, arg,{get:(()=>{return this[arg]}).bind(this),set:((data)=>{this[arg]=data;}).bind(this)})};
-			}
-		});
-		return args;
-	}
-	set sharedVars(args){args.map(a=>a(this));}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-}
-class SimpleLoader extends Obj{
-	constructor(finishedLoading,items){super("finishedLoading",finishedLoading,"items",items||0);}
-	addItem(){this.items++;}
-	addItems(ammount=0){this.items+=ammount;}
-	removeItem(){this.items--;this.checkLoader();}
-	checkLoader(){
-		//console.log("Item count is",this.items);
-		if(this.items!=0){
-			this.load();
-		}else if(this.finishedLoading!=null){this.finishedLoading();}
-	}
-	load(){
-	//	this.timeout=setTimeout((()=>{
-		//	log.arg("this.items",this.items);
-		//console.log("Item count is",this.items);
-			if(this.items==0){
-				this.finishedLoading();}
-		//}).bind(this),100);
-	}
-}
-function isFunc(object){return typeof object === "function";}
-function cloneArr(arr){return arr.slice(0);}
-function hasKey(object,key){return object.hasOwnProperty(key);}
-function isNum(value){return !isNaN(value);}
-function isArray(array){return array instanceof Array;}
+    this.generate();
 
+    for (let id = 0; id < keywords.length; id++) {
+      if (this[keywords[id][0]] != N) {
+        this.addListener(keywords[id][1], this[keywords[id][0]]);
+      }
+    }
+    if (isDefined(this.postGen)) {
+      this.postGen();
+    }
+  }
+  addListener(listener, func, DOM = this.DOM) {
+    if (this.boundEvents.hasOwnProperty(listener)) {
+      this.removeListener(listener, DOM);
+    }
+    this.boundEvents[listener] = func.bind(this);
+    DOM.addEventListener(listener, this.boundEvents[listener], F);
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  removeListener(listener, DOM = this.DOM) {
+    try {
+      DOM.removeEventListener(listener, this.boundEvents[listener]);
+      delete this.boundEvents[listener];
+    } catch (e) {}
+  }
+  preventDefault(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  }
+  generate(parent) {
+    return N;
+  }
+  insertChild(parent, index) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (parent.DOM != N) {
+      parent = parent.DOM;
+    }
+    if (index >= parent.children.length) {
+      AE(DOM, parent);
+    } else {
+      parent.insertBefore(DOM, parent.children[index].nextSibling);
+    }
+  }
+  insertAfter(element) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (!isDOM(element)) {
+      element = element.DOM;
+    }
+    element.parentNode.insertBefore(DOM, element.nextSibling);
+  }
+  appendChild(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    this.DOM.appendChild(object);
+  }
+  removeChild(object) {
+    this.DOM.removeChild(object);
+  }
+  remove() {
+    if (this.parentNode != N) {
+      var object = this.DOM;
+      while (object != N && object instanceof DOMObj) {
+        object = object.DOM;
+      }
+      this.parentNode.removeChild(object);
+    }
+  }
+  toggleCSS(rule, DOM = this.DOM) {
+    if (!DOM.classList.contains(rule)) {
+      DOM.classList.add(rule);
+    } else {
+      DOM.classList.remove(rule);
+    }
+  }
+  overlaps(elem) {
+    return !(
+      this.bottom < elem.top ||
+      this.top > elem.bottom ||
+      this.right < elem.left ||
+      this.left > elem.right
+    );
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+  get height() {
+    return this.DOM.offsetHeight;
+  }
+  get width() {
+    return this.DOM.offsetWidth;
+  }
+  set width(width) {
+    if (width != N) {
+      this.DOM.style.width = width + "px";
+    }
+  }
+  set height(height) {
+    if (height != N) {
+      this.DOM.style.height = height + "px";
+    }
+  }
+  get top() {
+    return this.DOM.offsetTop;
+  }
+  get classList() {
+    return this.DOM.classList;
+  }
+  get left() {
+    return this.DOM.offsetLeft;
+  }
+  get right() {
+    return this.left + this.width;
+  }
+  get bottom() {
+    return this.top + this.height;
+  }
+  get innerHTML() {
+    return this.DOM.innerHtml;
+  }
+  set hidden(hidden) {
+    if (hidden && !this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.add("hidden");
+    } else if (!hidden && this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.remove("hidden");
+    }
+  }
+  get innerText() {
+    return this.DOM.innerText;
+  }
+  set innerText(text) {
+    this.DOM.innerText = text;
+  }
+  get className() {
+    return this.DOM.className;
+  }
+  set className(className) {
+    this.DOM.className = className;
+  }
+  get childNodes() {
+    return this.DOM.childNodes;
+  }
+  get children() {
+    return this.DOM.children;
+  }
+  clearChildren() {
+    this.DOM.innerHTML = "";
+  }
+  get parentNode() {
+    var node = this.DOM;
+    while (node.DOM != N) {
+      node = node.DOM;
+    }
+    return node.parentNode;
+  }
+  replaceDOM(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    var index = Array.from(this.parentNode.children).indexOf(this.DOM); //only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+    this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+    this.DOM = object;
+  }
+}
+class ExtendedObj extends DOMObj {
+  constructor(args) {
+    super("args", args);
+  }
+  expand(object) {
+    for (let index = 0; index < this.args.length; index++) {
+      object[this.args[index++]] = this.args[index];
+    }
+  }
+}
+function ArgToArr(arg) {
+  return Array.prototype.slice.call(arg);
+}
+function forIn(object, callback) {
+  for (let key in object) {
+    callback(key, object[key]);
+  }
+}
+
+function isDefined(object) {
+  return typeof object != "undefined";
+}
+
+class Obj {
+  constructor() {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+  }
+  static null() {
+    var object = new Obj(),
+      fields = arguments;
+    for (let index = 0; index < fields.length; index++) {
+      object[fields[index]] = N;
+    }
+    return object;
+  }
+  static extendable(variableCount, args) {
+    return new ExtendedObj(ArgToArr(args).slice(variableCount));
+  }
+  shareVars() {
+    let args = ArgToArr(arguments).map((arg) => {
+      if (isFunc(this[arg])) {
+        return (obj) => {
+          obj[arg] = this[arg].bind(this);
+        };
+      } else {
+        return (obj) => {
+          Object.defineProperty(obj, arg, {
+            get: (() => {
+              return this[arg];
+            }).bind(this),
+            set: ((data) => {
+              this[arg] = data;
+            }).bind(this),
+          });
+        };
+      }
+    });
+    return args;
+  }
+  set sharedVars(args) {
+    args.map((a) => a(this));
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+}
+class SimpleLoader extends Obj {
+  constructor(finishedLoading, items) {
+    super("finishedLoading", finishedLoading, "items", items || 0);
+  }
+  addItem() {
+    this.items++;
+  }
+  addItems(ammount = 0) {
+    this.items += ammount;
+  }
+  removeItem() {
+    this.items--;
+    this.checkLoader();
+  }
+  checkLoader() {
+    //console.log("Item count is",this.items);
+    if (this.items != 0) {
+      this.load();
+    } else if (this.finishedLoading != N) {
+      this.finishedLoading();
+    }
+  }
+  load() {
+    //	this.timeout=setTimeout((()=>{
+    //	log.arg("this.items",this.items);
+    //console.log("Item count is",this.items);
+    if (this.items == 0) {
+      this.finishedLoading();
+    }
+    //}).bind(this),100);
+  }
+}
+function isFunc(object) {
+  return typeof object === "function";
+}
+function cloneArr(arr) {
+  return arr.slice(0);
+}
+function hasKey(object, key) {
+  return object.hasOwnProperty(key);
+}
+function isNum(value) {
+  return !isNaN(value);
+}
+function isArray(array) {
+  return array instanceof Array;
+}
 </script>
 <script>
-class VendingMachine extends DOMObj{
-	constructor(products,currency,coins,notes,player,storedCash){super("storedCash",storedCash,"player",player,"storedButtons",[],"dropped",f,"scale",1,"lightLevel",0.5,"mousePos",[-50,-50],"armPos",0,"handPos",180,"holdingPos",f,"doorOpenLevel",0,"products",products,"currency",currency,"coins",coins,"notes",notes);}
-	generate(){
-		this.className="vendingMachine";
-		this.backpackIMG=CE("img",n,"images/vendingMachine/backpack.png");
-		let loader=new SimpleLoader(e=>this.setDimensions());
-		this.products=this.products.map(row=>row.map(p=>new Product(loader,...p)));
-		this.DOM=CE("cvs",n,n,n,0,0,800,600);
-		this.ctx=this.DOM.getContext('2d');
-		this.DOM.tabIndex=0;
-		this.addEventListeners();
-		this.coinValidator=new CoinValidator(this.shareVars("checkPendingProduct","setText","denominations"),this.storedCash);
-		delete this.storedCash;
-		this.numpad=new Numpad(330,0,this.shareVars("ctx","drawRect","scale","productSelected","storedButtons","mousePos","pointInSquare"));
-		this.money=new Money(this.numpad.x,this.numpad.y+this.numpad.height,this.shareVars("ctx","slotPos","currency","mousePos","notes","coins","pointInSquare","toggleLCD","drawScreen").concat(this.coinValidator.shareVars("moneyInserted").concat(this.player.shareVars("cash"))))
-	}
-	setDimensions(){
-		this.dimens={
-			machine:[0,0,330,500],
-			internal:[20,20,260,400],
-			labelHeight:20,
-			shelfBarHeight:5,
-			handHeight:28,
-			labelTextSize:10,
-			numPad:[290,150,this.numpad.width/10+10,this.numpad.height/10],
-			lcd:[292,152,26,15],
-			coinPanel:[285,200,20,30],
-			notePanel:[284,240,40,20],
-			coinSlot:[295,205,5,20],
-			noteSlot:[290,256,28,8],
-			trayDoor:[20,435,260,50],
-			productDimens:[]
-		};
-		this.dimens.refundHandle=[this.dimens.coinPanel[0]+30,this.dimens.coinPanel[1]+5,5,this.dimens.coinPanel[3]-10];
-		this.dimens.shelf=[this.dimens.internal[2]/5,(this.dimens.internal[3]-30)/4];
-		this.dimens.handWidth=this.dimens.shelf[0];
-		this.dimens.backpack=[0,this.dimens.machine[3],70,100];
-		this.dimens.armDimens=(armPos=this.armPos)=>[this.dimens.internal[0],this.dimens.internal[3]-armPos+3,this.dimens.internal[2],5];
-		this.dimens.handDimens=(armPos=this.armPos,handPos=this.handPos)=>[this.dimens.internal[0]+handPos,this.dimens.internal[3]-armPos-2,this.dimens.handWidth,14];
-		this.slotPos=[this.dimens.coinSlot,this.dimens.noteSlot];
-		this.dimens.light=cloneArr(this.dimens.internal);
-		this.dimens.light[2]/=4;
-		//Get scaled product sizes
-		for(let row=0;row<4;row++){
-			let shelfY=this.dimens.shelf[1]*row-this.dimens.shelfBarHeight+this.dimens.internal[0]+this.dimens.shelf[1];
-			this.dimens.productDimens[row]=[];
-			for(let col=0;col<5;col++){
-				let width=this.dimens.shelf[0],
-						height=this.dimens.shelf[1]-this.dimens.labelHeight-this.dimens.shelfBarHeight,
-						product=this.products[row][col].img,
-						ratio=width/product.width;
-				if(ratio*product.height>height){ratio=height/product.height;}
-				
-				this.dimens.productDimens[row][col]=[
-					this.dimens.internal[0]+this.dimens.shelf[0]*col+(this.dimens.shelf[0]-(product.width*ratio))/2,
-					shelfY-this.dimens.labelHeight-(product.height*ratio),
-					product.width*ratio,
-					product.height*ratio
-				];
-				
-				/*this.dimens.productDimens[row][col]=this.scaleImage(
+
+class VendingMachine extends DOMObj {
+  constructor(products, currency, coins, notes, player, storedCash) {
+    super(
+      "storedCash",
+      storedCash,
+      "player",
+      player,
+      "storedButtons",
+      [],
+      "dropped",
+      F,
+      "scale",
+      1,
+      "lightLevel",
+      0.5,
+      "mousePos",
+      [-50, -50],
+      "armPos",
+      0,
+      "handPos",
+      180,
+      "holdingPos",
+      F,
+      "doorOpenLevel",
+      0,
+      "products",
+      products,
+      "currency",
+      currency,
+      "coins",
+      coins,
+      "notes",
+      notes
+    );
+  }
+  generate() {
+    this.className = "vendingMachine";
+    this.backpackIMG = CE("img", "images/vendingMachine/backpack.png");
+    let loader = new SimpleLoader((e) => this.setDimensions());
+    this.products = this.products.map((row) =>
+      row.map((p) => new Product(loader, ...p))
+    );
+    this.DOM = CE("cvs", 800, 600);
+    this.ctx = this.DOM.getContext("2d");
+    this.DOM.tabIndex = 0;
+    this.addEventListeners();
+    this.coinValidator = new CoinValidator(
+      this.shareVars("checkPendingProduct", "setText", "denominations"),
+      this.storedCash
+    );
+    delete this.storedCash;
+    this.numpad = new Numpad(
+      330,
+      0,
+      this.shareVars(
+        "ctx",
+        "drawRect",
+        "scale",
+        "productSelected",
+        "storedButtons",
+        "mousePos",
+        "pointInSquare"
+      )
+    );
+    this.money = new Money(
+      this.numpad.x,
+      this.numpad.y + this.numpad.height,
+      this.shareVars(
+        "ctx",
+        "slotPos",
+        "currency",
+        "mousePos",
+        "notes",
+        "coins",
+        "pointInSquare",
+        "toggleLCD",
+        "drawScreen"
+      ).concat(
+        this.coinValidator
+          .shareVars("moneyInserted")
+          .concat(this.player.shareVars("cash"))
+      )
+    );
+  }
+  setDimensions() {
+    this.dimens = {
+      machine: [0, 0, 330, 500],
+      internal: [20, 20, 260, 400],
+      labelHeight: 20,
+      shelfBarHeight: 5,
+      handHeight: 28,
+      labelTextSize: 10,
+      numPad: [290, 150, this.numpad.width / 10 + 10, this.numpad.height / 10],
+      lcd: [292, 152, 26, 15],
+      coinPanel: [285, 200, 20, 30],
+      notePanel: [284, 240, 40, 20],
+      coinSlot: [295, 205, 5, 20],
+      noteSlot: [290, 256, 28, 8],
+      trayDoor: [20, 435, 260, 50],
+      productDimens: [],
+    };
+    this.dimens.refundHandle = [
+      this.dimens.coinPanel[0] + 30,
+      this.dimens.coinPanel[1] + 5,
+      5,
+      this.dimens.coinPanel[3] - 10,
+    ];
+    this.dimens.shelf = [
+      this.dimens.internal[2] / 5,
+      (this.dimens.internal[3] - 30) / 4,
+    ];
+    this.dimens.handWidth = this.dimens.shelf[0];
+    this.dimens.backpack = [0, this.dimens.machine[3], 70, 100];
+    this.dimens.armDimens = (armPos = this.armPos) => [
+      this.dimens.internal[0],
+      this.dimens.internal[3] - armPos + 3,
+      this.dimens.internal[2],
+      5,
+    ];
+    this.dimens.handDimens = (armPos = this.armPos, handPos = this.handPos) => [
+      this.dimens.internal[0] + handPos,
+      this.dimens.internal[3] - armPos - 2,
+      this.dimens.handWidth,
+      14,
+    ];
+    this.slotPos = [this.dimens.coinSlot, this.dimens.noteSlot];
+    this.dimens.light = cloneArr(this.dimens.internal);
+    this.dimens.light[2] /= 4;
+    //Get scaled product sizes
+    for (let row = 0; row < 4; row++) {
+      let shelfY =
+        this.dimens.shelf[1] * row -
+        this.dimens.shelfBarHeight +
+        this.dimens.internal[0] +
+        this.dimens.shelf[1];
+      this.dimens.productDimens[row] = [];
+      for (let col = 0; col < 5; col++) {
+        let width = this.dimens.shelf[0],
+          height =
+            this.dimens.shelf[1] -
+            this.dimens.labelHeight -
+            this.dimens.shelfBarHeight,
+          product = this.products[row][col].img,
+          ratio = width / product.width;
+        if (ratio * product.height > height) {
+          ratio = height / product.height;
+        }
+
+        this.dimens.productDimens[row][col] = [
+          this.dimens.internal[0] +
+            this.dimens.shelf[0] * col +
+            (this.dimens.shelf[0] - product.width * ratio) / 2,
+          shelfY - this.dimens.labelHeight - product.height * ratio,
+          product.width * ratio,
+          product.height * ratio,
+        ];
+
+        /*this.dimens.productDimens[row][col]=this.scaleImage(
 					
 					[this.products[row][col].img.width,this.products[row][col].img.height],
 					[this.dimens.shelf[0],this.dimens.shelf[1]-this.dimens.labelHeight-this.dimens.shelfBarHeight],
@@ -381,1024 +672,1525 @@ class VendingMachine extends DOMObj{
 					this.dimens.internal[0]+this.dimens.shelf[0]*col+(this.dimens.shelf[0]-(num[0]))/2,
 					shelfY-this.dimens.labelHeight-(num[1])
 				]);*/
-			}
-		}
-		
-		this.colors={
-			label:["red","blue","green","yellow","orange"],
-			machine:"#61a8d4",
-			border:"#000000",
-			internal:"#000000",
-			labelText:"#000000",
-			shelfBar:"#2c2d2e",
-			arm:"#a8a8a8",
-			hand:"purple",
-			glass:"rgba(130, 247, 255, 0.3)",
-			glassLight:(e=this.lightLevel)=>`rgba(255, 255, 255, ${e})`,
-			numPad:"#a8a8a8",
-			lcd:"#000000",
-			coinPanel:"gray",
-			notePanel:"darkgray",
-			coinSlot:"black",
-			noteSlot:"gray",
-			tray:"#000000",
-			trayDoor:"#a8a8a8"
-		};
-		this.drawBackpack();
-		this.drawStats();
-		setInterval(e=>{
-			this.lightLevel+=(Math.random()*0.01+0.03)*(Math.random()>0.5?1:-1);
-			if(this.lightLevel<0){this.lightLevel+=0.3;}
-			else if(this.lightLevel>1){this.lightLevel-=0.3;}
-			this.draw();
-		},Math.random()*190+150);
-	}
-	scaleImage(imageDimens,containerDimens,posMod=(e=>e)){
-		if(imageDimens.length==4){[imageDimens[1],imageDimens[2]];}
-		if(containerDimens.length==4){[containerDimens[1],containerDimens[2]];}
-		let width=containerDimens[1],
-				height=containerDimens[1],
-				ratio=width/imageDimens[0];
-		if(ratio*imageDimens[1]>height){ratio=height/imageDimens[1];}
-		width=imageDimens[0]*ratio;
-		height=imageDimens[1]*ratio;
-		
-		return [...posMod([width,height],ratio),width,height];
-	}
-	addEventListeners(){
-		this.DOM.addEventListener("touchstart",e=>this.mouseDown(e));
-		this.DOM.addEventListener("touchend",e=>this.mouseUp(e));
-		this.DOM.addEventListener("touchmove",e=>this.hover(e));
-		window.addEventListener("resize",e=>this.resize(e),false);
-		window.addEventListener("orientationchange",e=> this.resize(e),false);
-	}
-	
-	hover(e){
-		e.preventDefault();
-		let mousePos=this.getMousePos(e);
-		if(this.prevMousePos!==mousePos){
-			this.prevMousePos=this.mousePos;
-			this.mousePos=mousePos;
-	}	}
-	mouseDown(){
-		this.mouseDown=true;
-	}
-	mouseUp(){
-		this.mouseDown=false;
-		if(!this.numpad.isButtonPressed()){
-			if(!this.money.checkMoneyClicked()){
-				if(this.pointInSquare(this.mousePos,this.dimens.refundHandle)){
-					this.player.getMoney(this.coinValidator.inserted);
-					this.coinValidator.inserted={};
-					this.setText("Your money has been refunded",1);
-					this.drawScreen();
-				}
-			}
-		}
-	}
-	mouseOut(){
-		this.mousePos=[-50,-50];
-		this.mouseDown=false;
-	}
-	getMousePos(e){
-		if (isDefined(e.touches)){
-			e=e.touches[0];
-		}
-		var dimens=this.DOM.getBoundingClientRect(),
-			scaleX=this.DOM.width/dimens.width,
-			scaleY=this.DOM.height/dimens.height;
-		return [(e.clientX-dimens.left)*scaleX,(e.clientY-dimens.top)*scaleY];
-	}
-	resize(){
-		let widthToHeight=this.width/this.height,
-			newWidth=window.innerWidth,
-			newHeight=window.innerHeight,
-			newWidthToHeight=newWidth/newHeight;
-		
-		if(newWidthToHeight>widthToHeight){
-			newWidth=newHeight*widthToHeight;
-			this.scale=newWidth/260;
-		} else {
-			newHeight=newWidth/widthToHeight;
-			this.scale=newWidth/260;
-		}
-		
-		this.DOM.width=newWidth;
-		this.DOM.height=newHeight;
-	}
-	pointInSquare(pos,area){
-		let x=pos[0],
-				y=pos[1],
-				x1=area[0]*this.scale,
-				y1=area[1]*this.scale,
-				x2=(area[0]+area[2])*this.scale,
-				y2=(area[1]+area[3])*this.scale;
-		return x>x1&&x<x2&&y>y1&&y<y2;
-	}
-	draw(ctx=this.ctx){
-		let {machine,internal,refundHandle,labelHeight,light,shelfBarHeight,handHeight,numPad,lcd,coinPanel,notePanel,coinSlot,noteSlot,trayDoor,shelf,handWidth,armDimens,handDimens,productDimens,labelTextSize}=this.dimens;
-		let c=this.colors;
-		//Draw machine background
-		this.drawRect(machine,c.machine,c.border);
-		//Draw machine internal structure
-		this.drawRect(internal,c.internal);
-		//Draw shelves
-		for(let row=0;row<4;row++){
-			let shelfY=shelf[1]*row-shelfBarHeight+internal[0]+shelf[1];
+      }
+    }
 
-			//draw shelf
-			this.drawRect([internal[1],shelfY,internal[2],shelfBarHeight],c.shelfBar);
-			for(let col=0;col<5;col++){
-				//Draw products
-				if(this.products[row][col].stock>0){
-					ctx.drawImage(this.products[row][col].img,...productDimens[row][col]);
-				}
-				//draw label
-				this.drawRect([internal[0]+shelf[0]*col,shelfY-labelHeight,shelf[0],labelHeight],c.label[col]);
-				ctx.fillStyle=c.labelText;
-				ctx.font = "bold "+(labelTextSize+2)+"px Arial";
-				ctx.fillText(String.fromCharCode(row+65)+(col+1),internal[0]+shelf[0]*col+shelf[0]-17,shelfY-labelHeight/2+labelTextSize/2);
-				
-				ctx.font = "bold "+labelTextSize+"px Arial";
-				ctx.fillText(Money.toCurrency(this.products[row][col].cost),internal[0]+shelf[0]*col+4,shelfY-labelHeight/2+labelTextSize/2);
-			}
-		}
-		//Draw arm and hand
-		if(!!this.holding){
-				let dimens=productDimens[this.holdingPos[0]][this.holdingPos[1]];
-				ctx.drawImage(this.holding.img,handDimens()[0]+(shelf[0]-dimens[2])/2,handDimens()[1]-dimens[3]/2,dimens[2],dimens[3])
-		}
-		this.drawRect(armDimens(),c.arm);
-		this.drawRect(handDimens(),c.hand);
-		//Draw glass
-		this.drawRect(internal,f,f,[f,[200,100,20,200,100,200],[c.glassLight(0.7*this.lightLevel),c.glass]]);
-		//Draw numPad/lcd
-		this.redrawNumpad();
-		//Draw money inputs
-		this.drawRect(coinPanel,c.coinPanel);
-		this.drawRect(notePanel,c.notePanel);
-		this.drawRect(coinSlot,c.coinSlot);
-		this.drawRect(noteSlot,c.noteSlot);
-		this.drawRect(refundHandle,c.coinPanel);
-		this.ctx.arc(refundHandle[0]+2.5,refundHandle[1],5,0,2*Math.PI);
-		this.ctx.fill();
-		//Draw drink collection tray
-		this.drawTrayDoor(c.tray);
-		if(!!this.dropped&&!this.dropped[2]){//Draw dropped item
-			ctx.drawImage(this.dropped[0].img,...this.dropped[1]);
-		}
-		//Draw tray door in front of product
-		this.drawTrayDoor(c.trayDoor,this.doorOpenLevel);
-		//Redraw bottom in front of dropped item
-		this.drawRect([0,internal[1]+internal[3],machine[2],15],c.machine);
-		this.drawRect([0,internal[1]+internal[3]+65,machine[2],15],c.machine);
-		
-		//Draw popout items
-		if(!!this.dropped&&this.dropped[2]){
-			ctx.drawImage(this.dropped[0].img,...this.dropped[1]);
-		}
-		this.drawRect(light,f,f,[t,[0, 0, 65, 0],[c.glassLight(),"rgba(130, 247, 255, 0)"]]);
-		this.drawBackpack();
-	}
-	drawScreen(){
-		this.drawRect([0,0,this.DOM.width,this.DOM.height],"#ffffff");
-		this.numpad.draw();
-		this.draw();
-		this.money.draw();
-		
-		let notePanel=[284,240,40,20];
-		this.drawRect(notePanel,"darkgray");
-		this.drawRect(this.slotPos[0],"black");
-		this.drawRect(this.slotPos[1],"gray");
-		this.drawStats();
-	}
-	get holding(){
-		return !!this.holdingPos?this.products[this.holdingPos[0]][this.holdingPos[1]]:f;
-	}
-	moveHandTo(pos,extra){
-		let after=e=>{};
-		if(isArray(pos)){
-			let colWidth=260/5;
-			let shelfHeight=(400-30)/4;
-			let col=pos[0]-1;
-			let row=pos[1]-1;
-			pos[1]=col*colWidth;
-			pos[0]=(3-row)*shelfHeight+47;
-			after=e=>{this.moveHandTo("centerHolding",[row,col]);}
-		}else{
-			if(pos=="origin"){
-				pos=[0,180];
-				after=e=>{
-					this.storedButtons.length=0;
-					this.toggleLCD(t);
-				}
-			}else if(pos=="bottom"){
-				pos=[-50,this.holdingPos[1]*(260/5)];
-				after=e=>{
-					if(!!this.holdingPos){
-						let width=260/5,
-								height=(400-30)/4-5-20;
-						let ratio=width/this.holding.img.width;
-						if(ratio*this.holding.img.height>height){ratio=height/this.holding.img.height;}
-						let y=this.dimens.trayDoor[1]+this.dimens.trayDoor[3]/2-this.dimens.productDimens[this.holdingPos[0]][this.holdingPos[1]][3]/2;
-						if(Math.ceil(y+this.dimens.productDimens[this.holdingPos[0]][this.holdingPos[1]][3])+10>=this.dimens.machine[1]+this.dimens.machine[3]){
-							y=this.dimens.machine[1]+this.dimens.machine[3]-this.dimens.productDimens[this.holdingPos[0]][this.holdingPos[1]][3]-10;
-						}
-						this.dropped=[this.holding,[pos[1]+20,y,this.holding.img.width*ratio,this.holding.img.height*ratio+10],f];
-						this.holdingPos=f;
-						setTimeout(e=>this.openDoor(),500);
-					}
-					this.moveHandTo("origin");
-				}
-			}else if(pos=="centerHolding"){
-				pos=[
-					(3-extra[0])*((400-30)/4)+47-this.dimens.handHeight/2+(this.dimens.productDimens[extra[0]][extra[1]][3]/2),
-					extra[1]*(260/5)
-				];
-				after=e=>{
-					this.holdingPos=extra;
-					//charge the money from the validator
-					let change=this.coinValidator.storeMoney(this.holding);
-					this.player.getMoney(change);
-					this.drawScreen();
-					this.moveHandTo("bottom");
-				}
-			}
-		}
-		this.moveHand(pos,after);
-	}
-	moveHand(pos,after=(e=>{})){
-		let increment=5;
-		let armGoingUp=this.armPos<pos[0];
-		let handGoingRight=this.handPos<pos[1];
-		let loop=e=>{
-			if(this.armPos<pos[0]){this.armPos+=increment;}
-			else if(this.armPos>pos[0]){this.armPos-=increment;}
-			if(this.armPos==pos[0]||(armGoingUp&&this.armPos+increment>pos[0])||(!armGoingUp&&this.armPos-increment<pos[0])){
-				this.armPos=pos[0];
-				if(this.handPos!=pos[1]){
-					if(this.handPos<pos[1]){this.handPos+=increment;}
-					else if(this.handPos>pos[1]){this.handPos-=increment;}
-				}
-				if((handGoingRight&&this.handPos+increment>pos[1])||(!handGoingRight&&this.handPos-increment<pos[1])){this.handPos=pos[1];}
-			}
-			this.draw();
-			if(this.handPos!=pos[1]||this.armPos!=pos[0]){
-				setTimeout(loop,50);
-			}else{
-				setTimeout(after,100);
-			}
-		};
-		loop();
-	}
-	setHandPos(pos){
-		let colWidth=260/5;
-		let shelfHeight=(400-30)/4;
-		let col=pos[0]-1;
-		let row=4-pos[1];
-		let handPos=col*colWidth;
-		let armPos=row*shelfHeight+47;
-		this.armPos=armPos;
-		this.handPos=handPos;
-	}
-	drawRect(dimens,color=f,strokeColor=f,gradient=f){
-		this.ctx.beginPath();
-		this.ctx.rect(...dimens);
-		if(!!color){
-			this.ctx.fillStyle=color;
-			this.ctx.fill();
-		}
-		if(!!gradient){
-			let grad=this.ctx[gradient[0]==t?"createLinearGradient":"createRadialGradient"](...gradient[1]);
-			for(let index=0;index<gradient[2].length;index++){
-				grad.addColorStop(index,gradient[2][index]);
-			}
-			this.ctx.fillStyle=grad;
-			this.ctx.fill();
-		}
-		if(!!strokeColor){
-			this.ctx.strokeStyle=strokeColor;
-			this.ctx.stroke();
-		}
-	}
-	openDoor(percent=1,closing=f){
-		this.doorOpenLevel=percent;
-		if(closing){percent--;}
-		else{percent++;}
-		if(percent<30&&percent>-1){setTimeout(e=>this.openDoor(percent,closing),10);}
-		else if(!closing){this.popoutProduct(...this.dropped);setTimeout(e=>this.openDoor(percent,t),1500);}
-		this.draw();
-	}
-	drawTrayDoor(color,skewPercent=0){
-		let x=this.dimens.trayDoor[0],
-				y=this.dimens.trayDoor[1],
-				width=this.dimens.trayDoor[2],
-				height=this.dimens.trayDoor[3];
-		this.ctx.fillStyle=color;
-		this.ctx.beginPath();
-		this.ctx.moveTo(x,y);
-		this.ctx.lineTo(x+width,y);
-		this.ctx.lineTo(x+width-skewPercent/1.5,y+height-skewPercent*1.2);
-		this.ctx.lineTo(x+skewPercent/1.5,y+height-skewPercent*1.2);
-		this.ctx.closePath();
-		this.ctx.fill();
-		this.ctx.strokeStyle=this.colors.border;
-		this.ctx.stroke();
-	}
-	toggleLCD(start){
-		if(start){this.numpad.lcd.start();}
-		else{this.numpad.lcd.stop();}
-	}
-	
-	popoutProduct(product,imgDimens){
-		let originalDimens=cloneArr(imgDimens);
-		this.dropped[2]=t;
-		//largest size dimensions
-		let finalSize=[this.DOM.width-100,this.DOM.height-100];
-		//Scale the product to the correct final size
-		let ratio=finalSize[0]/imgDimens[2];
-		if(ratio*imgDimens[3]>finalSize[1]){ratio=finalSize[1]/imgDimens[3];}
-		finalSize=[imgDimens[2]*ratio,imgDimens[3]*ratio];
-		//Calculate final coords
-		finalSize.unshift((this.DOM.height-finalSize[1])/2);
-		finalSize.unshift((this.DOM.width-finalSize[1])/2);
+    this.colors = {
+      label: ["red", "blue", "green", "yellow", "orange"],
+      machine: "#61a8d4",
+      border: "#000000",
+      internal: "#000000",
+      labelText: "#000000",
+      shelfBar: "#2c2d2e",
+      arm: "#a8a8a8",
+      hand: "purple",
+      glass: "rgba(130, 247, 255, 0.3)",
+      glassLight: (e = this.lightLevel) => `rgba(255, 255, 255, ${e})`,
+      numPad: "#a8a8a8",
+      lcd: "#000000",
+      coinPanel: "gray",
+      notePanel: "darkgray",
+      coinSlot: "black",
+      noteSlot: "gray",
+      tray: "#000000",
+      trayDoor: "#a8a8a8",
+    };
+    this.drawBackpack();
+    this.drawStats();
+    setInterval((e) => {
+      this.lightLevel +=
+        (Math.random() * 0.01 + 0.03) * (Math.random() > 0.5 ? 1 : -1);
+      if (this.lightLevel < 0) {
+        this.lightLevel += 0.3;
+      } else if (this.lightLevel > 1) {
+        this.lightLevel -= 0.3;
+      }
+      this.draw();
+    }, Math.random() * 190 + 150);
+  }
+  scaleImage(imageDimens, containerDimens, posMod = (e) => e) {
+    if (imageDimens.length == 4) {
+      [imageDimens[1], imageDimens[2]];
+    }
+    if (containerDimens.length == 4) {
+      [containerDimens[1], containerDimens[2]];
+    }
+    let width = containerDimens[1],
+      height = containerDimens[1],
+      ratio = width / imageDimens[0];
+    if (ratio * imageDimens[1] > height) {
+      ratio = height / imageDimens[1];
+    }
+    width = imageDimens[0] * ratio;
+    height = imageDimens[1] * ratio;
 
-		//Calculate step sizes
-		let steps=20,
-				step=0,
-				increment=finalSize.map((s,i)=>(s-imgDimens[i])/steps);
-				
-		let popout=e=>{
-			this.dropped[1]=this.dropped[1].map((p,i)=>p+increment[i]);
-			this.drawScreen();
-			this.ctx.drawImage(product.img,...this.dropped[1]);
-			if(++step<steps){
-				setTimeout(popout,20);
-			}else{
-				setTimeout(e=>this.moveProductToBag(originalDimens),300);
-			}
-		}
-		popout();
-	}
-	moveProductToBag(smallSize){
-		smallSize[0]=10;
-		smallSize[1]=this.DOM.height-10-smallSize[3];
-		//Calculate step sizes
-		let steps=20,
-				step=0,
-				increment=smallSize.map((s,i)=>(s-this.dropped[1][i])/steps);
-				
-		let popout=e=>{
-			this.dropped[1]=this.dropped[1].map((p,i)=>p+increment[i]);
-			this.drawScreen();
-			this.ctx.drawImage(this.dropped[0].img,...this.dropped[1]);
-			if(++step<steps){
-				setTimeout(popout,20);
-			}else{
-				this.dropped=f;
-				this.drawScreen();
-			}
-		}
-		popout();
-	}
-	
-	//logic
-	drawBackpack(){
-		this.ctx.drawImage(this.backpackIMG,...this.dimens.backpack)
-	}
-	setText(text,count,stopAndCenter=f){
-		this.numpad.lcd.setText(text);
-		if(stopAndCenter){
-			this.numpad.lcd.stop();
-			this.numpad.lcd.offset=Math.floor((this.numpad.lcd.length-text.length)/2);
-			this.numpad.lcd.draw();
-		}
-	}
-	clearLCD(){
-		this.lcd.flash(3,e=>{
-			this.lcd.clear();
-			this.storedButtons.length=0;
-		});
-	}
-	
-	validCode(code){
-		return !isNum(code[0])&&isNum(code[1]);
-	}
-	
-	productInRange(code){
-		let row=code[0].charCodeAt(0)-65,col=parseInt(code[1])-1;
-		return this.products.length>row&&this.products[row].length>col?this.products[row][col]:f;
-	}
-	
-	hasStock(product){
-		return product.stock>0;
-	}
-	checkPendingProduct(){
-		if(this.validCode(this.storedButtons)){
-			this.productSelected();
-			return t;
-		}
-		return f;
-	}
-	dispenseProduct(product){
-		//remove product from machine inventory
-		product.stock--;
-		let code=this.storedButtons.join(""),
-				col=code[0].charCodeAt(0)-64,
-				row=parseInt(code[1]);
-		if(col<5&&row<6){
-			this.moveHandTo([row,col]);
-		}
-		this.setText(`You get ${product.name}`);
-	}
-	
-	redrawNumpad(){
-		this.ctx.drawImage(this.DOM,this.numpad.x,this.numpad.y,this.numpad.width,this.numpad.height,...this.dimens.numPad);
-	}
-	
-	productSelected(code=this.storedButtons){
-		//Check if button memory is valid; a letter followed by a number
-		if(this.validCode(code)){
-			//check that number is in range of products table
-			let product=this.productInRange(code);
-			if(!!product){
-				//if product is in machine inventory
-				if(this.hasStock(product)){
-					//If enough money is in coin validator
-					if(this.coinValidator.hasEnoughMoney(product)){
-						//give the product
-						this.dispenseProduct(product);
-					}else{
-						setTimeout(e=>this.setText(`Please Insert ${Money.toCurrency(product.cost-this.coinValidator.holding)} To Purchace ${product.name}`),200);
-					}
-				}else{
-					this.storedButtons.length=0;
-					this.setText(`${productID} Is Out Of Stock`);
-				}
-			}else{this.storedButtons.length=0;this.setText(`${code.join("")} Is Not A Valid Product Selection`);}
-		}else{this.storedButtons.length=0;this.setText("Code Invalid");}
-	}
-	get denominations(){
-		return this.coins.concat(this.notes).sort((a,b)=>a-b);
-	}
-	
-	drawStats(){
-		let products=[],x=this.dimens.machine[2]+this.numpad.width+5,y=20,potential=0,totalEarned=0,insertedTotal=0,storedTotal=0,maxTotal=0,amount=0,xTra=0;
-		this.products.map((row,c)=>row.map((p,i)=>products.push([String.fromCharCode(c+65)+(i+1),p.name,p.stock,p.cost,p.maxStock])));
-		this.ctx.fillStyle="#000000";
-		this.ctx.font="bold "+26+"px Arial";
-		this.ctx.fillText("Vending Machine",x,y);
-		this.ctx.fillText("Statistics",x+50,y+23);
-		y+=45;
-		this.ctx.font="bold "+20+"px Arial";
-		this.ctx.fillText("Product Stats",x+45,y);
-		y+=15;
-		this.ctx.font="bold "+10+"px Arial";
-		this.ctx.fillText("Code",x,y);
-		this.ctx.fillText("Product",x+30,y);
-		this.ctx.fillText("Stock",this.DOM.width-55,y);
-		this.ctx.fillText("Cost",this.DOM.width-25,y);
-		this.ctx.font=10+"px Arial";
-		let altColors=["#FFFFFF","#EDEDED","#fff240","#dbce12","#ff3838","#de1414"],alt=f;
-		products.map((p,i)=>{
-			let mod=p[2]>p[4]/3||p[2]==p[4]?0:(p[2]>0?2:3);
-			this.drawRect([x,y+3,this.DOM.width-x,17],altColors[(alt?0:1)+mod]);
-			y+=12;
-			this.ctx.fillStyle="#000000";
-			this.ctx.fillText(p[0],x+5,y);
-			this.ctx.fillText(p[1],x+30,y);
-			this.ctx.fillText(p[2],this.DOM.width-50,y);
-			this.ctx.fillText(Money.toCurrency(p[3]),this.DOM.width-25,y);
-			totalEarned+=p[3]*(p[4]-p[2]);
-			potential+=p[3]*p[4];
-			alt=!alt;
-		});
-		y+=22;
-		this.ctx.font="bold "+20+"px Arial";
-		this.ctx.fillText("Money Stats",x+55,y);
-		y+=15;
-		this.ctx.font="bold "+10+"px Arial";
-		this.ctx.fillText("Amount",x,y);
-		this.ctx.fillText("Inserted",x+60,y);
-		this.ctx.fillText("Stored",x+120,y);
-		this.ctx.fillText("Max",x+200,y);
-		this.ctx.font=10+"px Arial";
-		let stored=this.coinValidator.stored,
-				inserted=this.coinValidator.inserted,
-				max=this.coinValidator.max;
-		for(let denomination in max){
-			let mod=(stored[denomination]>max[denomination]/3||!isDefined(stored[denomination]))?0:(stored[denomination]>0?2:4);
-			this.drawRect([x,y+3,this.DOM.width-x,17],altColors[(alt?0:1)+mod]);
-			y+=12;
-			this.ctx.fillStyle="#000000";
-			this.ctx.fillText(Money.toCurrency(denomination),x+5,y);
-			amount=hasKey(inserted,denomination)?inserted[denomination]:0;
-			insertedTotal+=amount*denomination;
-			xTra=amount<100?(amount<10?11:5):0;
-			this.ctx.fillText(amount,x+80+xTra,y);
-			amount=hasKey(stored,denomination)?stored[denomination]:0;
-			storedTotal+=amount*denomination;
-			xTra=amount<100?(amount<10?11:5):0;
-			this.ctx.fillText(amount,x+130+xTra,y);
-			amount=hasKey(max,denomination)?max[denomination]:0;
-			maxTotal+=amount*denomination;
-			xTra=amount<100?(amount<10?11:5):0;
-			this.ctx.fillText(amount,x+200+xTra,y);
-			alt=!alt;
-		}
-		y+=15;
-		this.ctx.font="bold "+12+"px Arial";
-		this.ctx.fillText("Total",x+5,y);
-		xTra=insertedTotal<100?(insertedTotal<10?11:5):0;
-		this.ctx.fillText(Money.toCurrency(insertedTotal),x+60+xTra,y);
-		xTra=storedTotal<100?(storedTotal<10?11:5):0;
-		this.ctx.fillText(Money.toCurrency(storedTotal),x+110+xTra,y);
-		xTra=maxTotal<100?(maxTotal<10?11:5):0;
-		this.ctx.fillText(Money.toCurrency(maxTotal),x+167+xTra,y);
-		y+=15;
-		this.ctx.fillText("Money Earned Since Refill",x+5,y);
-		this.ctx.font=12+"px Arial";
-		xTra=(totalEarned+"").length*5;
-		this.ctx.fillText(Money.toCurrency(totalEarned),this.DOM.width-25-xTra,y);
-		
-		y+=15;
-		this.ctx.font="bold "+12+"px Arial";
-		this.ctx.fillText("Potential Earning",x+5,y);
-		this.ctx.font=12+"px Arial";
-		xTra=(potential+"").length*5;
-		this.ctx.fillText(Money.toCurrency(potential),this.DOM.width-25-xTra,y);
-	}
+    return [...posMod([width, height], ratio), width, height];
+  }
+  addEventListeners() {
+    this.DOM.addEventListener("touchstart", (e) => this.mouseDown(e));
+    this.DOM.addEventListener("touchend", (e) => this.mouseUp(e));
+    this.DOM.addEventListener("touchmove", (e) => this.hover(e));
+    window.addEventListener("resize", (e) => this.resize(e), F);
+    window.addEventListener("orientationchange", (e) => this.resize(e), F);
+  }
+
+  hover(e) {
+    e.preventDefault();
+    let mousePos = this.getMousePos(e);
+    if (this.prevMousePos !== mousePos) {
+      this.prevMousePos = this.mousePos;
+      this.mousePos = mousePos;
+    }
+  }
+  mouseDown() {
+    this.mouseDown = T;
+  }
+  mouseUp() {
+    this.mouseDown = F;
+    if (!this.numpad.isButtonPressed()) {
+      if (!this.money.checkMoneyClicked()) {
+        if (this.pointInSquare(this.mousePos, this.dimens.refundHandle)) {
+          this.player.getMoney(this.coinValidator.inserted);
+          this.coinValidator.inserted = {};
+          this.setText("Your money has been refunded", 1);
+          this.drawScreen();
+        }
+      }
+    }
+  }
+  mouseOut() {
+    this.mousePos = [-50, -50];
+    this.mouseDown = F;
+  }
+  getMousePos(e) {
+    if (isDefined(e.touches)) {
+      e = e.touches[0];
+    }
+    var dimens = this.DOM.getBoundingClientRect(),
+      scaleX = this.DOM.width / dimens.width,
+      scaleY = this.DOM.height / dimens.height;
+    return [
+      (e.clientX - dimens.left) * scaleX,
+      (e.clientY - dimens.top) * scaleY,
+    ];
+  }
+  resize() {
+    let widthToHeight = this.width / this.height,
+      newWidth = window.innerWidth,
+      newHeight = window.innerHeight,
+      newWidthToHeight = newWidth / newHeight;
+
+    if (newWidthToHeight > widthToHeight) {
+      newWidth = newHeight * widthToHeight;
+      this.scale = newWidth / 260;
+    } else {
+      newHeight = newWidth / widthToHeight;
+      this.scale = newWidth / 260;
+    }
+
+    this.DOM.width = newWidth;
+    this.DOM.height = newHeight;
+  }
+  pointInSquare(pos, area) {
+    let x = pos[0],
+      y = pos[1],
+      x1 = area[0] * this.scale,
+      y1 = area[1] * this.scale,
+      x2 = (area[0] + area[2]) * this.scale,
+      y2 = (area[1] + area[3]) * this.scale;
+    return x > x1 && x < x2 && y > y1 && y < y2;
+  }
+  draw(ctx = this.ctx) {
+    let {
+      machine,
+      internal,
+      refundHandle,
+      labelHeight,
+      light,
+      shelfBarHeight,
+      handHeight,
+      numPad,
+      lcd,
+      coinPanel,
+      notePanel,
+      coinSlot,
+      noteSlot,
+      trayDoor,
+      shelf,
+      handWidth,
+      armDimens,
+      handDimens,
+      productDimens,
+      labelTextSize,
+    } = this.dimens;
+    let c = this.colors;
+    //Draw machine background
+    this.drawRect(machine, c.machine, c.border);
+    //Draw machine internal structure
+    this.drawRect(internal, c.internal);
+    //Draw shelves
+    for (let row = 0; row < 4; row++) {
+      let shelfY = shelf[1] * row - shelfBarHeight + internal[0] + shelf[1];
+
+      //draw shelf
+      this.drawRect(
+        [internal[1], shelfY, internal[2], shelfBarHeight],
+        c.shelfBar
+      );
+      for (let col = 0; col < 5; col++) {
+        //Draw products
+        if (this.products[row][col].stock > 0) {
+          ctx.drawImage(
+            this.products[row][col].img,
+            ...productDimens[row][col]
+          );
+        }
+        //draw label
+        this.drawRect(
+          [
+            internal[0] + shelf[0] * col,
+            shelfY - labelHeight,
+            shelf[0],
+            labelHeight,
+          ],
+          c.label[col]
+        );
+        ctx.fillStyle = c.labelText;
+        ctx.font = "bold " + (labelTextSize + 2) + "px Arial";
+        ctx.fillText(
+          String.fromCharCode(row + 65) + (col + 1),
+          internal[0] + shelf[0] * col + shelf[0] - 17,
+          shelfY - labelHeight / 2 + labelTextSize / 2
+        );
+
+        ctx.font = "bold " + labelTextSize + "px Arial";
+        ctx.fillText(
+          Money.toCurrency(this.products[row][col].cost),
+          internal[0] + shelf[0] * col + 4,
+          shelfY - labelHeight / 2 + labelTextSize / 2
+        );
+      }
+    }
+    //Draw arm and hand
+    if (!!this.holding) {
+      let dimens = productDimens[this.holdingPos[0]][this.holdingPos[1]];
+      ctx.drawImage(
+        this.holding.img,
+        handDimens()[0] + (shelf[0] - dimens[2]) / 2,
+        handDimens()[1] - dimens[3] / 2,
+        dimens[2],
+        dimens[3]
+      );
+    }
+    this.drawRect(armDimens(), c.arm);
+    this.drawRect(handDimens(), c.hand);
+    //Draw glass
+    this.drawRect(internal, F, F, [
+      F,
+      [200, 100, 20, 200, 100, 200],
+      [c.glassLight(0.7 * this.lightLevel), c.glass],
+    ]);
+    //Draw numPad/lcd
+    this.redrawNumpad();
+    //Draw money inputs
+    this.drawRect(coinPanel, c.coinPanel);
+    this.drawRect(notePanel, c.notePanel);
+    this.drawRect(coinSlot, c.coinSlot);
+    this.drawRect(noteSlot, c.noteSlot);
+    this.drawRect(refundHandle, c.coinPanel);
+    this.ctx.arc(refundHandle[0] + 2.5, refundHandle[1], 5, 0, 2 * Math.PI);
+    this.ctx.fill();
+    //Draw drink collection tray
+    this.drawTrayDoor(c.tray);
+    if (!!this.dropped && !this.dropped[2]) {
+      //Draw dropped item
+      ctx.drawImage(this.dropped[0].img, ...this.dropped[1]);
+    }
+    //Draw tray door in front of product
+    this.drawTrayDoor(c.trayDoor, this.doorOpenLevel);
+    //Redraw bottom in front of dropped item
+    this.drawRect([0, internal[1] + internal[3], machine[2], 15], c.machine);
+    this.drawRect(
+      [0, internal[1] + internal[3] + 65, machine[2], 15],
+      c.machine
+    );
+
+    //Draw popout items
+    if (!!this.dropped && this.dropped[2]) {
+      ctx.drawImage(this.dropped[0].img, ...this.dropped[1]);
+    }
+    this.drawRect(light, F, F, [
+      T,
+      [0, 0, 65, 0],
+      [c.glassLight(), "rgba(130, 247, 255, 0)"],
+    ]);
+    this.drawBackpack();
+  }
+  drawScreen() {
+    this.drawRect([0, 0, this.DOM.width, this.DOM.height], "#ffffff");
+    this.numpad.draw();
+    this.draw();
+    this.money.draw();
+
+    let notePanel = [284, 240, 40, 20];
+    this.drawRect(notePanel, "darkgray");
+    this.drawRect(this.slotPos[0], "black");
+    this.drawRect(this.slotPos[1], "gray");
+    this.drawStats();
+  }
+  get holding() {
+    return !!this.holdingPos
+      ? this.products[this.holdingPos[0]][this.holdingPos[1]]
+      : F;
+  }
+  moveHandTo(pos, extra) {
+    let after = (e) => {};
+    if (isArray(pos)) {
+      let colWidth = 260 / 5;
+      let shelfHeight = (400 - 30) / 4;
+      let col = pos[0] - 1;
+      let row = pos[1] - 1;
+      pos[1] = col * colWidth;
+      pos[0] = (3 - row) * shelfHeight + 47;
+      after = (e) => {
+        this.moveHandTo("centerHolding", [row, col]);
+      };
+    } else {
+      if (pos == "origin") {
+        pos = [0, 180];
+        after = (e) => {
+          this.storedButtons.length = 0;
+          this.toggleLCD(T);
+        };
+      } else if (pos == "bottom") {
+        pos = [-50, this.holdingPos[1] * (260 / 5)];
+        after = (e) => {
+          if (!!this.holdingPos) {
+            let width = 260 / 5,
+              height = (400 - 30) / 4 - 5 - 20;
+            let ratio = width / this.holding.img.width;
+            if (ratio * this.holding.img.height > height) {
+              ratio = height / this.holding.img.height;
+            }
+            let y =
+              this.dimens.trayDoor[1] +
+              this.dimens.trayDoor[3] / 2 -
+              this.dimens.productDimens[this.holdingPos[0]][
+                this.holdingPos[1]
+              ][3] /
+                2;
+            if (
+              Math.ceil(
+                y +
+                  this.dimens.productDimens[this.holdingPos[0]][
+                    this.holdingPos[1]
+                  ][3]
+              ) +
+                10 >=
+              this.dimens.machine[1] + this.dimens.machine[3]
+            ) {
+              y =
+                this.dimens.machine[1] +
+                this.dimens.machine[3] -
+                this.dimens.productDimens[this.holdingPos[0]][
+                  this.holdingPos[1]
+                ][3] -
+                10;
+            }
+            this.dropped = [
+              this.holding,
+              [
+                pos[1] + 20,
+                y,
+                this.holding.img.width * ratio,
+                this.holding.img.height * ratio + 10,
+              ],
+              F,
+            ];
+            this.holdingPos = F;
+            setTimeout((e) => this.openDoor(), 500);
+          }
+          this.moveHandTo("origin");
+        };
+      } else if (pos == "centerHolding") {
+        pos = [
+          (3 - extra[0]) * ((400 - 30) / 4) +
+            47 -
+            this.dimens.handHeight / 2 +
+            this.dimens.productDimens[extra[0]][extra[1]][3] / 2,
+          extra[1] * (260 / 5),
+        ];
+        after = (e) => {
+          this.holdingPos = extra;
+          //charge the money from the validator
+          let change = this.coinValidator.storeMoney(this.holding);
+          this.player.getMoney(change);
+          this.drawScreen();
+          this.moveHandTo("bottom");
+        };
+      }
+    }
+    this.moveHand(pos, after);
+  }
+  moveHand(pos, after = (e) => {}) {
+    let increment = 5;
+    let armGoingUp = this.armPos < pos[0];
+    let handGoingRight = this.handPos < pos[1];
+    let loop = (e) => {
+      if (this.armPos < pos[0]) {
+        this.armPos += increment;
+      } else if (this.armPos > pos[0]) {
+        this.armPos -= increment;
+      }
+      if (
+        this.armPos == pos[0] ||
+        (armGoingUp && this.armPos + increment > pos[0]) ||
+        (!armGoingUp && this.armPos - increment < pos[0])
+      ) {
+        this.armPos = pos[0];
+        if (this.handPos != pos[1]) {
+          if (this.handPos < pos[1]) {
+            this.handPos += increment;
+          } else if (this.handPos > pos[1]) {
+            this.handPos -= increment;
+          }
+        }
+        if (
+          (handGoingRight && this.handPos + increment > pos[1]) ||
+          (!handGoingRight && this.handPos - increment < pos[1])
+        ) {
+          this.handPos = pos[1];
+        }
+      }
+      this.draw();
+      if (this.handPos != pos[1] || this.armPos != pos[0]) {
+        setTimeout(loop, 50);
+      } else {
+        setTimeout(after, 100);
+      }
+    };
+    loop();
+  }
+  setHandPos(pos) {
+    let colWidth = 260 / 5;
+    let shelfHeight = (400 - 30) / 4;
+    let col = pos[0] - 1;
+    let row = 4 - pos[1];
+    let handPos = col * colWidth;
+    let armPos = row * shelfHeight + 47;
+    this.armPos = armPos;
+    this.handPos = handPos;
+  }
+  drawRect(dimens, color = F, strokeColor = F, gradient = F) {
+    this.ctx.beginPath();
+    this.ctx.rect(...dimens);
+    if (!!color) {
+      this.ctx.fillStyle = color;
+      this.ctx.fill();
+    }
+    if (!!gradient) {
+      let grad = this.ctx[
+        gradient[0] == T ? "createLinearGradient" : "createRadialGradient"
+      ](...gradient[1]);
+      for (let index = 0; index < gradient[2].length; index++) {
+        grad.addColorStop(index, gradient[2][index]);
+      }
+      this.ctx.fillStyle = grad;
+      this.ctx.fill();
+    }
+    if (!!strokeColor) {
+      this.ctx.strokeStyle = strokeColor;
+      this.ctx.stroke();
+    }
+  }
+  openDoor(percent = 1, closing = F) {
+    this.doorOpenLevel = percent;
+    if (closing) {
+      percent--;
+    } else {
+      percent++;
+    }
+    if (percent < 30 && percent > -1) {
+      setTimeout((e) => this.openDoor(percent, closing), 10);
+    } else if (!closing) {
+      this.popoutProduct(...this.dropped);
+      setTimeout((e) => this.openDoor(percent, T), 1500);
+    }
+    this.draw();
+  }
+  drawTrayDoor(color, skewPercent = 0) {
+    let x = this.dimens.trayDoor[0],
+      y = this.dimens.trayDoor[1],
+      width = this.dimens.trayDoor[2],
+      height = this.dimens.trayDoor[3];
+    this.ctx.fillStyle = color;
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y);
+    this.ctx.lineTo(x + width, y);
+    this.ctx.lineTo(
+      x + width - skewPercent / 1.5,
+      y + height - skewPercent * 1.2
+    );
+    this.ctx.lineTo(x + skewPercent / 1.5, y + height - skewPercent * 1.2);
+    this.ctx.closePath();
+    this.ctx.fill();
+    this.ctx.strokeStyle = this.colors.border;
+    this.ctx.stroke();
+  }
+  toggleLCD(start) {
+    if (start) {
+      this.numpad.lcd.start();
+    } else {
+      this.numpad.lcd.stop();
+    }
+  }
+
+  popoutProduct(product, imgDimens) {
+    let originalDimens = cloneArr(imgDimens);
+    this.dropped[2] = T;
+    //largest size dimensions
+    let finalSize = [this.DOM.width - 100, this.DOM.height - 100];
+    //Scale the product to the correct final size
+    let ratio = finalSize[0] / imgDimens[2];
+    if (ratio * imgDimens[3] > finalSize[1]) {
+      ratio = finalSize[1] / imgDimens[3];
+    }
+    finalSize = [imgDimens[2] * ratio, imgDimens[3] * ratio];
+    //Calculate final coords
+    finalSize.unshift((this.DOM.height - finalSize[1]) / 2);
+    finalSize.unshift((this.DOM.width - finalSize[1]) / 2);
+
+    //Calculate step sizes
+    let steps = 20,
+      step = 0,
+      increment = finalSize.map((s, i) => (s - imgDimens[i]) / steps);
+
+    let popout = (e) => {
+      this.dropped[1] = this.dropped[1].map((p, i) => p + increment[i]);
+      this.drawScreen();
+      this.ctx.drawImage(product.img, ...this.dropped[1]);
+      if (++step < steps) {
+        setTimeout(popout, 20);
+      } else {
+        setTimeout((e) => this.moveProductToBag(originalDimens), 300);
+      }
+    };
+    popout();
+  }
+  moveProductToBag(smallSize) {
+    smallSize[0] = 10;
+    smallSize[1] = this.DOM.height - 10 - smallSize[3];
+    //Calculate step sizes
+    let steps = 20,
+      step = 0,
+      increment = smallSize.map((s, i) => (s - this.dropped[1][i]) / steps);
+
+    let popout = (e) => {
+      this.dropped[1] = this.dropped[1].map((p, i) => p + increment[i]);
+      this.drawScreen();
+      this.ctx.drawImage(this.dropped[0].img, ...this.dropped[1]);
+      if (++step < steps) {
+        setTimeout(popout, 20);
+      } else {
+        this.dropped = F;
+        this.drawScreen();
+      }
+    };
+    popout();
+  }
+
+  //logic
+  drawBackpack() {
+    this.ctx.drawImage(this.backpackIMG, ...this.dimens.backpack);
+  }
+  setText(text, count, stopAndCenter = F) {
+    this.numpad.lcd.setText(text);
+    if (stopAndCenter) {
+      this.numpad.lcd.stop();
+      this.numpad.lcd.offset = Math.floor(
+        (this.numpad.lcd.length - text.length) / 2
+      );
+      this.numpad.lcd.draw();
+    }
+  }
+  clearLCD() {
+    this.lcd.flash(3, (e) => {
+      this.lcd.clear();
+      this.storedButtons.length = 0;
+    });
+  }
+
+  validCode(code) {
+    return !isNum(code[0]) && isNum(code[1]);
+  }
+
+  productInRange(code) {
+    let row = code[0].charCodeAt(0) - 65,
+      col = parseInt(code[1]) - 1;
+    return this.products.length > row && this.products[row].length > col
+      ? this.products[row][col]
+      : F;
+  }
+
+  hasStock(product) {
+    return product.stock > 0;
+  }
+  checkPendingProduct() {
+    if (this.validCode(this.storedButtons)) {
+      this.productSelected();
+      return T;
+    }
+    return F;
+  }
+  dispenseProduct(product) {
+    //remove product from machine inventory
+    product.stock--;
+    let code = this.storedButtons.join(""),
+      col = code[0].charCodeAt(0) - 64,
+      row = parseInt(code[1]);
+    if (col < 5 && row < 6) {
+      this.moveHandTo([row, col]);
+    }
+    this.setText(`You get ${product.name}`);
+  }
+
+  redrawNumpad() {
+    this.ctx.drawImage(
+      this.DOM,
+      this.numpad.x,
+      this.numpad.y,
+      this.numpad.width,
+      this.numpad.height,
+      ...this.dimens.numPad
+    );
+  }
+
+  productSelected(code = this.storedButtons) {
+    //Check if button memory is valid; a letter followed by a number
+    if (this.validCode(code)) {
+      //check that number is in range of products table
+      let product = this.productInRange(code);
+      if (!!product) {
+        //if product is in machine inventory
+        if (this.hasStock(product)) {
+          //If enough money is in coin validator
+          if (this.coinValidator.hasEnoughMoney(product)) {
+            //give the product
+            this.dispenseProduct(product);
+          } else {
+            setTimeout(
+              (e) =>
+                this.setText(
+                  `Please Insert ${Money.toCurrency(
+                    product.cost - this.coinValidator.holding
+                  )} To Purchace ${product.name}`
+                ),
+              200
+            );
+          }
+        } else {
+          this.storedButtons.length = 0;
+          this.setText(`${productID} Is Out Of Stock`);
+        }
+      } else {
+        this.storedButtons.length = 0;
+        this.setText(`${code.join("")} Is Not A Valid Product Selection`);
+      }
+    } else {
+      this.storedButtons.length = 0;
+      this.setText("Code Invalid");
+    }
+  }
+  get denominations() {
+    return this.coins.concat(this.notes).sort((a, b) => a - b);
+  }
+
+  drawStats() {
+    let products = [],
+      x = this.dimens.machine[2] + this.numpad.width + 5,
+      y = 20,
+      potential = 0,
+      totalEarned = 0,
+      insertedTotal = 0,
+      storedTotal = 0,
+      maxTotal = 0,
+      amount = 0,
+      xTra = 0;
+    this.products.map((row, c) =>
+      row.map((p, i) =>
+        products.push([
+          String.fromCharCode(c + 65) + (i + 1),
+          p.name,
+          p.stock,
+          p.cost,
+          p.maxStock,
+        ])
+      )
+    );
+    this.ctx.fillStyle = "#000000";
+    this.ctx.font = "bold " + 26 + "px Arial";
+    this.ctx.fillText("Vending Machine", x, y);
+    this.ctx.fillText("Statistics", x + 50, y + 23);
+    y += 45;
+    this.ctx.font = "bold " + 20 + "px Arial";
+    this.ctx.fillText("Product Stats", x + 45, y);
+    y += 15;
+    this.ctx.font = "bold " + 10 + "px Arial";
+    this.ctx.fillText("Code", x, y);
+    this.ctx.fillText("Product", x + 30, y);
+    this.ctx.fillText("Stock", this.DOM.width - 55, y);
+    this.ctx.fillText("Cost", this.DOM.width - 25, y);
+    this.ctx.font = 10 + "px Arial";
+    let altColors = [
+        "#FFFFFF",
+        "#EDEDED",
+        "#fff240",
+        "#dbce12",
+        "#ff3838",
+        "#de1414",
+      ],
+      alt = F;
+    products.map((p, i) => {
+      let mod = p[2] > p[4] / 3 || p[2] == p[4] ? 0 : p[2] > 0 ? 2 : 3;
+      this.drawRect(
+        [x, y + 3, this.DOM.width - x, 17],
+        altColors[(alt ? 0 : 1) + mod]
+      );
+      y += 12;
+      this.ctx.fillStyle = "#000000";
+      this.ctx.fillText(p[0], x + 5, y);
+      this.ctx.fillText(p[1], x + 30, y);
+      this.ctx.fillText(p[2], this.DOM.width - 50, y);
+      this.ctx.fillText(Money.toCurrency(p[3]), this.DOM.width - 25, y);
+      totalEarned += p[3] * (p[4] - p[2]);
+      potential += p[3] * p[4];
+      alt = !alt;
+    });
+    y += 22;
+    this.ctx.font = "bold " + 20 + "px Arial";
+    this.ctx.fillText("Money Stats", x + 55, y);
+    y += 15;
+    this.ctx.font = "bold " + 10 + "px Arial";
+    this.ctx.fillText("Amount", x, y);
+    this.ctx.fillText("Inserted", x + 60, y);
+    this.ctx.fillText("Stored", x + 120, y);
+    this.ctx.fillText("Max", x + 200, y);
+    this.ctx.font = 10 + "px Arial";
+    let stored = this.coinValidator.stored,
+      inserted = this.coinValidator.inserted,
+      max = this.coinValidator.max;
+    for (let denomination in max) {
+      let mod =
+        stored[denomination] > max[denomination] / 3 ||
+        !isDefined(stored[denomination])
+          ? 0
+          : stored[denomination] > 0
+          ? 2
+          : 4;
+      this.drawRect(
+        [x, y + 3, this.DOM.width - x, 17],
+        altColors[(alt ? 0 : 1) + mod]
+      );
+      y += 12;
+      this.ctx.fillStyle = "#000000";
+      this.ctx.fillText(Money.toCurrency(denomination), x + 5, y);
+      amount = hasKey(inserted, denomination) ? inserted[denomination] : 0;
+      insertedTotal += amount * denomination;
+      xTra = amount < 100 ? (amount < 10 ? 11 : 5) : 0;
+      this.ctx.fillText(amount, x + 80 + xTra, y);
+      amount = hasKey(stored, denomination) ? stored[denomination] : 0;
+      storedTotal += amount * denomination;
+      xTra = amount < 100 ? (amount < 10 ? 11 : 5) : 0;
+      this.ctx.fillText(amount, x + 130 + xTra, y);
+      amount = hasKey(max, denomination) ? max[denomination] : 0;
+      maxTotal += amount * denomination;
+      xTra = amount < 100 ? (amount < 10 ? 11 : 5) : 0;
+      this.ctx.fillText(amount, x + 200 + xTra, y);
+      alt = !alt;
+    }
+    y += 15;
+    this.ctx.font = "bold " + 12 + "px Arial";
+    this.ctx.fillText("Total", x + 5, y);
+    xTra = insertedTotal < 100 ? (insertedTotal < 10 ? 11 : 5) : 0;
+    this.ctx.fillText(Money.toCurrency(insertedTotal), x + 60 + xTra, y);
+    xTra = storedTotal < 100 ? (storedTotal < 10 ? 11 : 5) : 0;
+    this.ctx.fillText(Money.toCurrency(storedTotal), x + 110 + xTra, y);
+    xTra = maxTotal < 100 ? (maxTotal < 10 ? 11 : 5) : 0;
+    this.ctx.fillText(Money.toCurrency(maxTotal), x + 167 + xTra, y);
+    y += 15;
+    this.ctx.fillText("Money Earned Since Refill", x + 5, y);
+    this.ctx.font = 12 + "px Arial";
+    xTra = (totalEarned + "").length * 5;
+    this.ctx.fillText(
+      Money.toCurrency(totalEarned),
+      this.DOM.width - 25 - xTra,
+      y
+    );
+
+    y += 15;
+    this.ctx.font = "bold " + 12 + "px Arial";
+    this.ctx.fillText("Potential Earning", x + 5, y);
+    this.ctx.font = 12 + "px Arial";
+    xTra = (potential + "").length * 5;
+    this.ctx.fillText(
+      Money.toCurrency(potential),
+      this.DOM.width - 25 - xTra,
+      y
+    );
+  }
 }
 
-class Money extends Obj{
-	constructor(x,y,vars){
-		super("moneyHeight",50,"noteWidth",120,"noteHeight",50,"sharedVars",vars,"x",x,"y",y,"img",{},"movingMoney",[]);
-		Money.currency=this .currency;
-		let loader=new SimpleLoader(e=>this.setMoneySizes(),this.money.length)
-		this.money.map(c=>{
-			this.img[c]=new Image();
-			this.img[c].onload=e=>loader.removeItem();
-			this.img[c].src=`images/vendingMachine/money/${this.currency}/${c}.png`;
-			this.img[c].title=Money.toCurrency(c);
-		});
-	}
-	get money(){
-		return this.coins.concat(this.notes).sort((a,b)=>a-b);
-	}
-	setMoneySizes(){
-		//Get the largest coin
-		let largestCoin=this.img[this.coins[0]];
-		for(let index=1;index<this.coins.length;index++){
-			if(this.img[this.coins[index]].height>largestCoin.height){largestCoin=this.img[this.coins[index]];}
-		}
-		let ratio=this.moneyHeight/largestCoin.height;
-		this.ratios={};
-		this.money.map(e=>this.ratios[e]=[this.img[e].width*ratio,this.img[e].height*ratio]);
-		this.scratchCTX=CE("cvs",n,n,n,0,0,this.img[this.notes[this.notes.length-1]].width,this.img[this.notes[this.notes.length-1]].width).getContext("2d");
-		this.draw();
-	}
-	draw(){
-		let accumWidth=0;
-		this.coins.map((c,i)=>{
-			this.ctx.drawImage(this.img[c],...this.coinDimens(c,i));
-		});
-		this.notes.map((c,i)=>this.ctx.drawImage(this.img[c],...this.noteDimens(c,i)));
-		//Draw money quantities
-		this.coins.map((c,i)=>{
-			let dimens=this.coinDimens(c,i);
-			this.ctx.beginPath();
-			this.ctx.fillStyle="red";
-			this.ctx.arc(dimens[0]+dimens[2],dimens[1]+10,10,0,2*Math.PI);
-			this.ctx.fill();
-			
-			this.ctx.fillStyle="#000000";
-			this.ctx.font = 15+"px Arial";
-			let count=this.cash.coins[c];
-			let width=(count>9?9:4);
-			this.ctx.fillText(count,dimens[0]+dimens[2]-width,dimens[1]+15);
-		});
-		this.notes.map((c,i)=>{
-			let dimens=this.noteDimens(c,i);
-			this.ctx.beginPath();
-			this.ctx.fillStyle="red";
-			this.ctx.arc(dimens[0]+dimens[2],dimens[1]+10,10,0,2*Math.PI);
-			this.ctx.fill();
-			
-			this.ctx.fillStyle="#000000";
-			this.ctx.font = 15+"px Arial";
-			let count=this.cash.notes[c];
-			let width=(count>9?9:4);
-			this.ctx.fillText(count,dimens[0]+dimens[2]-width,dimens[1]+15);
-		});
-		
-		this.movingMoney.map(m=>{
-			this.scratchCTX.clearRect(0,0,this.scratchCTX.canvas.width,this.scratchCTX.canvas.height);
-			this.scratchCTX.save();
-			this.scratchCTX.translate(this.scratchCTX.canvas.width/2,this.scratchCTX.canvas.height/2);
-			this.scratchCTX.rotate(m[2]*Math.PI/180);
-			this.scratchCTX.drawImage(m[0],-m[0].width/2,-m[0].height/2);
-			this.scratchCTX.restore();
-			this.ctx.drawImage(this.scratchCTX.canvas,...m[1]);
-		});
-	}
-	checkMoneyClicked(){
-		if(!this.pointInSquare(this.mousePos,[this.x,this.y,this.noteWidth*this.notes.length,this.moneyHeight+this.noteHeight+10])){return f;}
-		for(let i=0;i<this.coins.length;i++){
-			let c=this.coins[i];
-			if(this.pointInSquare(this.mousePos,this.coinDimens(c,i))){
-				this.insertMoney(c,i,t);
-				return t;
-			}
-		}
-		for(let i=0;i<this.notes.length;i++){
-			let c=this.notes[i];
-			if(this.pointInSquare(this.mousePos,this.noteDimens(c,i))){
-				this.insertMoney(c,i,f);
-				return t;
-			}
-		}
-	}
-	coinDimens(c,i){
-		return [this.x+this.moneyHeight*i+(this.moneyHeight-this.ratios[c][0])/2,this.y+(this.moneyHeight-this.ratios[c][1]),this.ratios[c][0],this.ratios[c][1]];
-	}
-	noteDimens(c,i){
-		return [this.x+this.noteWidth*i,this.y+this.moneyHeight,this.noteWidth,this.noteHeight];
-	}
-	insertMoney(c,i,coin){
-		if(this.cash[coin==t?"coins":"notes"][c]==0){return;}
-		let m=n;
-		if(coin){
-			m=[this.img[c],this.coinDimens(c,i),0];
-		}else{
-			m=[this.img[c],this.noteDimens(c,i),0];
-		}
-		this.movingMoney.unshift(m);
-		this.cash[coin==t?"coins":"notes"][c]--;
-		let steps=20,
-				step=0,
-				angleIncrement=90/steps,
-				sizeIncrement=this.slotPos[coin?0:1][2]/this.img[c].width,
-				xIncrement=(m[1][0]-this.slotPos[coin?0:1][0]-(coin?12:45))/steps,
-				yIncrement=(m[1][1]-this.slotPos[coin?0:1][1]-(coin?12:12))/steps;
-		m[1][2]/=-2;
-		m[1][3]/=-2;
-		let move=e=>{
-			m[2]+=angleIncrement;
-			m[1][0]-=xIncrement;
-			m[1][1]-=yIncrement;
-			m[1][2]-=sizeIncrement;
-			m[1][3]-=sizeIncrement;
-			this.drawScreen();
-			if(++step<steps){
-				setTimeout(e=>move(),50);
-			}else{
-				this.movingMoney.pop();
-				this.moneyInserted(c);
-				this.toggleLCD(t);
-				this.drawScreen();
-			}
-		}
-		move();
-	}
-	//Logic functions
-	
-	static toCurrency(value,currency){
-		return new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: Money.currency,
-}).format(value);
-	}
-	static fromCurrency(value){
-		return parseFloat(value.replace(/[^0-9-.]/g, ''));
-	}
+class Money extends Obj {
+  constructor(x, y, vars) {
+    super(
+      "moneyHeight",
+      50,
+      "noteWidth",
+      120,
+      "noteHeight",
+      50,
+      "sharedVars",
+      vars,
+      "x",
+      x,
+      "y",
+      y,
+      "img",
+      {},
+      "movingMoney",
+      []
+    );
+    Money.currency = this.currency;
+    let loader = new SimpleLoader(
+      (e) => this.setMoneySizes(),
+      this.money.length
+    );
+    this.money.map((c) => {
+      this.img[c] = new Image();
+      this.img[c].onload = (e) => loader.removeItem();
+      this.img[c].src = `images/vendingMachine/money/${this.currency}/${c}.png`;
+      this.img[c].title = Money.toCurrency(c);
+    });
+  }
+  get money() {
+    return this.coins.concat(this.notes).sort((a, b) => a - b);
+  }
+  setMoneySizes() {
+    //Get the largest coin
+    let largestCoin = this.img[this.coins[0]];
+    for (let index = 1; index < this.coins.length; index++) {
+      if (this.img[this.coins[index]].height > largestCoin.height) {
+        largestCoin = this.img[this.coins[index]];
+      }
+    }
+    let ratio = this.moneyHeight / largestCoin.height;
+    this.ratios = {};
+    this.money.map(
+      (e) =>
+        (this.ratios[e] = [
+          this.img[e].width * ratio,
+          this.img[e].height * ratio,
+        ])
+    );
+    this.scratchCTX = CE(
+      "cvs",
+      this.img[this.notes[this.notes.length - 1]].width,
+      this.img[this.notes[this.notes.length - 1]].width
+    ).getContext("2d");
+    this.draw();
+  }
+  draw() {
+    let accumWidth = 0;
+    this.coins.map((c, i) => {
+      this.ctx.drawImage(this.img[c], ...this.coinDimens(c, i));
+    });
+    this.notes.map((c, i) =>
+      this.ctx.drawImage(this.img[c], ...this.noteDimens(c, i))
+    );
+    //Draw money quantities
+    this.coins.map((c, i) => {
+      let dimens = this.coinDimens(c, i);
+      this.ctx.beginPath();
+      this.ctx.fillStyle = "red";
+      this.ctx.arc(dimens[0] + dimens[2], dimens[1] + 10, 10, 0, 2 * Math.PI);
+      this.ctx.fill();
+
+      this.ctx.fillStyle = "#000000";
+      this.ctx.font = 15 + "px Arial";
+      let count = this.cash.coins[c];
+      let width = count > 9 ? 9 : 4;
+      this.ctx.fillText(count, dimens[0] + dimens[2] - width, dimens[1] + 15);
+    });
+    this.notes.map((c, i) => {
+      let dimens = this.noteDimens(c, i);
+      this.ctx.beginPath();
+      this.ctx.fillStyle = "red";
+      this.ctx.arc(dimens[0] + dimens[2], dimens[1] + 10, 10, 0, 2 * Math.PI);
+      this.ctx.fill();
+
+      this.ctx.fillStyle = "#000000";
+      this.ctx.font = 15 + "px Arial";
+      let count = this.cash.notes[c];
+      let width = count > 9 ? 9 : 4;
+      this.ctx.fillText(count, dimens[0] + dimens[2] - width, dimens[1] + 15);
+    });
+
+    this.movingMoney.map((m) => {
+      this.scratchCTX.clearRect(
+        0,
+        0,
+        this.scratchCTX.canvas.width,
+        this.scratchCTX.canvas.height
+      );
+      this.scratchCTX.save();
+      this.scratchCTX.translate(
+        this.scratchCTX.canvas.width / 2,
+        this.scratchCTX.canvas.height / 2
+      );
+      this.scratchCTX.rotate((m[2] * Math.PI) / 180);
+      this.scratchCTX.drawImage(m[0], -m[0].width / 2, -m[0].height / 2);
+      this.scratchCTX.restore();
+      this.ctx.drawImage(this.scratchCTX.canvas, ...m[1]);
+    });
+  }
+  checkMoneyClicked() {
+    if (
+      !this.pointInSquare(this.mousePos, [
+        this.x,
+        this.y,
+        this.noteWidth * this.notes.length,
+        this.moneyHeight + this.noteHeight + 10,
+      ])
+    ) {
+      return F;
+    }
+    for (let i = 0; i < this.coins.length; i++) {
+      let c = this.coins[i];
+      if (this.pointInSquare(this.mousePos, this.coinDimens(c, i))) {
+        this.insertMoney(c, i, T);
+        return T;
+      }
+    }
+    for (let i = 0; i < this.notes.length; i++) {
+      let c = this.notes[i];
+      if (this.pointInSquare(this.mousePos, this.noteDimens(c, i))) {
+        this.insertMoney(c, i, F);
+        return T;
+      }
+    }
+  }
+  coinDimens(c, i) {
+    return [
+      this.x +
+        this.moneyHeight * i +
+        (this.moneyHeight - this.ratios[c][0]) / 2,
+      this.y + (this.moneyHeight - this.ratios[c][1]),
+      this.ratios[c][0],
+      this.ratios[c][1],
+    ];
+  }
+  noteDimens(c, i) {
+    return [
+      this.x + this.noteWidth * i,
+      this.y + this.moneyHeight,
+      this.noteWidth,
+      this.noteHeight,
+    ];
+  }
+  insertMoney(c, i, coin) {
+    if (this.cash[coin == T ? "coins" : "notes"][c] == 0) {
+      return;
+    }
+    let m = N;
+    if (coin) {
+      m = [this.img[c], this.coinDimens(c, i), 0];
+    } else {
+      m = [this.img[c], this.noteDimens(c, i), 0];
+    }
+    this.movingMoney.unshift(m);
+    this.cash[coin == T ? "coins" : "notes"][c]--;
+    let steps = 20,
+      step = 0,
+      angleIncrement = 90 / steps,
+      sizeIncrement = this.slotPos[coin ? 0 : 1][2] / this.img[c].width,
+      xIncrement =
+        (m[1][0] - this.slotPos[coin ? 0 : 1][0] - (coin ? 12 : 45)) / steps,
+      yIncrement =
+        (m[1][1] - this.slotPos[coin ? 0 : 1][1] - (coin ? 12 : 12)) / steps;
+    m[1][2] /= -2;
+    m[1][3] /= -2;
+    let move = (e) => {
+      m[2] += angleIncrement;
+      m[1][0] -= xIncrement;
+      m[1][1] -= yIncrement;
+      m[1][2] -= sizeIncrement;
+      m[1][3] -= sizeIncrement;
+      this.drawScreen();
+      if (++step < steps) {
+        setTimeout((e) => move(), 50);
+      } else {
+        this.movingMoney.pop();
+        this.moneyInserted(c);
+        this.toggleLCD(T);
+        this.drawScreen();
+      }
+    };
+    move();
+  }
+  //Logic functions
+
+  static toCurrency(value, currency) {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: Money.currency,
+    }).format(value);
+  }
+  static fromCurrency(value) {
+    return parseFloat(value.replace(/[^0-9-.]/g, ""));
+  }
 }
 
-class Numpad extends Obj{
-	constructor(x,y,vars){
-		super("sharedVars",vars,"x",x,"y",y,"buttonSize",50);
-		this.lcd=new LCD(this.x+20,this.y+20,[vars[0],vars[1],vars[2]]);
-		this.createButtons();
-		this.width=25*this.lcd.length+45;
-		this.height=25+3+(5*75);
-		this.draw();
-		this.lcd.start();
-	}
-	createButtons(){
-		this.buttons=["A","B","C","D","E","F","1","2","3","4","5","6","7","8","9"];
-		let col=0,row=0;
-		this.buttons=this.buttons.map(e=>{
-			if(col>2){col=0;row++;}
-			return [e,col++,row];
-		});
-	}
-	draw(){
-		this.drawRect([this.x,this.y,this.width,this.height],"#a8a8a8");
-		this.buttons.map((btn)=>this.drawButton(btn,this.x+50,this.y+60));
-		this.drawButton(["CLEAR",0,5],this.x+50,this.y+60,3);
-		this.lcd.draw();
-	}
-	drawButton(button,x,y,width=1){
-		x+=button[1]*this.buttonSize+(button[1]*3);
-		y+=button[2]*this.buttonSize+(button[2]*3);
-		this.drawRect([x,y,this.buttonSize*width+(width-1)*4,this.buttonSize],"blue");
-		//Draw Num
-		this.ctx.fillStyle="#000000";
-		let fontSize=50-width*3;
-		this.ctx.font="bold "+fontSize+"px Arial";
-		x+=13/width;
-		y+=45/width+(width>1?(width*10):0);
-		this.ctx.fillText(button[0],x,y);
-		this.ctx.closePath();
-	}
-	isButtonPressed(){
-		if(this.pointInSquare(this.mousePos,[this.x,this.y,this.width,this.height])){
-			let buttonSize=this.buttonSize;
-			for(let index=0;index<this.buttons.length;index++){
-				let button=this.buttons[index];
-				if(this.pointInSquare(this.mousePos,[button[1]*buttonSize+(button[1]*3)+this.x+50,button[2]*buttonSize+(button[2]*3)+this.y+60,buttonSize,buttonSize])){
-					this.pressButton(button[0]);
-					return t;
-				}
-			}
-			if(this.pointInSquare(this.mousePos,[this.x+50,5*this.buttonSize+(5*3)+this.y+60,this.buttonSize*3,this.buttonSize])){
-				this.pressButton("CLEAR");
-				return t;
-			}
-		}
-		return f;
-	}
-	
-	pressButton(button){
-		//clear if too many buttons or CLEAR has been pushed
-		if(this.storedButtons.length+1>2||button=="CLEAR"){this.storedButtons.length=0;return this.lcd.nextInQueue();}
-		//Store in memory
-		this.storedButtons.push(button);
-		this.storedButtons.sort().reverse();
-		this.lcd.setText(this.storedButtons.join(""),1,t);
-		this.lcd.stop();
-		this.lcd.offset=Math.floor((this.lcd.length-this.storedButtons.join("").length)/2);
-		this.lcd.draw();
-		//Is the memory a pair, select the product
-		if(this.storedButtons.length==2){this.productSelected();}
-	}
+class Numpad extends Obj {
+  constructor(x, y, vars) {
+    super("sharedVars", vars, "x", x, "y", y, "buttonSize", 50);
+    this.lcd = new LCD(this.x + 20, this.y + 20, [vars[0], vars[1], vars[2]]);
+    this.createButtons();
+    this.width = 25 * this.lcd.length + 45;
+    this.height = 25 + 3 + 5 * 75;
+    this.draw();
+    this.lcd.start();
+  }
+  createButtons() {
+    this.buttons = [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+    ];
+    let col = 0,
+      row = 0;
+    this.buttons = this.buttons.map((e) => {
+      if (col > 2) {
+        col = 0;
+        row++;
+      }
+      return [e, col++, row];
+    });
+  }
+  draw() {
+    this.drawRect([this.x, this.y, this.width, this.height], "#a8a8a8");
+    this.buttons.map((btn) => this.drawButton(btn, this.x + 50, this.y + 60));
+    this.drawButton(["CLEAR", 0, 5], this.x + 50, this.y + 60, 3);
+    this.lcd.draw();
+  }
+  drawButton(button, x, y, width = 1) {
+    x += button[1] * this.buttonSize + button[1] * 3;
+    y += button[2] * this.buttonSize + button[2] * 3;
+    this.drawRect(
+      [x, y, this.buttonSize * width + (width - 1) * 4, this.buttonSize],
+      "blue"
+    );
+    //Draw Num
+    this.ctx.fillStyle = "#000000";
+    let fontSize = 50 - width * 3;
+    this.ctx.font = "bold " + fontSize + "px Arial";
+    x += 13 / width;
+    y += 45 / width + (width > 1 ? width * 10 : 0);
+    this.ctx.fillText(button[0], x, y);
+    this.ctx.closePath();
+  }
+  isButtonPressed() {
+    if (
+      this.pointInSquare(this.mousePos, [
+        this.x,
+        this.y,
+        this.width,
+        this.height,
+      ])
+    ) {
+      let buttonSize = this.buttonSize;
+      for (let index = 0; index < this.buttons.length; index++) {
+        let button = this.buttons[index];
+        if (
+          this.pointInSquare(this.mousePos, [
+            button[1] * buttonSize + button[1] * 3 + this.x + 50,
+            button[2] * buttonSize + button[2] * 3 + this.y + 60,
+            buttonSize,
+            buttonSize,
+          ])
+        ) {
+          this.pressButton(button[0]);
+          return T;
+        }
+      }
+      if (
+        this.pointInSquare(this.mousePos, [
+          this.x + 50,
+          5 * this.buttonSize + 5 * 3 + this.y + 60,
+          this.buttonSize * 3,
+          this.buttonSize,
+        ])
+      ) {
+        this.pressButton("CLEAR");
+        return T;
+      }
+    }
+    return F;
+  }
+
+  pressButton(button) {
+    //clear if too many buttons or CLEAR has been pushed
+    if (this.storedButtons.length + 1 > 2 || button == "CLEAR") {
+      this.storedButtons.length = 0;
+      return this.lcd.nextInQueue();
+    }
+    //Store in memory
+    this.storedButtons.push(button);
+    this.storedButtons.sort().reverse();
+    this.lcd.setText(this.storedButtons.join(""), 1, T);
+    this.lcd.stop();
+    this.lcd.offset = Math.floor(
+      (this.lcd.length - this.storedButtons.join("").length) / 2
+    );
+    this.lcd.draw();
+    //Is the memory a pair, select the product
+    if (this.storedButtons.length == 2) {
+      this.productSelected();
+    }
+  }
 }
 
-class LCD extends Obj{
-	constructor(x,y,vars){
-		super("sharedVars",vars,"x",x,"y",y,"imgSize",25,"loop",n,"queue",[]);
-		this.getChars();
-		this.defaultText="Welcome! Please make a selection!";
-		this.setDefault();
-	}
-	addToQueue(text,count=1,temp=f){
-		this.queue.push([text,count,temp]);
-		this.pos=0;
-	}
-	nextInQueue(){
-		this.queue[0][1]--;
-		if(this.queue[0][1]==0){this.queue.shift();}
-		if(this.queue.length==0){this.addToQueue(this.defaultText,1,t)}
-		this.offset=this.length-1;
-		this.pos=0;
-		this.start();
-	}
-	setDefault(text,count=1,temp=f){
-		this.setText(this.defaultText);
-	}
-	start(){
-		this.stop();
-		let loop=e=>{
-			let index=this.draw();
-			if(this.offset>0){this.offset--;}
-			else{this.pos++;}
-			if(index==0){this.nextInQueue();}
-			else{this.loop=setTimeout(loop,400);}
-		};
-		this.loop=setTimeout(loop,400);
-		this.running=t;
-	}
-	stop(){
-		this.running=f;
-		clearTimeout(this.loop);
-	}
-	setText(text,count=1,temp=t){
-		if(this.queue.length>0&&this.queue[0][2]==t){this.queue.shift();}
-		this.queue.push([text.split(""),count,temp]);
-		this.pos=0;
-		this.offset=this.length-1;
-		this.start();
-	}
-	get text(){return this.queue.length>0?this.queue[0][0]:[];}
-	draw(){
-		let index=-1;
-		this.drawRect([this.x,this.y,this.imgSize*this.length+3,this.imgSize+3],"#000000")
-		while(++index+this.offset<this.length&&index+this.pos<this.text.length){
-			this.ctx.drawImage(this.char[this.text[index+this.pos]],this.x+(this.imgSize)*(index+this.offset)+2,this.y+2);
-		}
-		return index;
-	}
-	getChars(char){
-		this.char={};
-		this.length=8;
-		this.offset=0;
-		let names=["quote","lt","gt","asterix","dot","fs","bs","semicolon","pipe","blank"];
-		["\"","<",">","*","/","\\",":","|","blank"].map((c,i)=>this.char[c]=CE("img",n,`images/vendingMachine/lcd/${names[i]}.png`));
-		"!#$'+,-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz()~ ¥".split("").map(c=>this.char[c]=CE("img",n,`images/vendingMachine/lcd/${c}.png`));
-	}
+class LCD extends Obj {
+  constructor(x, y, vars) {
+    super(
+      "sharedVars",
+      vars,
+      "x",
+      x,
+      "y",
+      y,
+      "imgSize",
+      25,
+      "loop",
+      N,
+      "queue",
+      []
+    );
+    this.getChars();
+    this.defaultText = "Welcome! Please make a selection!";
+    this.setDefault();
+  }
+  addToQueue(text, count = 1, temp = F) {
+    this.queue.push([text, count, temp]);
+    this.pos = 0;
+  }
+  nextInQueue() {
+    this.queue[0][1]--;
+    if (this.queue[0][1] == 0) {
+      this.queue.shift();
+    }
+    if (this.queue.length == 0) {
+      this.addToQueue(this.defaultText, 1, T);
+    }
+    this.offset = this.length - 1;
+    this.pos = 0;
+    this.start();
+  }
+  setDefault(text, count = 1, temp = F) {
+    this.setText(this.defaultText);
+  }
+  start() {
+    this.stop();
+    let loop = (e) => {
+      let index = this.draw();
+      if (this.offset > 0) {
+        this.offset--;
+      } else {
+        this.pos++;
+      }
+      if (index == 0) {
+        this.nextInQueue();
+      } else {
+        this.loop = setTimeout(loop, 400);
+      }
+    };
+    this.loop = setTimeout(loop, 400);
+    this.running = T;
+  }
+  stop() {
+    this.running = F;
+    clearTimeout(this.loop);
+  }
+  setText(text, count = 1, temp = T) {
+    if (this.queue.length > 0 && this.queue[0][2] == T) {
+      this.queue.shift();
+    }
+    this.queue.push([text.split(""), count, temp]);
+    this.pos = 0;
+    this.offset = this.length - 1;
+    this.start();
+  }
+  get text() {
+    return this.queue.length > 0 ? this.queue[0][0] : [];
+  }
+  draw() {
+    let index = -1;
+    this.drawRect(
+      [this.x, this.y, this.imgSize * this.length + 3, this.imgSize + 3],
+      "#000000"
+    );
+    while (
+      ++index + this.offset < this.length &&
+      index + this.pos < this.text.length
+    ) {
+      this.ctx.drawImage(
+        this.char[this.text[index + this.pos]],
+        this.x + this.imgSize * (index + this.offset) + 2,
+        this.y + 2
+      );
+    }
+    return index;
+  }
+  getChars(char) {
+    this.char = {};
+    this.length = 8;
+    this.offset = 0;
+    let names = [
+      "quote",
+      "lt",
+      "gt",
+      "asterix",
+      "dot",
+      "fs",
+      "bs",
+      "semicolon",
+      "pipe",
+      "blank",
+    ];
+    ['"', "<", ">", "*", "/", "\\", ":", "|", "blank"].map(
+      (c, i) =>
+        (this.char[c] = CE("img", `images/vendingMachine/lcd/${names[i]}.png`))
+    );
+    "!#$'+,-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz()~ ¥"
+      .split("")
+      .map(
+        (c) => (this.char[c] = CE("img", `images/vendingMachine/lcd/${c}.png`))
+      );
+  }
 }
 
-class Product extends DOMObj{
-	constructor(loader,id,name,type,cost,stock,maxStock){super("loader",loader,"id",id,"name",name,"type",type,"cost",cost,"stock",stock||15,"maxStock",maxStock||15);}
-	generate(){
-		this.loader.addItem();
-		this.img=new Image();
-		this.img.onload=e=>this.loader.removeItem();
-		this.img.src=`images/vendingMachine/${this.id}.png`;
-	}
-	get dimens(){
-		return [this.img.width,this.img.height];
-	}
+class Product extends DOMObj {
+  constructor(loader, id, name, type, cost, stock, maxStock) {
+    super(
+      "loader",
+      loader,
+      "id",
+      id,
+      "name",
+      name,
+      "type",
+      type,
+      "cost",
+      cost,
+      "stock",
+      stock || 15,
+      "maxStock",
+      maxStock || 15
+    );
+  }
+  generate() {
+    this.loader.addItem();
+    this.img = new Image();
+    this.img.onload = (e) => this.loader.removeItem();
+    this.img.src = `images/vendingMachine/${this.id}.png`;
+  }
+  get dimens() {
+    return [this.img.width, this.img.height];
+  }
 }
 
-class CoinValidator extends DOMObj{
-	constructor(vars,stored){super("inserted",{},"stored",stored||{},"max",{1:0,5:0,10:100,50:100,100:100,500:100,1000:100,5000:30,10000:0},"sharedVars",vars);}
-	generate(){
-		ACE(this.DOM,"div","Refund Handle",n,n,e=>this.giveChange);
-	}
-	moneyInserted(money){
-		if(!hasKey(this.inserted,money)){this.inserted[money]=0;}
-		this.inserted[money]++;
-		//Money has been inserted into the validator
-		//Check if anything is in the selection memory(If there is and it's valid, buy the goods)
-		if(!this.checkPendingProduct()){
-			//Display the new total on the LCD
-			this.setText(Money.toCurrency(this.holding),1,t);
-		}
-	}
-	payCost(cost){
-		cost=this.fromCurrency(cost);
-		if(cost<this.holding){
-			this.holding-=cost;
-			this.giveChange();
-			return true;
-		}
-		return false;
-	}
-	giveChange(){
-		let change=this.holding;
-		this.holding=0;
-		this.refunded(change);
-		return change;
-	}
-	get holding(){
-		let total=0;
-		for(let denomination in this.inserted){
-			total+=(denomination*this.inserted[denomination]);
-		}
-		return total;
-	}
-	clear(){
-		this.inserted={}
-	}
-	
-	hasEnoughMoney(product){
-		return this.holding-product.cost>=0;
-	}
-	storeMoney(product){
-		for(let key in this.inserted){
-			if(hasKey(this.stored,key)){
-				this.stored[key]+=this.inserted[key];
-			}else{
-				this.stored[key]=this.inserted[key];
-			}
-		}
-		let change=this.holding-product.cost;
-		change=this.refundMoney(change);
-		this.clear();
-		return change;
-	}
-	hasAppropriateChange(product){
-		if(!!this.getAppropriateChange(product)){return t;}
-		this.setText("SORRY! EXACT CHANGE REQUIRED!");
-		this.refundMoney();
-	}
-	getAppropriateChange(product){
-		
-	}
-	refundMoney(value){
-		this.setText(`Please collect your ${Money.toCurrency(value)} change`,1);
-		let toRefund={};
-		if(value==n){toRefund=this.inserted;}
-		else{
-			//get appropriate denominations of money
-			this.denominations.reverse().map(d=>{
-				while(value>=d){
-					if(!hasKey(toRefund,d)){toRefund[d]=0;}
-					toRefund[d]++;
-					value-=d;
-				}
-			});
-		}
-		this.inserted={};
-		for(let denomination in toRefund){
-			this.stored[denomination]-=toRefund[denomination];
-			this.setText(`You get ${toRefund[denomination]} x ${Money.toCurrency(denomination)}`);
-		}
-		return toRefund;
-	}
+class CoinValidator extends DOMObj {
+  constructor(vars, stored) {
+    super(
+      "inserted",
+      {},
+      "stored",
+      stored || {},
+      "max",
+      {
+        1: 0,
+        5: 0,
+        10: 100,
+        50: 100,
+        100: 100,
+        500: 100,
+        1000: 100,
+        5000: 30,
+        10000: 0,
+      },
+      "sharedVars",
+      vars
+    );
+  }
+  generate() {
+    ACE(this.DOM, "div", N, N, (e) => this.giveChange, { id: "Refund Handle" });
+  }
+  moneyInserted(money) {
+    if (!hasKey(this.inserted, money)) {
+      this.inserted[money] = 0;
+    }
+    this.inserted[money]++;
+    //Money has been inserted into the validator
+    //Check if anything is in the selection memory(If there is and it's valid, buy the goods)
+    if (!this.checkPendingProduct()) {
+      //Display the new total on the LCD
+      this.setText(Money.toCurrency(this.holding), 1, T);
+    }
+  }
+  payCost(cost) {
+    cost = this.fromCurrency(cost);
+    if (cost < this.holding) {
+      this.holding -= cost;
+      this.giveChange();
+      return T;
+    }
+    return F;
+  }
+  giveChange() {
+    let change = this.holding;
+    this.holding = 0;
+    this.refunded(change);
+    return change;
+  }
+  get holding() {
+    let total = 0;
+    for (let denomination in this.inserted) {
+      total += denomination * this.inserted[denomination];
+    }
+    return total;
+  }
+  clear() {
+    this.inserted = {};
+  }
+
+  hasEnoughMoney(product) {
+    return this.holding - product.cost >= 0;
+  }
+  storeMoney(product) {
+    for (let key in this.inserted) {
+      if (hasKey(this.stored, key)) {
+        this.stored[key] += this.inserted[key];
+      } else {
+        this.stored[key] = this.inserted[key];
+      }
+    }
+    let change = this.holding - product.cost;
+    change = this.refundMoney(change);
+    this.clear();
+    return change;
+  }
+  hasAppropriateChange(product) {
+    if (!!this.getAppropriateChange(product)) {
+      return T;
+    }
+    this.setText("SORRY! EXACT CHANGE REQUIRED!");
+    this.refundMoney();
+  }
+  getAppropriateChange(product) {}
+  refundMoney(value) {
+    this.setText(`Please collect your ${Money.toCurrency(value)} change`, 1);
+    let toRefund = {};
+    if (value == N) {
+      toRefund = this.inserted;
+    } else {
+      //get appropriate denominations of money
+      this.denominations.reverse().map((d) => {
+        while (value >= d) {
+          if (!hasKey(toRefund, d)) {
+            toRefund[d] = 0;
+          }
+          toRefund[d]++;
+          value -= d;
+        }
+      });
+    }
+    this.inserted = {};
+    for (let denomination in toRefund) {
+      this.stored[denomination] -= toRefund[denomination];
+      this.setText(
+        `You get ${toRefund[denomination]} x ${Money.toCurrency(denomination)}`
+      );
+    }
+    return toRefund;
+  }
 }
 
-
-class User extends DOMObj{
-	constructor(name,coins,notes){super("name",name,"cash",{notes:notes,coins:coins},"inventory",[],"interactingWith",n);}
-	generate(){
-		
-	}
-	startInteraction(object){
-		if(this.interactingWith!=n){this.endInteraction();}
-		this.interactingWith=object;
-		object.user=this;
-	}
-	endInteraction(){
-		this.interactingWith.user=n;
-		this.interactingWith=n;
-	}
-	spend(amount){
-		let change=useLowestCash(amount,this.cash);
-	}
-	get money(){
-		let total=0,money=this.cash.notes.concat(this.cash.coins);
-		for(let denomination in money){total+=(denomination*money[denomination]);}
-		return total;
-	}
-	give(item){
-		
-	}
-	getMoney(money){
-		for(let denomination in money){
-			let slot=denomination<1000?"coins":"notes";
-			this.cash[slot][denomination]+=money[denomination];
-		}
-	}
+class User extends DOMObj {
+  constructor(name, coins, notes) {
+    super(
+      "name",
+      name,
+      "cash",
+      { notes: notes, coins: coins },
+      "inventory",
+      [],
+      "interactingWith",
+      N
+    );
+  }
+  generate() {}
+  startInteraction(object) {
+    if (this.interactingWith != N) {
+      this.endInteraction();
+    }
+    this.interactingWith = object;
+    object.user = this;
+  }
+  endInteraction() {
+    this.interactingWith.user = N;
+    this.interactingWith = N;
+  }
+  spend(amount) {
+    let change = useLowestCash(amount, this.cash);
+  }
+  get money() {
+    let total = 0,
+      money = this.cash.notes.concat(this.cash.coins);
+    for (let denomination in money) {
+      total += denomination * money[denomination];
+    }
+    return total;
+  }
+  give(item) {}
+  getMoney(money) {
+    for (let denomination in money) {
+      let slot = denomination < 1000 ? "coins" : "notes";
+      this.cash[slot][denomination] += money[denomination];
+    }
+  }
 }
 
-function useLowestCash(amount,cash){
-	let denominations=[10000,5000,1000,500,100,50,10,5,1];
-	let workingSet=[],
-			compare=(d,over=f)=>{
-				if(hasKey(cash,d)){
-					//If over remove workingSets count of d
-					let c=cash[d]-(over?workingSet.reduce((a,b)=>(a[b]=++a[b]||1,a),{})[d]:0);
-					for(let i=0;i<c;i++){
-						//if the total of the workingset with the denomination is below the target amount
-						if(d+(workingSet.length>0?workingSet.reduce((a,b)=>a+b):0)<=amount||over){
-							workingSet.push(d);
-							over=f;
-						}else{break;}
-			}	}	};
-	//Add all possible money less than the total decending
-	denominations.map(d=>compare(d,f));
-	//Add the smallest denomination to make it go over
-	if(workingSet.reduce((a,b)=>a+b)<amount){
-		for(let d=denominations.length-1;d>-1;d--){
-			compare(denominations[d],t);
-			if(workingSet.reduce((a,b)=>a+b)>amount){break;}
-		}
-	}
-	//Remove any unneeded denominations
-	if(workingSet.reduce((a,b)=>a+b)>amount){
-		workingSet=workingSet.sort((a,b)=>a-b);
-		for(let i=workingSet.length-1;i>-1;i--){
-			if(workingSet.reduce((a,b)=>a+b)-workingSet[i]>amount){
-				workingSet.splice(i,1);
-			}
-		}
-	}
-	workingSet.map(d=>cash[d]--);
-	
-	return amount-workingSet.reduce((a,b)=>a+b);
+function useLowestCash(amount, cash) {
+  let denominations = [10000, 5000, 1000, 500, 100, 50, 10, 5, 1];
+  let workingSet = [],
+    compare = (d, over = F) => {
+      if (hasKey(cash, d)) {
+        //If over remove workingSets count of d
+        let c =
+          cash[d] -
+          (over
+            ? workingSet.reduce((a, b) => ((a[b] = ++a[b] || 1), a), {})[d]
+            : 0);
+        for (let i = 0; i < c; i++) {
+          //if the total of the workingset with the denomination is below the target amount
+          if (
+            d +
+              (workingSet.length > 0
+                ? workingSet.reduce((a, b) => a + b)
+                : 0) <=
+              amount ||
+            over
+          ) {
+            workingSet.push(d);
+            over = F;
+          } else {
+            break;
+          }
+        }
+      }
+    };
+  //Add all possible money less than the total decending
+  denominations.map((d) => compare(d, F));
+  //Add the smallest denomination to make it go over
+  if (workingSet.reduce((a, b) => a + b) < amount) {
+    for (let d = denominations.length - 1; d > -1; d--) {
+      compare(denominations[d], T);
+      if (workingSet.reduce((a, b) => a + b) > amount) {
+        break;
+      }
+    }
+  }
+  //Remove any unneeded denominations
+  if (workingSet.reduce((a, b) => a + b) > amount) {
+    workingSet = workingSet.sort((a, b) => a - b);
+    for (let i = workingSet.length - 1; i > -1; i--) {
+      if (workingSet.reduce((a, b) => a + b) - workingSet[i] > amount) {
+        workingSet.splice(i, 1);
+      }
+    }
+  }
+  workingSet.map((d) => cash[d]--);
+
+  return amount - workingSet.reduce((a, b) => a + b);
 }
-let user=new User("Matt",{1:6,5:2,10:4,50:3,100:4,500:1},{1000:2,5000:1,10000:0});
-run.vendingMachine=e=>AE(new VendingMachine([
-	[[109,"Doritos",1,120],[108,"Fritos",1,120],[107,"Cheetos",1,120],[106,"Lays",1,120],[105,"Funyuns",1,120]],
-	[[24,"Root Beer",0,150],[23,"Jolt Cola",0,150],[22,"Dr Pepper",0,150],[21,"Faygo",0,150],[20,"Cactus Cooler",0,150]],
-	[[84,"Mike and Ikes",2,150],[83,"Twinkies",2,200],[82,"Twizzlers",2,150],[81,"Pop Tarts",2,200],[80,"Gold Fish Crackers",2,220]],
-	[[59,"Reese's Peanut Butter Cups",3,150],[49,"Hershey's Bar",3,150],[48,"Crunch",3,150],[47,"Butterfinger",3,150],[46,"3 Musketeers",3,150]]
-],"JPY",[10,50,100,500],[1000,5000],user,{10:50,50:50,100:50,500:50,1000:50,5000:11}));
+let user = new User(
+  "Matt",
+  { 1: 6, 5: 2, 10: 4, 50: 3, 100: 4, 500: 1 },
+  { 1000: 2, 5000: 1, 10000: 0 }
+);
+run.vendingMachine = (e) =>
+  AE(
+    new VendingMachine(
+      [
+        [
+          [109, "Doritos", 1, 120],
+          [108, "Fritos", 1, 120],
+          [107, "Cheetos", 1, 120],
+          [106, "Lays", 1, 120],
+          [105, "Funyuns", 1, 120],
+        ],
+        [
+          [24, "Root Beer", 0, 150],
+          [23, "Jolt Cola", 0, 150],
+          [22, "Dr Pepper", 0, 150],
+          [21, "Faygo", 0, 150],
+          [20, "Cactus Cooler", 0, 150],
+        ],
+        [
+          [84, "Mike and Ikes", 2, 150],
+          [83, "Twinkies", 2, 200],
+          [82, "Twizzlers", 2, 150],
+          [81, "Pop Tarts", 2, 200],
+          [80, "Gold Fish Crackers", 2, 220],
+        ],
+        [
+          [59, "Reese's Peanut Butter Cups", 3, 150],
+          [49, "Hershey's Bar", 3, 150],
+          [48, "Crunch", 3, 150],
+          [47, "Butterfinger", 3, 150],
+          [46, "3 Musketeers", 3, 150],
+        ],
+      ],
+      "JPY",
+      [10, 50, 100, 500],
+      [1000, 5000],
+      user,
+      { 10: 50, 50: 50, 100: 50, 500: 50, 1000: 50, 5000: 11 }
+    )
+  );
 </script>
 <style>
-.vendingMachine{
-		background-color:white;
+.vendingMachine {
+	background-color: white;
 }
-.vendingMachine.lcdDisplay{
-	background-color:black;
+.vendingMachine.lcdDisplay {
+	background-color: black;
 }
-.lcdSegment{
-	background-color:green;
+.lcdSegment {
+	background-color: green;
 }
-.lcdSegment.on{
-	background-color:lightgreen;
+.lcdSegment.on {
+	background-color: lightgreen;
 }
-}
-
 </style>

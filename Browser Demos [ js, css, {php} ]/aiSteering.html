@@ -14,654 +14,1122 @@ randomcodode.run/
 ░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒░░*/</script>
 <script>
 var content;
-const t=true,f=false,n=null,run={};
-function onLoad(func){
-	if(document.readyState==='complete'){func();}
-	else{window.onload=((oldLoad,func)=>{
-		return function(){
-			oldLoad && oldLoad();
-			func();
-		}	})(window.onload,func);
-}	}
-onLoad(e=>{
-	content=ACE(document.body,"main");
-	var url = window.location.pathname,
-			filename = url.substring(url.lastIndexOf('/')+1);
-	filename=filename.substring(0,filename.lastIndexOf('.'));
-	HEADER(filename);
-	run[filename]();
+const T = true,
+  F = false,
+  N = null,
+  run = {};
+function onLoad(func) {
+  if (document.readyState === "complete") {
+    func();
+  } else {
+    window.onload = ((oldLoad, func) => {
+      return function () {
+        oldLoad && oldLoad();
+        func();
+      };
+    })(window.onload, func);
+  }
+}
+onLoad((e) => {
+  content = ACE(document.body, "main");
+  var url = window.location.pathname,
+    filename = url.substring(url.lastIndexOf("/") + 1);
+  filename = filename.substring(0, filename.lastIndexOf("."));
+  HEADER(filename);
+  run[filename]();
 });
-function AE(element,parent=content){
-	var origElement=element;
-	console.log(element)
-	if(parent instanceof DOMObj){parent.appendChild(element.DOM);}
-	else if(isDefined(element.DOM)){
-		while(element.DOM!=null){
-			element=element.DOM;
-		}
-	}
-	parent.appendChild(element);
-	if("appended" in origElement){origElement.appended();}
-	return origElement;
+function AE(element, parent = content) {
+  var origElement = element;
+  console.log(element);
+  if (parent instanceof DOMObj) {
+    parent.appendChild(element.DOM);
+  } else if (isDefined(element.DOM)) {
+    while (element.DOM != N) {
+      element = element.DOM;
+    }
+  }
+  parent.appendChild(element);
+  if ("appended" in origElement) {
+    origElement.appended();
+  }
+  return origElement;
 }
-function ACE(parent=content){
-	var args=ArgToArr(arguments);
-	args.shift();
-	var element=CE(...args);
-	AE(element,parent);
-	return element;
+function ACE(parent = content) {
+  var args = ArgToArr(arguments);
+  args.shift();
+  var element = CE(...args);
+  AE(element, parent);
+  return element;
 }
-function CE(){
-	var info=ArgToArr(arguments),type,element,fields;
-	if(cElement.hasOwnProperty(info[0])){//Check that it's in the valid command list
-		fields=cElement[info[0]];
-	}else{
-		fields=[info[0],"generic"];
-	}
-	element=document.createElement(fields[0]);
-	if(["svg","polygon"].indexOf(fields[0])!=-1){element=document.createElementNS("http://www.w3.org/2000/svg",fields[0]);}
-	if(fields[1]=="generic"){fields=cElement["generic"];}
-	else if(fields[1]=="func"){return cElement[info[0]][2](...info);}
-	else if(fields[0]=="domobj"){return new fields[1](...info.shift());}
-	for(let index=1;index<fields.length;index++){
-		if(fields[index]=="set"){element[fields[++index]]=fields[++index];}
-		else if(info[index]==null){}
-		else if(fields[index]=="content"){
-			if(info[index]!=null){
-				if(info[index] instanceof Array){
-					for(let innerdex=0;innerdex<info[index].length;innerdex++){
-						if(typeof info[index][innerdex]=="string"){info[index][innerdex]=document.createTextNode(info[index][innerdex]);}
-						AE(info[index][innerdex],element);
-					}
-				}else{element.innerText=info[index];}
-		}	}
-		else if(fields[index]=="keySet"){forIn(info[index],(key,value)=>{element.setAttribute(key,value);});}
-		else if(fields[index]=="rt"){element.appendChild(CE("rt",info[index]))}
-		else if(fields[index]=="points"){element.setAttribute(fields[index],info[index]);}
-		else if(["onclick"].indexOf(fields[index])!=-1){element.addEventListener("click",info[index]);}
-		else if(["innerText"].indexOf(fields[index])!=-1){element[fields[index]]=info[index];}
-		else if(info[index]!=null){element.setAttribute(fields[index],info[index]);}
-	}
-	return element;
+function CE() {
+  var info = ArgToArr(arguments),
+    type,
+    element,
+    fields;
+  if (cElement.hasOwnProperty(info[0])) {
+    //Check that it's in the valid command list
+    fields = cElement[info[0]];
+  } else {
+    fields = [info[0], "generic"];
+  }
+  element = document.createElement(fields[0]);
+  if (["svg", "polygon"].indexOf(fields[0]) != -1) {
+    element = document.createElementNS("http://www.w3.org/2000/svg", fields[0]);
+  }
+  if (fields[1] == "generic") {
+    fields = cElement["generic"];
+  } else if (fields[1] == "func") {
+    return cElement[info[0]][2](...info);
+  } else if (fields[0] == "domobj") {
+    return new fields[1](...info.shift());
+  }
+  for (let index = 1; index < fields.length; index++) {
+    if (fields[index] == "set") {
+      element[fields[++index]] = fields[++index];
+    } else if (info[index] == N) {
+    } else if (fields[index] == "content") {
+      if (info[index] != N) {
+        if (info[index] instanceof Array) {
+          for (let innerdex = 0; innerdex < info[index].length; innerdex++) {
+            if (typeof info[index][innerdex] == "string") {
+              info[index][innerdex] = document.createTextNode(
+                info[index][innerdex]
+              );
+            }
+            AE(info[index][innerdex], element);
+          }
+        } else {
+          element.innerText = info[index];
+        }
+      }
+    } else if (fields[index] == "keySet") {
+      forIn(info[index], (key, value) => {
+        element.setAttribute(key, value);
+      });
+    } else if (fields[index] == "rt") {
+      element.appendChild(CE("rt", info[index]));
+    } else if (fields[index] == "points") {
+      element.setAttribute(fields[index], info[index]);
+    } else if (["onclick"].indexOf(fields[index]) != -1) {
+      element.addEventListener("click", info[index]);
+    } else if (["innerText"].indexOf(fields[index]) != -1) {
+      element[fields[index]] = info[index];
+    } else if (info[index] != N) {
+      element.setAttribute(fields[index], info[index]);
+    }
+  }
+  return element;
 }
-function addCE(){
-	let args=ArgsToArr(arguments);
-	cElement[args.pop()]=args;
+function addCE() {
+  let args = ArgsToArr(arguments);
+  cElement[args.pop()] = args;
 }
-const cElement={
-		"favico":["favicon","func",(type,src,firstScriptTag=document.getElementsByTagName('script')[0])=>{
-			let element=CE("link");
-			element.setAttribute("rel","shortcut icon");
-			element.setAttribute("type","image/x-icon");
-			element.setAttribute("title","favIcon");
-			element.setAttribute("href",src);
-			firstScriptTag.parentNode.insertBefore(element, firstScriptTag);
-			return element;
-	}],
-		'btn':["input","value","id","class","onclick","set","type","button"],//Button
-
-	'ipt':["input","value","name","class","type","keySet"],//Input
-
-	'txtArea':["textarea","content","name","class","placeholder","cols","rows","wrap"],//Text Area  wrap="hard"||"soft"
-	'cvs':["canvas","id","class","onclick","left","top","width","height"],//Canvas
-
-	'img':["img","id","src","alt","class","onclick","keySet"],//image
-	'generic':["","content","id","class","onclick","keySet"]
+const cElement = {
+  cvs: ["canvas", "id", "class", "onclick", "left", "top", "width", "height"], //Canvas
+  generic: ["", "content", "class", "onclick", "keySet"],
 };
-function br(parent=content){return ACE(parent,"br");}
-
-class DOMObj{
-	constructor(parent){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-		this.DOM=CE("div");
-		if(isDefined(this.preGen)){this.preGen();}
-		this.boundEvents={};
-		let keywords=[
-	    	//Keyboard Events
-	    	["keyUp","keyup"],["keyDown","keydown"],
-	    	//Mouse Events
-	    	["onClick","click"],["mouseUp","mouseup"],["hover","mousemove"],["mouseDown","mousedown"],["mouseOut","mouseout"],["mouseIn","mouseenter"],["contextMenu","contextmenu"],
-	    	//Element Events
-	    	["onBlur","focusout"],["onFocus","onfocus"],["onChange","change"],
-	    	//Drag/Drop Events
-		    ["drag","drag"],["dragStart","dragstart"],["dragEnd","dragend"],["dragOn","dragenter"],["dragOff","dragleave"],["dragOver","dragover"],["drop","drop"]
-		
-		];
-
-		this.generate();
-		
-		for(let id=0; id<keywords.length;id++){
-			if(this[keywords[id][0]]!=null){this.addListener(keywords[id][1],this[keywords[id][0]]);}
-		}
-		if(isDefined(this.postGen)){this.postGen();}
-	}
-	addListener(listener,func,DOM=this.DOM){
-		if(this.boundEvents.hasOwnProperty(listener)){this.removeListener(listener,DOM);}
-		this.boundEvents[listener]=func.bind(this);
-		DOM.addEventListener(listener,this.boundEvents[listener],false);
-	}
-	shareVars() {
-		let r = [],
-		s = ArgToArr(arguments).map(s => {
-			let e = this;
-			if (isArray(s))
-				if (isArray(s[0]) ? s[0].map(r => e = e[r]) : e = this[s[0]], isArray(s[1])) {r.push(...e.shareVars(...s[1].slice(1))), s = s[1].shift()} else s = s[1];
-			return isFunc(e[s])?r=>r[s]=e[s].bind(e):r=>{Object.defineProperty(r, s, {get: (() => e[s]).bind(e),set: (r => {e[s] = r}).bind(e),configurable:t})}});
-		return s.push(...r), s
-	}
-	set sharedVars(r = []) {
-		r.map(r => r(this))
-	}
-	removeListener(listener,DOM=this.DOM){
-		try{DOM.removeEventListener(listener,this.boundEvents[listener]);
-			delete this.boundEvents[listener];
-		}catch(e){}
-	}
-	preventDefault(e){
-		if(e.preventDefault){e.preventDefault();}
-		if(e.stopPropagation){e.stopPropagation();}
-	}
-	generate(parent){return null;}
-	insertChild(parent,index){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(parent.DOM!=null){parent=parent.DOM;}
-		if(index>=parent.children.length){AE(DOM,parent);}
-		else{parent.insertBefore(DOM, parent.children[index].nextSibling);}
-	}
-	insertAfter(element){
-		var DOM=this;
-		while(DOM instanceof DOMObj){DOM=DOM.DOM;}
-		while(!isDOM(element)){element=element.DOM;}
-			element.parentNode.insertBefore(DOM, element.nextSibling);
-	}
-	appendChild(object){
-		while(object.DOM!=null){object=object.DOM;}
-		this.DOM.appendChild(object);
-	}
-	removeChild(object){this.DOM.removeChild(object);}
-	remove(){
-		if(this.parentNode!=null){
-			var object=this.DOM;
-			while(object!=null&&object instanceof DOMObj){object=object.DOM;}
-			this.parentNode.removeChild(object);
-	}	}
-	toggleCSS(rule,DOM=this.DOM){
-		if(!DOM.classList.contains(rule)){
-			DOM.classList.add(rule);
-		}else{
-			DOM.classList.remove(rule);
-		}
-	}
-	overlaps(elem){
-		return !((this.bottom < elem.top) ||
-						(this.top > elem.bottom) ||
-						(this.right < elem.left) ||
-						(this.left > elem.right))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
-	get height(){return this.DOM.offsetHeight;}
-	get width(){return this.DOM.offsetWidth;}
-	set width(width){if(width!=null){this.DOM.style.width=width+"px";}}
-	set height(height){if(height!=null){this.DOM.style.height=height+"px";}}
-	get top(){return this.DOM.offsetTop;}
-	get classList(){return this.DOM.classList;}
-	get left(){return this.DOM.offsetLeft;}
-	get right(){return this.left+this.width;}
-	get bottom(){return this.top+this.height;}
-	get innerHTML(){return this.DOM.innerHtml;}
-	set hidden(hidden){
-		if(hidden&&!this.DOM.classList.contains("hidden")){
-			this.DOM.classList.add("hidden");
-		}else if(!hidden&&this.DOM.classList.contains("hidden")){
-			this.DOM.classList.remove("hidden");
-		}
-	}
-	get innerText(){return this.DOM.innerText;}
-	set innerText(text){this.DOM.innerText=text;}
-	get className(){return this.DOM.className;}
-	set className(className){this.DOM.className=className;}
-	get childNodes(){return this.DOM.childNodes;}
-	get children(){return this.DOM.children;}
-	clearChildren(){
-		this.DOM.innerHTML="";
-	}
-	get parentNode(){
-		var node=this.DOM;
-		while(node.DOM!=null){node=node.DOM;}
-		return node.parentNode;
-	}
-	replaceDOM(object){
-		while(object.DOM!=null){object=object.DOM;}
-		var index=Array.from(this.parentNode.children).indexOf(this.DOM);//only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
-		this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
-		this.DOM=object;
-	}
+function br(parent = content) {
+  return ACE(parent, "br");
 }
-class ExtendedObj extends DOMObj{
-	constructor(args){super("args",args);}
-	expand(object){
-		for(let index=0;index<this.args.length;index++){
-			object[this.args[index++]]=this.args[index];
-		}
-	}
-}
-function ArgToArr(arg){return Array.prototype.slice.call(arg);}
-function forIn(object,callback){for(let key in object){callback(key,object[key]);}}
 
-function isDefined(object){return typeof object!='undefined';}
+class DOMObj {
+  constructor(parent) {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+    this.DOM = CE("div");
+    if (isDefined(this.preGen)) {
+      this.preGen();
+    }
+    this.boundEvents = {};
+    let keywords = [
+      //Keyboard Events
+      ["keyUp", "keyup"],
+      ["keyDown", "keydown"],
+      //Mouse Events
+      ["onClick", "click"],
+      ["mouseUp", "mouseup"],
+      ["hover", "mousemove"],
+      ["mouseDown", "mousedown"],
+      ["mouseOut", "mouseout"],
+      ["mouseIn", "mouseenter"],
+      ["contextMenu", "contextmenu"],
+      //Element Events
+      ["onBlur", "focusout"],
+      ["onFocus", "onfocus"],
+      ["onChange", "change"],
+      //Drag/Drop Events
+      ["drag", "drag"],
+      ["dragStart", "dragstart"],
+      ["dragEnd", "dragend"],
+      ["dragOn", "dragenter"],
+      ["dragOff", "dragleave"],
+      ["dragOver", "dragover"],
+      ["drop", "drop"],
+    ];
 
-class Obj{
-	constructor(){
-		var fields=ArgToArr(arguments);
-		if(fields[0] instanceof ExtendedObj){
-			fields[0].expand(this);
-			fields.shift();
-		}
-		for(let index=0;index<fields.length;index++){
-			this[fields[index++]]=fields[index];
-		}
-	}
-	static null(){
-		var object=new Obj(), fields=arguments;
-		for(let index=0;index<fields.length;index++){
-			object[fields[index]]=null;
-		}
-		return object;
-	}
-	static extendable(variableCount,args){
-		return new ExtendedObj(ArgToArr(args).slice(variableCount));
-	}
-	shareVars() {
-		let r = [],
-		s = ArgToArr(arguments).map(s => {
-			let e = this;
-			if (isArray(s))
-				if (isArray(s[0]) ? s[0].map(r => e = e[r]) : e = this[s[0]], isArray(s[1])) {r.push(...e.shareVars(...s[1].slice(1))), s = s[1].shift()} else s = s[1];
-			return isFunc(e[s])?r=>r[s]=e[s].bind(e):r=>{Object.defineProperty(r, s, {get: (() => e[s]).bind(e),set: (r => {e[s] = r}).bind(e),configurable:t})}});
-		return s.push(...r), s
-	}
-	set sharedVars(r = []) {
-		r.map(r => r(this))
-	}
-	setProperty(name,getter,setter){
-		let property={};
-		if(getter!=null){property.get=getter;}
-		if(setter!=null){property.set=setter;}
-		Object.defineProperty(this,name,property);
-	}
+    this.generate();
+
+    for (let id = 0; id < keywords.length; id++) {
+      if (this[keywords[id][0]] != N) {
+        this.addListener(keywords[id][1], this[keywords[id][0]]);
+      }
+    }
+    if (isDefined(this.postGen)) {
+      this.postGen();
+    }
+  }
+  addListener(listener, func, DOM = this.DOM) {
+    if (this.boundEvents.hasOwnProperty(listener)) {
+      this.removeListener(listener, DOM);
+    }
+    this.boundEvents[listener] = func.bind(this);
+    DOM.addEventListener(listener, this.boundEvents[listener], F);
+  }
+  shareVars() {
+    let r = [],
+      s = ArgToArr(arguments).map((s) => {
+        let e = this;
+        if (isArray(s))
+          if (
+            (isArray(s[0]) ? s[0].map((r) => (e = e[r])) : (e = this[s[0]]),
+            isArray(s[1]))
+          ) {
+            r.push(...e.shareVars(...s[1].slice(1))), (s = s[1].shift());
+          } else s = s[1];
+        return isFunc(e[s])
+          ? (r) => (r[s] = e[s].bind(e))
+          : (r) => {
+              Object.defineProperty(r, s, {
+                get: (() => e[s]).bind(e),
+                set: ((r) => {
+                  e[s] = r;
+                }).bind(e),
+                configurable: T,
+              });
+            };
+      });
+    return s.push(...r), s;
+  }
+  set sharedVars(r = []) {
+    r.map((r) => r(this));
+  }
+  removeListener(listener, DOM = this.DOM) {
+    try {
+      DOM.removeEventListener(listener, this.boundEvents[listener]);
+      delete this.boundEvents[listener];
+    } catch (e) {}
+  }
+  preventDefault(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
+  }
+  generate(parent) {
+    return N;
+  }
+  insertChild(parent, index) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (parent.DOM != N) {
+      parent = parent.DOM;
+    }
+    if (index >= parent.children.length) {
+      AE(DOM, parent);
+    } else {
+      parent.insertBefore(DOM, parent.children[index].nextSibling);
+    }
+  }
+  insertAfter(element) {
+    var DOM = this;
+    while (DOM instanceof DOMObj) {
+      DOM = DOM.DOM;
+    }
+    while (!isDOM(element)) {
+      element = element.DOM;
+    }
+    element.parentNode.insertBefore(DOM, element.nextSibling);
+  }
+  appendChild(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    this.DOM.appendChild(object);
+  }
+  removeChild(object) {
+    this.DOM.removeChild(object);
+  }
+  remove() {
+    if (this.parentNode != N) {
+      var object = this.DOM;
+      while (object != N && object instanceof DOMObj) {
+        object = object.DOM;
+      }
+      this.parentNode.removeChild(object);
+    }
+  }
+  toggleCSS(rule, DOM = this.DOM) {
+    if (!DOM.classList.contains(rule)) {
+      DOM.classList.add(rule);
+    } else {
+      DOM.classList.remove(rule);
+    }
+  }
+  overlaps(elem) {
+    return !(
+      this.bottom < elem.top ||
+      this.top > elem.bottom ||
+      this.right < elem.left ||
+      this.left > elem.right
+    );
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+  get height() {
+    return this.DOM.offsetHeight;
+  }
+  get width() {
+    return this.DOM.offsetWidth;
+  }
+  set width(width) {
+    if (width != N) {
+      this.DOM.style.width = width + "px";
+    }
+  }
+  set height(height) {
+    if (height != N) {
+      this.DOM.style.height = height + "px";
+    }
+  }
+  get top() {
+    return this.DOM.offsetTop;
+  }
+  get classList() {
+    return this.DOM.classList;
+  }
+  get left() {
+    return this.DOM.offsetLeft;
+  }
+  get right() {
+    return this.left + this.width;
+  }
+  get bottom() {
+    return this.top + this.height;
+  }
+  get innerHTML() {
+    return this.DOM.innerHtml;
+  }
+  set hidden(hidden) {
+    if (hidden && !this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.add("hidden");
+    } else if (!hidden && this.DOM.classList.contains("hidden")) {
+      this.DOM.classList.remove("hidden");
+    }
+  }
+  get innerText() {
+    return this.DOM.innerText;
+  }
+  set innerText(text) {
+    this.DOM.innerText = text;
+  }
+  get className() {
+    return this.DOM.className;
+  }
+  set className(className) {
+    this.DOM.className = className;
+  }
+  get childNodes() {
+    return this.DOM.childNodes;
+  }
+  get children() {
+    return this.DOM.children;
+  }
+  clearChildren() {
+    this.DOM.innerHTML = "";
+  }
+  get parentNode() {
+    var node = this.DOM;
+    while (node.DOM != N) {
+      node = node.DOM;
+    }
+    return node.parentNode;
+  }
+  replaceDOM(object) {
+    while (object.DOM != N) {
+      object = object.DOM;
+    }
+    var index = Array.from(this.parentNode.children).indexOf(this.DOM); //only available from Chrome 45 and Firefox 32, and not available on Internet Explorer
+    this.parentNode.replaceChild(object, this.parentNode.childNodes[index]);
+    this.DOM = object;
+  }
 }
-class SimpleLoader extends Obj{
-	constructor(finishedLoading,items){super("finishedLoading",finishedLoading,"items",items||0);}
-	addItem(){this.items++;}
-	addItems(ammount=0){this.items+=ammount;}
-	removeItem(){this.items--;this.checkLoader();}
-	checkLoader(){
-		//console.log("Item count is",this.items);
-		if(this.items!=0){
-			this.load();
-		}else if(this.finishedLoading!=null){this.finishedLoading();}
-	}
-	load(){
-	//	this.timeout=setTimeout((()=>{
-		//	log.arg("this.items",this.items);
-		//console.log("Item count is",this.items);
-			if(this.items==0){
-				this.finishedLoading();}
-		//}).bind(this),100);
-	}
+class ExtendedObj extends DOMObj {
+  constructor(args) {
+    super("args", args);
+  }
+  expand(object) {
+    for (let index = 0; index < this.args.length; index++) {
+      object[this.args[index++]] = this.args[index];
+    }
+  }
 }
-function isArray(array){return array instanceof Array;}
-function hasKey(object,key){return object.hasOwnProperty(key);}
-function isFunc(object){return typeof object === "function";}
-Array.generate=(size,action)=>{return ([...Array(size).keys()]).map(action);}
+function ArgToArr(arg) {
+  return Array.prototype.slice.call(arg);
+}
+function forIn(object, callback) {
+  for (let key in object) {
+    callback(key, object[key]);
+  }
+}
+
+function isDefined(object) {
+  return typeof object != "undefined";
+}
+
+class Obj {
+  constructor() {
+    var fields = ArgToArr(arguments);
+    if (fields[0] instanceof ExtendedObj) {
+      fields[0].expand(this);
+      fields.shift();
+    }
+    for (let index = 0; index < fields.length; index++) {
+      this[fields[index++]] = fields[index];
+    }
+  }
+  static null() {
+    var object = new Obj(),
+      fields = arguments;
+    for (let index = 0; index < fields.length; index++) {
+      object[fields[index]] = N;
+    }
+    return object;
+  }
+  static extendable(variableCount, args) {
+    return new ExtendedObj(ArgToArr(args).slice(variableCount));
+  }
+  shareVars() {
+    let r = [],
+      s = ArgToArr(arguments).map((s) => {
+        let e = this;
+        if (isArray(s))
+          if (
+            (isArray(s[0]) ? s[0].map((r) => (e = e[r])) : (e = this[s[0]]),
+            isArray(s[1]))
+          ) {
+            r.push(...e.shareVars(...s[1].slice(1))), (s = s[1].shift());
+          } else s = s[1];
+        return isFunc(e[s])
+          ? (r) => (r[s] = e[s].bind(e))
+          : (r) => {
+              Object.defineProperty(r, s, {
+                get: (() => e[s]).bind(e),
+                set: ((r) => {
+                  e[s] = r;
+                }).bind(e),
+                configurable: T,
+              });
+            };
+      });
+    return s.push(...r), s;
+  }
+  set sharedVars(r = []) {
+    r.map((r) => r(this));
+  }
+  setProperty(name, getter, setter) {
+    let property = {};
+    if (getter != N) {
+      property.get = getter;
+    }
+    if (setter != N) {
+      property.set = setter;
+    }
+    Object.defineProperty(this, name, property);
+  }
+}
+class SimpleLoader extends Obj {
+  constructor(finishedLoading, items) {
+    super("finishedLoading", finishedLoading, "items", items || 0);
+  }
+  addItem() {
+    this.items++;
+  }
+  addItems(ammount = 0) {
+    this.items += ammount;
+  }
+  removeItem() {
+    this.items--;
+    this.checkLoader();
+  }
+  checkLoader() {
+    //console.log("Item count is",this.items);
+    if (this.items != 0) {
+      this.load();
+    } else if (this.finishedLoading != N) {
+      this.finishedLoading();
+    }
+  }
+  load() {
+    //	this.timeout=setTimeout((()=>{
+    //	log.arg("this.items",this.items);
+    //console.log("Item count is",this.items);
+    if (this.items == 0) {
+      this.finishedLoading();
+    }
+    //}).bind(this),100);
+  }
+}
+function isArray(array) {
+  return array instanceof Array;
+}
+function hasKey(object, key) {
+  return object.hasOwnProperty(key);
+}
+function isFunc(object) {
+  return typeof object === "function";
+}
+Array.generate = (size, action) => {
+  return [...Array(size).keys()].map(action);
+};
 </script>
 <script>
-const Random=(seed=>{seed=214750598;var CONSTA=16807;var CONSTM=2147483647;var Random=function(seed){this.seed(seed)};var R=Random.prototype;R.seed=function(seed){seed=seed||1;this._seed=seed};R.nextInt=function(min,max){if(max===undefined)max=min,min=0;if(max===undefined)return this.next();min-=.4999;max+=.4999;return Math.round(min+(max-min)*this.nextDouble())};R.nextDouble=function(min,max){if(max===undefined)max=min||1,min=0;return min+(max-min)*(this.next()/CONSTM)};R.next=function(){var hi=CONSTA*(this._seed>>16);var lo=CONSTA*(this._seed&65535)+((hi&32767)<<16)+(hi>>15);return this._seed=lo>2147483647?lo-2147483647:lo};console.log("RandomSeed:",seed);return new Random(seed);})(Math.random()*1000000000|0),
-itt2DArr=(w,h,a,x=0,y=0)=>{let r=y;while(x<w){while(r<h){a(x,r++);}x++;r=y;}},randD=(min,max)=>Random.nextDouble(min,max),rand=(min,max)=>Random.nextInt(min,max),PI=Math.PI,RAD=180/PI,TAU=PI*2,EVEN=n=>(n&1)==0,FLIPSIGN=n=>~n+1,ABS=n=>n>0?n:-n,MAX=(a,b)=>a>b?a:b,MIN=(a,b)=>a<b?a:b,FLOOR=n=>n|0,CEIL=n=>(n+1)|0,ROUND=n=>(n+0.5)|0,CEILN=n=>n+(n<0?0:1)|0,FLOORN=n=>n+(n<0?~0:0)|0,ROUNDN=n=>n+(n<0?-0.5:0.5)|0,ID=(x,y,width)=>y*width+x,X=(id,width)=>width==0?0:id%width,Y=(id,width)=>FLOOR(id/width),
-to8Dir=(dirA,dirB=n)=>!dirB!=n?dirA*2:dirA+dirB==3&&(dirA==0||dirA==6)?7:dirA+dirB,
-to4Dir=(dir)=>EVEN(dir)?[dir]:[(dir-1)%8,(dir+1)%8],
-SQRT=(n,l=0,h=n,m=0)=>{while(l<=h){m=FLOOR((l+h)/2);m*m>n?h=m-1:l=m+1}return h},SQ=n=>n*n,
-HYPOT=(x1,y1,x2=0,y2=0)=>{return SQRT(SQ(x1-x2)+SQ(y1-y2))},
-POW=(base,exponent,answer=base)=>{for(let i=0;i<exponent-1;i++){answer*=base;}return answer;};
-Object.defineProperty(Object.prototype,"itt",{value:function(func){for(let i in this){func(this[i],i)}}});
-Object.defineProperty(Array.prototype,"x",{set:function(e){this[0]=e},get:function(e){return this[0]}});
-Object.defineProperty(Array.prototype,"y",{set:function(e){this[1]=e},get:function(e){return this[1]}});
-Object.defineProperty(Array.prototype,"pos",{set:function(x,y,v){this[ID(x,y,this.width)]=v;},get:function(x,y){return this[ID(x,y,this.width)]}});
-Object.defineProperty(Array.prototype,"itt",{value:function(func,offset=0){for(let i=offset;i<this.length;i++){if(func(this[i],i)==t){i--;}}}});
-Object.defineProperty(Array.prototype,"radius",{set:function(e){this[2]=e},get:function(e){return this[2]}});
+const Random = ((seed) => {
+    seed = 214750598;
+    var CONSTA = 16807;
+    var CONSTM = 2147483647;
+    var Random = function (seed) {
+      this.seed(seed);
+    };
+    var R = Random.prototype;
+    R.seed = function (seed) {
+      seed = seed || 1;
+      this._seed = seed;
+    };
+    R.nextInt = function (min, max) {
+      if (max === undefined) (max = min), (min = 0);
+      if (max === undefined) return this.next();
+      min -= 0.4999;
+      max += 0.4999;
+      return Math.round(min + (max - min) * this.nextDouble());
+    };
+    R.nextDouble = function (min, max) {
+      if (max === undefined) (max = min || 1), (min = 0);
+      return min + (max - min) * (this.next() / CONSTM);
+    };
+    R.next = function () {
+      var hi = CONSTA * (this._seed >> 16);
+      var lo =
+        CONSTA * (this._seed & 65535) + ((hi & 32767) << 16) + (hi >> 15);
+      return (this._seed = lo > 2147483647 ? lo - 2147483647 : lo);
+    };
+    console.log("RandomSeed:", seed);
+    return new Random(seed);
+  })((Math.random() * 1000000000) | 0),
+  itt2DArr = (w, h, a, x = 0, y = 0) => {
+    let r = y;
+    while (x < w) {
+      while (r < h) {
+        a(x, r++);
+      }
+      x++;
+      r = y;
+    }
+  },
+  randD = (min, max) => Random.nextDouble(min, max),
+  rand = (min, max) => Random.nextInt(min, max),
+  PI = Math.PI,
+  RAD = 180 / PI,
+  TAU = PI * 2,
+  EVEN = (n) => (n & 1) == 0,
+  FLIPSIGN = (n) => ~n + 1,
+  ABS = (n) => (n > 0 ? n : -n),
+  MAX = (a, b) => (a > b ? a : b),
+  MIN = (a, b) => (a < b ? a : b),
+  FLOOR = (n) => n | 0,
+  CEIL = (n) => (n + 1) | 0,
+  ROUND = (n) => (n + 0.5) | 0,
+  CEILN = (n) => (n + (n < 0 ? 0 : 1)) | 0,
+  FLOORN = (n) => (n + (n < 0 ? ~0 : 0)) | 0,
+  ROUNDN = (n) => (n + (n < 0 ? -0.5 : 0.5)) | 0,
+  ID = (x, y, width) => y * width + x,
+  X = (id, width) => (width == 0 ? 0 : id % width),
+  Y = (id, width) => FLOOR(id / width),
+  to8Dir = (dirA, dirB = N) =>
+    !dirB != N
+      ? dirA * 2
+      : dirA + dirB == 3 && (dirA == 0 || dirA == 6)
+      ? 7
+      : dirA + dirB,
+  to4Dir = (dir) => (EVEN(dir) ? [dir] : [(dir - 1) % 8, (dir + 1) % 8]),
+  SQRT = (n, l = 0, h = n, m = 0) => {
+    while (l <= h) {
+      m = FLOOR((l + h) / 2);
+      m * m > n ? (h = m - 1) : (l = m + 1);
+    }
+    return h;
+  },
+  SQ = (n) => n * n,
+  HYPOT = (x1, y1, x2 = 0, y2 = 0) => {
+    return SQRT(SQ(x1 - x2) + SQ(y1 - y2));
+  },
+  POW = (base, exponent, answer = base) => {
+    for (let i = 0; i < exponent - 1; i++) {
+      answer *= base;
+    }
+    return answer;
+  };
+Object.defineProperty(Object.prototype, "itt", {
+  value: function (func) {
+    for (let i in this) {
+      func(this[i], i);
+    }
+  },
+});
+Object.defineProperty(Array.prototype, "x", {
+  set: function (e) {
+    this[0] = e;
+  },
+  get: function (e) {
+    return this[0];
+  },
+});
+Object.defineProperty(Array.prototype, "y", {
+  set: function (e) {
+    this[1] = e;
+  },
+  get: function (e) {
+    return this[1];
+  },
+});
+Object.defineProperty(Array.prototype, "pos", {
+  set: function (x, y, v) {
+    this[ID(x, y, this.width)] = v;
+  },
+  get: function (x, y) {
+    return this[ID(x, y, this.width)];
+  },
+});
+Object.defineProperty(Array.prototype, "itt", {
+  value: function (func, offset = 0) {
+    for (let i = offset; i < this.length; i++) {
+      if (func(this[i], i) == T) {
+        i--;
+      }
+    }
+  },
+});
+Object.defineProperty(Array.prototype, "radius", {
+  set: function (e) {
+    this[2] = e;
+  },
+  get: function (e) {
+    return this[2];
+  },
+});
 var MEMORY;
-Object.defineProperty(Object.prototype,"hasKey",{value:function(e,t){return e.hasOwnProperty(t)}});
-const ATAN2=(x,y)=>{
-	let qPI=PI/4;
-			tqPI=3*qPI,
-			absY=ABS(y),
-			angle=x>=0?
-						(qPI-qPI*((x-absY)/(x + absY))):
-						(tqPI-qPI*((x+absY)/(absY-x)));
-	return y<0?-angle:angle;
-}
-const NORM=(dir,vel=1)=>[dir<2||dir==7?vel:dir>2&&dir<6?-vel:0,dir>0&&dir<4?-vel:dir>4?vel:0];
+Object.defineProperty(Object.prototype, "hasKey", {
+  value: function (e, k) {
+    return e.hasOwnProperty(k);
+  },
+});
+const ATAN2 = (x, y) => {
+  let qPI = PI / 4;
+  (tqPI = 3 * qPI),
+    (absY = ABS(y)),
+    (angle =
+      x >= 0
+        ? qPI - qPI * ((x - absY) / (x + absY))
+        : tqPI - qPI * ((x + absY) / (absY - x)));
+  return y < 0 ? -angle : angle;
+};
+const NORM = (dir, vel = 1) => [
+  dir < 2 || dir == 7 ? vel : dir > 2 && dir < 6 ? -vel : 0,
+  dir > 0 && dir < 4 ? -vel : dir > 4 ? vel : 0,
+];
 var game;
-run.aiSteering=e=>{
-	Vector2D.pool=new Pool(Vector2D,[0,0,0]);
-	AE(new Game().screen);
+run.aiSteering = (e) => {
+  Vector2D.pool = new Pool(Vector2D, [0, 0, 0]);
+  AE(new Game().screen);
+};
+class Game extends Obj {
+  constructor() {
+    super();
+    Game.cols = 30;
+    Game.rows = 30;
+    Game.tileSize = 16;
+    this.timer = N;
+    this.screen = new Screen(this.shareVars("cols", "rows", "tileSize"));
+    this.map = new Map(
+      this.shareVars("cols", "rows", "tileSize", [
+        "screen",
+        [
+          "screenWidth",
+          "screenHeight",
+          "drawLine",
+          "drawCircle",
+          "drawArrow",
+          "scale",
+        ],
+      ])
+    );
+    this.flock = Array.generate(
+      2,
+      (e) =>
+        new Actor(
+          "blue",
+          this.shareVars(
+            "tileSize",
+            "cols",
+            "rows",
+            "timer",
+            "flock",
+            ["map", ["path", "obsticles", "turbulance"]],
+            [
+              "screen",
+              [
+                "drawRotatedRect",
+                "drawX",
+                "drawTriangle",
+                "screenWidth",
+                "screenHeight",
+                "drawCircle",
+                "drawLine",
+              ],
+            ]
+          )
+        )
+    );
+    this.actor = this.flock[0];
+    this.flock.map((e) => {
+      e.target = this.actor;
+      e.behaviour = Actor.FOLLOWLEADER;
+    });
+    this.flockForceQueue = Array.generate(this.flock.length, (e) => e);
+    this.actor.color = "green";
+    this.actor.target = this.screen.mousePos;
+    this.actor.behaviour = Actor.HIDE;
+    this.actor.maxSeperation = 0.5;
+    this.enemy = this.flock[1];
+    this.enemy.color = "red";
+    this.enemy.target = this.actor;
+    this.actor.speed = 6;
+    this.enemy.behaviour = Actor.PURSUE;
+    this.enemy.maxSeperation = 0.5;
+    this.enemy.speed = 5;
+    this.actor.addFleeTarget(this.enemy);
+    this.screen.sharedVars = this.shareVars(
+      ["actor", "behaviour"],
+      ["actor", "toggleBehavior"]
+    );
+    this.sharedVars = this.shareVars(["screen", "DOM"]);
+    this.init();
+  }
+  init() {
+    this.screen.resize();
+    this.timer = setInterval((e) => {
+      this.update();
+      this.draw();
+    }, 50);
+  }
+  appended() {
+    this.DOM.tabIndex = "1";
+    this.DOM.focus();
+  }
+  update() {
+    this.screen.clearScreen();
+    let checkBirds = this.flockForceQueue.length / 4;
+    this.flock.map((e) => e.aim.clone([0, 0]));
+    for (let i = 0; i < checkBirds; i++) {
+      this.flock[0].updateForces();
+      this.flock.push(this.flock.shift());
+    }
+    this.flock.map((e) => e.update());
+  }
+  draw() {
+    this.screen.writeText(
+      Actor.ACTION[this.actor.behaviour],
+      [5, 10],
+      "black",
+      20
+    );
+    this.map.draw();
+    this.flock.map((e) => e.draw());
+  }
 }
-class Game extends Obj{
-	constructor(){
-		super();
-		Game.cols=30;
-		Game.rows=30;
-		Game.tileSize=16;
-		this.timer=n;
-		this.screen=new Screen(this.shareVars("cols","rows","tileSize"));
-		this.map=new Map(this.shareVars("cols","rows","tileSize",["screen",["screenWidth","screenHeight","drawLine","drawCircle","drawArrow","scale"]]));
-		this.flock=Array.generate(2,e=>new Actor("blue",this.shareVars("tileSize","cols","rows","timer","flock",["map",["path","obsticles","turbulance"]],["screen",["drawRotatedRect","drawX","drawTriangle","screenWidth","screenHeight","drawCircle","drawLine"]])))
-		this.actor=this.flock[0];
-		this.flock.map(e=>{e.target=this.actor;e.behaviour=Actor.FOLLOWLEADER});
-		this.flockForceQueue=Array.generate(this.flock.length,e=>e);
-		this.actor.color="green";
-		this.actor.target=this.screen.mousePos;
-		this.actor.behaviour=Actor.HIDE;
-		this.actor.maxSeperation=0.5;
-		this.enemy=this.flock[1];
-		this.enemy.color="red";
-		this.enemy.target=this.actor;
-		this.actor.speed=6;
-		this.enemy.behaviour=Actor.PURSUE;
-		this.enemy.maxSeperation=0.5;
-		this.enemy.speed=5;
-		this.actor.addFleeTarget(this.enemy);
-		this.screen.sharedVars=this.shareVars(["actor","behaviour"],["actor","toggleBehavior"])
-		this.sharedVars=this.shareVars(["screen","DOM"]);
-		this.init();
-	}
-	init(){
-		this.screen.resize();
-		this.timer=setInterval(e=>{
-			this.update();
-			this.draw();
-		},50);
-	}
-	appended(){
-		this.DOM.tabIndex="1";
-		this.DOM.focus();
-	}
-	update(){
-		this.screen.clearScreen();
-		let checkBirds=this.flockForceQueue.length/4;
-		this.flock.map(e=>e.aim.clone([0,0]))
-		for(let i=0;i<checkBirds;i++){
-			this.flock[0].updateForces();
-			this.flock.push(this.flock.shift());
-		}
-		this.flock.map(e=>e.update());
-	}
-	draw(){
-		this.screen.writeText(Actor.ACTION[this.actor.behaviour],[5,10],"black",20)
-		this.map.draw();
-		this.flock.map(e=>e.draw());
-	}
-}
-class Screen extends DOMObj{
-	constructor(vars){super("sharedVars",vars);}
-	generate(){
-		this.className="screen";
-		this.DOM=CE("cvs");
-		this.ctx=this.DOM.getContext("2d");
-		Screen.width=this.DOM.width=Game.tileSize*Game.cols;
-		Screen.height=this.DOM.height=Game.tileSize*Game.rows;
-		window.addEventListener("resize",e=>this.resize(e),false);
-		window.addEventListener("orientationchange",e=>this.resize(e),false);
-		this.mousePos=new Vector2D(0,0);
-	}
-	keyUp(event){
-		var key=event.keyCode||event.which;
-		if(key>47&&key<58){this.behaviour=key-48;}
-	}
-	hover(e){
-		this.mousePos.x=~~((e.pageX-this.DOM.offsetLeft)/this.scale);
-		this.mousePos.y=~~((e.pageY-this.DOM.offsetTop)/this.scale);
-	}
-	makeGrid(){
-		for(let x=0;x<Screen.width;x+=Game.tileSize){
-			this.drawLine(x*this.scale,0,x*this.scale,Screen.height*this.scale);
-			for(let y=0;y<Screen.height;y+=Game.tileSize){
-				this.drawLine(0,y*this.scale,Screen.width*this.scale,y*this.scale);
-			}
-		}
-		this.drawLine(Screen.width*this.scale-1,0,Screen.width*this.scale-1,Screen.height*this.scale);
-		this.drawLine(0,Screen.height*this.scale-1,Screen.width*this.scale,Screen.height*this.scale-1);
-	}
-	clearScreen(){
-		this.drawRect(0,0,Screen.width,Screen.height,"#FFF");
-	}
-	onClick(){
-		this.toggleBehavior();
-	}
-	drawLine(startX,startY,endX,endY,color="#000000"){
-		this.ctx.beginPath();
-		this.ctx.strokeStyle=color;
-		this.ctx.moveTo(startX*this.scale,startY*this.scale);
-		this.ctx.lineTo(endX*this.scale,endY*this.scale);
-		this.ctx.stroke();
-	}
-	drawTriangle(x,y,height,width,angle,color){
-		this.drawLine(x,y,x+width,y,"black");
-		x+=(Game.tileSize-width)/2;
-		y+=(Game.tileSize-height)/2;
-		let centerX=x+width/2,
-				centerY=y+height/2,
-				coord=[[x,y],[x+width,centerY],[x,y+height]].map(p=>{
-					//var radians = (Math.PI / 180) * angle,
-					let cos=Math.cos(-angle),
-							sin=Math.sin(-angle);
-					return [
-						(cos*(p[0]-centerX))+(sin*(p[1]-centerY))+centerX,
-						(cos*(p[1]-centerY))-(sin*(p[0]-centerX))+centerY
-					];
-				});
-		//Basically, it's drawing a path and filling it. Similar to the circle
-		this.ctx.beginPath();
-		this.ctx.moveTo(coord[0][0]*this.scale,coord[0][1]*this.scale);
-		this.ctx.lineTo(coord[1][0]*this.scale,coord[1][1]*this.scale);
-		this.ctx.lineTo(coord[2][0]*this.scale,coord[2][1]*this.scale);
-		this.ctx.fillStyle=color;
-		this.ctx.fill();
-	}
-	drawCircle(centerX,centerY,radius,color=n,stroke=n){
-		this.ctx.beginPath();
-		this.ctx.arc(centerX*this.scale,centerY*this.scale,radius*this.scale,0,2*Math.PI,false);
-		if(color!=n){
-			this.ctx.fillStyle=color;
-			this.ctx.fill();
-		}
-		if(stroke!=n){
-			this.ctx.strokeStyle=stroke;
-			this.ctx.stroke();
-		}
-	}
-	drawX(x,y,width,height,color){
-		x-=width/2;
-		y-=height/2;
-		this.drawLine(x,y,x+width,y+height,color);
-		this.drawLine(x+width,y,x,y+height,color)
-	}
-	drawRect(x,y,width,height,color="black"){
-		this.ctx.beginPath();
-		this.ctx.fillStyle=color;
-		this.ctx.fillRect(x*this.scale,y*this.scale,width*this.scale,height*this.scale);
-		this.ctx.closePath();
-	}
-	drawRotatedRect(x,y,width,height,angle){
-		let centerX=x,
-				centerY=y+height/2,
-				points=[[x,y],[x+width,y],[x+width,y+height],[x,y+height]].map(p=>{
-					let cos=Math.cos(-angle),
-							sin=Math.sin(-angle);
-					return [
-						(cos*(p[0]-centerX))+(sin*(p[1]-centerY))+centerX,
-						(cos*(p[1]-centerY))-(sin*(p[0]-centerX))+centerY
-					].map(e=>e*this.scale);
-				});
-		this.drawRect(...points[1].map(e=>e/this.scale-1),2,2)
-		this.drawRect(...points[2].map(e=>e/this.scale-1),2,2)
-	}
-	writeText(text,pos,color,size=10,font="Arial",strokeColor=f,attributes=""){
-		this.ctx.imageSmoothingEnabled=false;
-		this.ctx.font=attributes+(attributes.length>0?" ":"")+(size*(this.scale/2))+"px "+font;
-		if(!!strokeColor){
-			this.ctx.strokeStyle=strokeColor;
-			this.ctx.strokeText(text,pos[0],pos[1]);
-		}
-		this.ctx.fillStyle=color;
-		this.ctx.fillText(text,pos[0]*this.scale,pos[1]*this.scale);
-	}
-	drawArrow(x,y,dir,length,color){
-		
-	}
-	resize(){
-		let widthToHeight=Screen.width/Screen.height,
-			newWidth=window.innerWidth,
-			newHeight=window.innerHeight,
-			newWidthToHeight=newWidth/newHeight;
-		
-		if(newWidthToHeight>widthToHeight){
-			newWidth=newHeight*widthToHeight;
-			this.scale=newWidth/Screen.width;
-		}else{
-			newHeight=newWidth/widthToHeight;
-			this.scale=newWidth/Screen.width;
-		}
-		
-		this.DOM.width=newWidth;
-		this.DOM.height=newHeight;
-	}
-}
-class Actor extends Obj{
-	constructor(color,vars){
-		super("color",color,"seeAhead",50,"currentNode",0,"wallFeelerLength",20,"wallFeelers",[0.5,0,-0.5],"sharedVars",vars,"velocity",new Vector2D(0,0,5),"fleeTargets",[],"aim",new Vector2D(0,0,5),"behaviour",Actor.WANDER,"mass",1.4,"slowDownAt",50,
-		"wanderDistance",6,
-		"wanderSize",8,
-		"wanderRange",0.08,
-		"wanderAngle",0,
-		"leaderFollowDist",50,
-		"seperationRadius",50,
-		"avoidForce",3,
-		"maxSeperation",2,
-		"leaderSightRadius",30);
-		this.x=rand(0,Game.cols)*Game.tileSize;
-		this.y=rand(0,Game.rows)*Game.tileSize;
-		this.height=Game.tileSize;
-		this.width=Game.tileSize*0.75;
-	}
-	toggleBehavior(){
-		this.behaviour++;
-		if(this.behaviour>Actor.FOLLOWLEADER-1){this.behaviour=0;}
-	}
-	updateForces(){
-		if(this.target!=n){this.targetPos=[this.target.x,this.target.y];}
-		let steering=n;
-		this.aim.add(this[Actor.ACTION[this.behaviour]](this.target));
-		if(this.fleeTargets.length>0){
-			this.fleeTargets.map(e=>{
-				this.aim.add(this.evade(e).divide(this.mass*4));
-			});
-		}
-		this.aim.add(this.seperation().destroy());
-		
-	}
-	update(){
-		let avoid=this.avoidObsticle
-		this.aim.add(avoid);
-		
-		if(Vector2D.getDistance(this.center,this.targetPos)>2){
-		this.velocity.add(this.aim).clamp(-this.speed);
-		this.centerX+=this.velocity.x;
-		this.centerY+=this.velocity.y;
-		
-		}
-	}
-	get speed(){return this.velocity.magnitude;}
-	set speed(speed){this.velocity.magnitude=speed;}
-	simpleMoveTowards(){
-		this.aim.clone(this.target).sub(this.center);
-		if(this.aim.length>5){
-			this.velocity.clone(this.aim.normal(this.speed));
-			this.move();
-		}
-	}
-	set target(target){this._target=target;}
-	get target(){return this._target;}
-	addFleeTarget(target){
-		this.fleeTargets.push(target);
-	}
-	removeFleeTarget(target){
-		this.fleeTargets.remove(target);
-	}
-	get center(){return [this.x+this.width/2,this.y+this.height/2];}
+class Screen extends DOMObj {
+  constructor(vars) {
+    super("sharedVars", vars);
+  }
+  generate() {
+    this.className = "screen";
+    this.DOM = CE("cvs");
+    this.ctx = this.DOM.getContext("2d");
+    Screen.width = this.DOM.width = Game.tileSize * Game.cols;
+    Screen.height = this.DOM.height = Game.tileSize * Game.rows;
+    window.addEventListener("resize", (e) => this.resize(e), F);
+    window.addEventListener("orientationchange", (e) => this.resize(e), F);
+    this.mousePos = new Vector2D(0, 0);
+  }
+  keyUp(event) {
+    var key = event.keyCode || event.which;
+    if (key > 47 && key < 58) {
+      this.behaviour = key - 48;
+    }
+  }
+  hover(e) {
+    this.mousePos.x = ~~((e.pageX - this.DOM.offsetLeft) / this.scale);
+    this.mousePos.y = ~~((e.pageY - this.DOM.offsetTop) / this.scale);
+  }
+  makeGrid() {
+    for (let x = 0; x < Screen.width; x += Game.tileSize) {
+      this.drawLine(
+        x * this.scale,
+        0,
+        x * this.scale,
+        Screen.height * this.scale
+      );
+      for (let y = 0; y < Screen.height; y += Game.tileSize) {
+        this.drawLine(
+          0,
+          y * this.scale,
+          Screen.width * this.scale,
+          y * this.scale
+        );
+      }
+    }
+    this.drawLine(
+      Screen.width * this.scale - 1,
+      0,
+      Screen.width * this.scale - 1,
+      Screen.height * this.scale
+    );
+    this.drawLine(
+      0,
+      Screen.height * this.scale - 1,
+      Screen.width * this.scale,
+      Screen.height * this.scale - 1
+    );
+  }
+  clearScreen() {
+    this.drawRect(0, 0, Screen.width, Screen.height, "#FFF");
+  }
+  onClick() {
+    this.toggleBehavior();
+  }
+  drawLine(startX, startY, endX, endY, color = "#000000") {
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = color;
+    this.ctx.moveTo(startX * this.scale, startY * this.scale);
+    this.ctx.lineTo(endX * this.scale, endY * this.scale);
+    this.ctx.stroke();
+  }
+  drawTriangle(x, y, height, width, angle, color) {
+    this.drawLine(x, y, x + width, y, "black");
+    x += (Game.tileSize - width) / 2;
+    y += (Game.tileSize - height) / 2;
+    let centerX = x + width / 2,
+      centerY = y + height / 2,
+      coord = [
+        [x, y],
+        [x + width, centerY],
+        [x, y + height],
+      ].map((p) => {
+        //var radians = (Math.PI / 180) * angle,
+        let cos = Math.cos(-angle),
+          sin = Math.sin(-angle);
+        return [
+          cos * (p[0] - centerX) + sin * (p[1] - centerY) + centerX,
+          cos * (p[1] - centerY) - sin * (p[0] - centerX) + centerY,
+        ];
+      });
+    //Basically, it's drawing a path and filling it. Similar to the circle
+    this.ctx.beginPath();
+    this.ctx.moveTo(coord[0][0] * this.scale, coord[0][1] * this.scale);
+    this.ctx.lineTo(coord[1][0] * this.scale, coord[1][1] * this.scale);
+    this.ctx.lineTo(coord[2][0] * this.scale, coord[2][1] * this.scale);
+    this.ctx.fillStyle = color;
+    this.ctx.fill();
+  }
+  drawCircle(centerX, centerY, radius, color = N, stroke = N) {
+    this.ctx.beginPath();
+    this.ctx.arc(
+      centerX * this.scale,
+      centerY * this.scale,
+      radius * this.scale,
+      0,
+      2 * Math.PI,
+      F
+    );
+    if (color != N) {
+      this.ctx.fillStyle = color;
+      this.ctx.fill();
+    }
+    if (stroke != N) {
+      this.ctx.strokeStyle = stroke;
+      this.ctx.stroke();
+    }
+  }
+  drawX(x, y, width, height, color) {
+    x -= width / 2;
+    y -= height / 2;
+    this.drawLine(x, y, x + width, y + height, color);
+    this.drawLine(x + width, y, x, y + height, color);
+  }
+  drawRect(x, y, width, height, color = "black") {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(
+      x * this.scale,
+      y * this.scale,
+      width * this.scale,
+      height * this.scale
+    );
+    this.ctx.closePath();
+  }
+  drawRotatedRect(x, y, width, height, angle) {
+    let centerX = x,
+      centerY = y + height / 2,
+      points = [
+        [x, y],
+        [x + width, y],
+        [x + width, y + height],
+        [x, y + height],
+      ].map((p) => {
+        let cos = Math.cos(-angle),
+          sin = Math.sin(-angle);
+        return [
+          cos * (p[0] - centerX) + sin * (p[1] - centerY) + centerX,
+          cos * (p[1] - centerY) - sin * (p[0] - centerX) + centerY,
+        ].map((e) => e * this.scale);
+      });
+    this.drawRect(...points[1].map((e) => e / this.scale - 1), 2, 2);
+    this.drawRect(...points[2].map((e) => e / this.scale - 1), 2, 2);
+  }
+  writeText(
+    text,
+    pos,
+    color,
+    size = 10,
+    font = "Arial",
+    strokeColor = F,
+    attributes = ""
+  ) {
+    this.ctx.imageSmoothingEnabled = F;
+    this.ctx.font =
+      attributes +
+      (attributes.length > 0 ? " " : "") +
+      size * (this.scale / 2) +
+      "px " +
+      font;
+    if (!!strokeColor) {
+      this.ctx.strokeStyle = strokeColor;
+      this.ctx.strokeText(text, pos[0], pos[1]);
+    }
+    this.ctx.fillStyle = color;
+    this.ctx.fillText(text, pos[0] * this.scale, pos[1] * this.scale);
+  }
+  drawArrow(x, y, dir, length, color) {}
+  resize() {
+    let widthToHeight = Screen.width / Screen.height,
+      newWidth = window.innerWidth,
+      newHeight = window.innerHeight,
+      newWidthToHeight = newWidth / newHeight;
 
-	//Move towards target
-	seek(target=this.target,arrivalRadius=3){
-		let desired=Vector2D.new(target.hasKey("center")?target.center:target).sub(this.center),
-				distance=desired.length;
-		let arrival=distance<=arrivalRadius?(distance/arrivalRadius):1;
-		return desired.normal(this.speed*arrival).sub(this.velocity);
-	}
-	//Run away from danger range
-	flee(target=this.target){
-		return Vector2D.new(target.hasKey("center")?target.center:target).sub(this.center).normal(-this.speed).sub(this.velocity);
-	}
-	//Slow down on approach
-	arrive(target,slowDownAt=200){
-		return this.seek(target,slowDownAt);
-	}
-	get checkArrive(){
-		let dist=this.aim.length;
-		return dist<this.slowDownAt?
-			(this.speed*(dist/this.slowDownAt))://Inside the radius to slow down
-			this.speed;//Outside the slowdown zone
-	}
-	//have a circle in front of AI with a random(or goal oriented) point on the circle that it aims towards. the bigger the curcle, the wider the range of movement will be(smaller is more focues) the further away it is moved, the smoother and bigger the force
-	wander(){
-		let wanderCircle=Vector2D.new(this.velocity).normal(this.wanderDistance);
-		let displacement=Vector2D.new(0,-1).scale(this.wanderSize);
-		displacement.angle=this.wanderAngle;
-		this.wanderAngle += rand(-this.wanderRange,this.wanderRange);
-		return wanderCircle.add(displacement.destroy()).destroy();
-	}
-	//Itterate through target points on a path
-	followPath(target=this.target){
-		if(isDefined(this.path)){
-			target=Vector2D.new(this.path[this.currentNode]);
-			if(target.distance(this)<=20){
-				this.currentNode=(this.currentNode+1)%this.path.length;
-				target.clone(this.path[this.currentNode]);
-			}
-		}
-		this.targetPos=[target.x,target.y];
-		return this.seek(target,f);
-	}
-	//Aim just behind target based on angle and speed
-	followLeader(){
-		
-	}
-	//predict the toal ahead of the targets heading based on angle and speed
-	pursue(target=this.target){
-		target=Vector2D.new(target.center).add(Vector2D.new(target.velocity).scale(Vector2D.getDistance(target.center,this.center)/this.speed).destroy());
-		/*distance = target.getPosition().subtract(host.getPosition());
+    if (newWidthToHeight > widthToHeight) {
+      newWidth = newHeight * widthToHeight;
+      this.scale = newWidth / Screen.width;
+    } else {
+      newHeight = newWidth / widthToHeight;
+      this.scale = newWidth / Screen.width;
+    }
+
+    this.DOM.width = newWidth;
+    this.DOM.height = newHeight;
+  }
+}
+class Actor extends Obj {
+  constructor(color, vars) {
+    super(
+      "color",
+      color,
+      "seeAhead",
+      50,
+      "currentNode",
+      0,
+      "wallFeelerLength",
+      20,
+      "wallFeelers",
+      [0.5, 0, -0.5],
+      "sharedVars",
+      vars,
+      "velocity",
+      new Vector2D(0, 0, 5),
+      "fleeTargets",
+      [],
+      "aim",
+      new Vector2D(0, 0, 5),
+      "behaviour",
+      Actor.WANDER,
+      "mass",
+      1.4,
+      "slowDownAt",
+      50,
+      "wanderDistance",
+      6,
+      "wanderSize",
+      8,
+      "wanderRange",
+      0.08,
+      "wanderAngle",
+      0,
+      "leaderFollowDist",
+      50,
+      "seperationRadius",
+      50,
+      "avoidForce",
+      3,
+      "maxSeperation",
+      2,
+      "leaderSightRadius",
+      30
+    );
+    this.x = rand(0, Game.cols) * Game.tileSize;
+    this.y = rand(0, Game.rows) * Game.tileSize;
+    this.height = Game.tileSize;
+    this.width = Game.tileSize * 0.75;
+  }
+  toggleBehavior() {
+    this.behaviour++;
+    if (this.behaviour > Actor.FOLLOWLEADER - 1) {
+      this.behaviour = 0;
+    }
+  }
+  updateForces() {
+    if (this.target != N) {
+      this.targetPos = [this.target.x, this.target.y];
+    }
+    let steering = N;
+    this.aim.add(this[Actor.ACTION[this.behaviour]](this.target));
+    if (this.fleeTargets.length > 0) {
+      this.fleeTargets.map((e) => {
+        this.aim.add(this.evade(e).divide(this.mass * 4));
+      });
+    }
+    this.aim.add(this.seperation().destroy());
+  }
+  update() {
+    let avoid = this.avoidObsticle;
+    this.aim.add(avoid);
+
+    if (Vector2D.getDistance(this.center, this.targetPos) > 2) {
+      this.velocity.add(this.aim).clamp(-this.speed);
+      this.centerX += this.velocity.x;
+      this.centerY += this.velocity.y;
+    }
+  }
+  get speed() {
+    return this.velocity.magnitude;
+  }
+  set speed(speed) {
+    this.velocity.magnitude = speed;
+  }
+  simpleMoveTowards() {
+    this.aim.clone(this.target).sub(this.center);
+    if (this.aim.length > 5) {
+      this.velocity.clone(this.aim.normal(this.speed));
+      this.move();
+    }
+  }
+  set target(target) {
+    this._target = target;
+  }
+  get target() {
+    return this._target;
+  }
+  addFleeTarget(target) {
+    this.fleeTargets.push(target);
+  }
+  removeFleeTarget(target) {
+    this.fleeTargets.remove(target);
+  }
+  get center() {
+    return [this.x + this.width / 2, this.y + this.height / 2];
+  }
+
+  //Move towards target
+  seek(target = this.target, arrivalRadius = 3) {
+    let desired = Vector2D.new(
+        target.hasKey("center") ? target.center : target
+      ).sub(this.center),
+      distance = desired.length;
+    let arrival = distance <= arrivalRadius ? distance / arrivalRadius : 1;
+    return desired.normal(this.speed * arrival).sub(this.velocity);
+  }
+  //Run away from danger range
+  flee(target = this.target) {
+    return Vector2D.new(target.hasKey("center") ? target.center : target)
+      .sub(this.center)
+      .normal(-this.speed)
+      .sub(this.velocity);
+  }
+  //Slow down on approach
+  arrive(target, slowDownAt = 200) {
+    return this.seek(target, slowDownAt);
+  }
+  get checkArrive() {
+    let dist = this.aim.length;
+    return dist < this.slowDownAt
+      ? this.speed * (dist / this.slowDownAt) //Inside the radius to slow down
+      : this.speed; //Outside the slowdown zone
+  }
+  //have a circle in front of AI with a random(or goal oriented) point on the circle that it aims towards. the bigger the curcle, the wider the range of movement will be(smaller is more focues) the further away it is moved, the smoother and bigger the force
+  wander() {
+    let wanderCircle = Vector2D.new(this.velocity).normal(this.wanderDistance);
+    let displacement = Vector2D.new(0, -1).scale(this.wanderSize);
+    displacement.angle = this.wanderAngle;
+    this.wanderAngle += rand(-this.wanderRange, this.wanderRange);
+    return wanderCircle.add(displacement.destroy()).destroy();
+  }
+  //Itterate through target points on a path
+  followPath(target = this.target) {
+    if (isDefined(this.path)) {
+      target = Vector2D.new(this.path[this.currentNode]);
+      if (target.distance(this) <= 20) {
+        this.currentNode = (this.currentNode + 1) % this.path.length;
+        target.clone(this.path[this.currentNode]);
+      }
+    }
+    this.targetPos = [target.x, target.y];
+    return this.seek(target, F);
+  }
+  //Aim just behind target based on angle and speed
+  followLeader() {}
+  //predict the toal ahead of the targets heading based on angle and speed
+  pursue(target = this.target) {
+    target = Vector2D.new(target.center).add(
+      Vector2D.new(target.velocity)
+        .scale(Vector2D.getDistance(target.center, this.center) / this.speed)
+        .destroy()
+    );
+    /*distance = target.getPosition().subtract(host.getPosition());
 		
 		var updatesNeeded :Number = distance.length / host.getMaxVelocity();
 		
@@ -671,329 +1139,466 @@ class Actor extends Obj{
 		targetFuturePosition = target.getPosition().clone().add(tv);
 		
 		target=Vector2D.new(target.velocity).scale(Vector2D.getDistance(target.center,this.center)/this.speed).add(target);*/
-		this.targetPos=[...this.target.center];
-		return this.seek(target.destroy());
-	 /*steering = pursuit(target)
+    this.targetPos = [...this.target.center];
+    return this.seek(target.destroy());
+    /*steering = pursuit(target)
 	  steering = truncate (steering, max_force)
 	  steering = steering / mass
 	  velocity = truncate (velocity + steering , max_speed)
 	  position = position + velocity*/
-	}
-	//Predict where the target will be and move to avoid while still reaching the goal
-	evade(target=this.target){
-		
-		target=Vector2D.new(target.center).add(Vector2D.new(target.velocity).scale(Vector2D.getDistance(target.center,this.center)/this.speed).destroy());
-		return this.flee(target.destroy());
-	}
-	followLeader(leader){
-		if(!isNum(this.x)){clearInterval(this.timer);}
-		let target=Vector2D.new(leader.velocity).normal(this.leaderFollowDist);
-		let force=Vector2D.new();
-		let ahead=Vector2D.new(leader).add(target);
-		target.scale(-1);
-		let behind=Vector2D.new(leader).add(target.destroy());
-		force=Vector2D.new();
-		if(this.inLeadersWay(leader,ahead.destroy())){
-			force.add(this.evade(leader)).scale(1.8);
-		}
-		force.add(this.arrive(behind,50));
-		return force.destroy();
-	}
-	seperation(){
-		let force=Vector2D.new();
-		let neighbourCount=0;
-		this.flock.map(boid=>{
-			if(boid!=this&&Vector2D.getDistance(boid,this)<this.seperationRadius){
-				force.add([boid.x-this.x,boid.y-this.y]);
-				neighbourCount++;
-			}
-		});
-		if(neighbourCount!=0){
-			force.divide(neighbourCount).scale(-1);
-		}
-		return force.normal(this.maxSeperation);
-	}
-	inLeadersWay(leader,ahead){
-		return ahead.distance(this)<=this.leaderSightRadius||Vector2D.getDistance(leader,this)<=this.leaderSightRadius;
-	}
-	get avoidObsticle(){
-		let feeler=Vector2D.new(),threat=n;
-		this.wallFeelers.map(angle=>{
-			//avoidWall
-			feeler.clone(this.velocity).normal(this.wallFeelerLength).rotate(angle).add(this.center);
-			if(feeler.x<=5||feeler.x>=Screen.width-5||feeler.y<=5||feeler.y>=Screen.height-5){
-				this.aim.clone(this.seek([Screen.width/2,Screen.height/2]));
-				this.wanderAngle+=-this.velocity.angle;
-			}
-			//avoidObsticles
-			feeler.sub(this.center).scale(1.1).add(this.center);
-			let o=this.closestObsticle(feeler);
-			threat=this.lineIntersectsCircle(feeler,o)&&(threat==n||Vector2D.getDistance(o,this)<Vector2D.getDistance(threat,this))?o:threat;
-		});
-		if(threat!=n&&this.behaviour==Actor.WANDER){this.wanderAngle+=-this.velocity.angle;}
-		return (threat!=n?feeler.sub(threat).normal(this.avoidForce):feeler.scale(0)).destroy();
-	}
-	closestObsticle(point){
-		let closest=0,
-				closestDist=Vector2D.getDistance(point,this.obsticles[0]);
-		this.obsticles.itt((o,i)=>{
-			let dist=Vector2D.getDistance(point,o);
-			if(dist<closestDist){
-				closestDist=dist;
-				closest=i;
-			}
-		},1)
-		return this.obsticles[closest];
-	}
-	lineIntersectsCircle(canSee,ob){
-		let target=Vector2D.new(this.velocity).normal(this.seeAhead*0.5*this.velocity.length/this.speed).add(this);
-		return canSee.distance(ob)<=ob.radius||
-		target.destroy().distance(ob)<=ob.radius||
-		Vector2D.getDistance(ob,this)<=ob.radius;
-	}
-	get right(){return this.x+Game.tileSize;}
-	get bottom(){return this.y+Game.tileSize;}
-	get centerX(){return this.x+this.width/2;}
-	get centerY(){return this.y+this.height/2;}
-	set centerX(x){this.x=x-this.width/2;}
-	set centerY(y){this.y=y-this.height/2;}
-	get sprite(){
-		
-	}
-	hide(target){
-		let closest=this.closestObsticle(this);
-		let hidingSpot=Vector2D.new(0,1).scale(closest.radius+Game.tileSize);
-		hidingSpot.angle=Vector2D.getAngle(target,closest);
-		this.targetPos=hidingSpot.add(closest).cut;
-		return this.arrive(this.targetPos,10);
-	}
-	draw(){
-		let vel=Vector2D.new();
-		//this.wallFeelers.map(angle=>{
-		//	vel.clone(this.velocity).normal(this.wallFeelerLength).rotate(angle);
-		//	this.drawLine(this.centerX,this.centerY,this.centerX+vel.x,this.centerY+vel.y,"blue");
-		//});
-		//vel.clone(this.velocity).normal(20);
-		//if(vel.x>0||vel.y>0){
-		//	this.drawLine(this.centerX,this.centerY,this.centerX+vel.x,this.centerY+vel.y,"black")
-		//}
-		//this.aim.normal(20);
-		//this.drawLine(this.centerX,this.centerY,this.centerX+this.aim.x,this.centerY+this.aim.y,"green");
-		this.drawTriangle(this.x,this.y,this.width,this.height,this.velocity.angle,this.color);
-		//if(this.targetPos!=n){this.drawX(...this.targetPos,10,10,"red");}
-		vel.destroy();
-	}
+  }
+  //Predict where the target will be and move to avoid while still reaching the goal
+  evade(target = this.target) {
+    target = Vector2D.new(target.center).add(
+      Vector2D.new(target.velocity)
+        .scale(Vector2D.getDistance(target.center, this.center) / this.speed)
+        .destroy()
+    );
+    return this.flee(target.destroy());
+  }
+  followLeader(leader) {
+    if (!isNum(this.x)) {
+      clearInterval(this.timer);
+    }
+    let target = Vector2D.new(leader.velocity).normal(this.leaderFollowDist);
+    let force = Vector2D.new();
+    let ahead = Vector2D.new(leader).add(target);
+    target.scale(-1);
+    let behind = Vector2D.new(leader).add(target.destroy());
+    force = Vector2D.new();
+    if (this.inLeadersWay(leader, ahead.destroy())) {
+      force.add(this.evade(leader)).scale(1.8);
+    }
+    force.add(this.arrive(behind, 50));
+    return force.destroy();
+  }
+  seperation() {
+    let force = Vector2D.new();
+    let neighbourCount = 0;
+    this.flock.map((boid) => {
+      if (
+        boid != this &&
+        Vector2D.getDistance(boid, this) < this.seperationRadius
+      ) {
+        force.add([boid.x - this.x, boid.y - this.y]);
+        neighbourCount++;
+      }
+    });
+    if (neighbourCount != 0) {
+      force.divide(neighbourCount).scale(-1);
+    }
+    return force.normal(this.maxSeperation);
+  }
+  inLeadersWay(leader, ahead) {
+    return (
+      ahead.distance(this) <= this.leaderSightRadius ||
+      Vector2D.getDistance(leader, this) <= this.leaderSightRadius
+    );
+  }
+  get avoidObsticle() {
+    let feeler = Vector2D.new(),
+      threat = N;
+    this.wallFeelers.map((angle) => {
+      //avoidWall
+      feeler
+        .clone(this.velocity)
+        .normal(this.wallFeelerLength)
+        .rotate(angle)
+        .add(this.center);
+      if (
+        feeler.x <= 5 ||
+        feeler.x >= Screen.width - 5 ||
+        feeler.y <= 5 ||
+        feeler.y >= Screen.height - 5
+      ) {
+        this.aim.clone(this.seek([Screen.width / 2, Screen.height / 2]));
+        this.wanderAngle += -this.velocity.angle;
+      }
+      //avoidObsticles
+      feeler.sub(this.center).scale(1.1).add(this.center);
+      let o = this.closestObsticle(feeler);
+      threat =
+        this.lineIntersectsCircle(feeler, o) &&
+        (threat == N ||
+          Vector2D.getDistance(o, this) < Vector2D.getDistance(threat, this))
+          ? o
+          : threat;
+    });
+    if (threat != N && this.behaviour == Actor.WANDER) {
+      this.wanderAngle += -this.velocity.angle;
+    }
+    return (
+      threat != N ? feeler.sub(threat).normal(this.avoidForce) : feeler.scale(0)
+    ).destroy();
+  }
+  closestObsticle(point) {
+    let closest = 0,
+      closestDist = Vector2D.getDistance(point, this.obsticles[0]);
+    this.obsticles.itt((o, i) => {
+      let dist = Vector2D.getDistance(point, o);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    }, 1);
+    return this.obsticles[closest];
+  }
+  lineIntersectsCircle(canSee, ob) {
+    let target = Vector2D.new(this.velocity)
+      .normal((this.seeAhead * 0.5 * this.velocity.length) / this.speed)
+      .add(this);
+    return (
+      canSee.distance(ob) <= ob.radius ||
+      target.destroy().distance(ob) <= ob.radius ||
+      Vector2D.getDistance(ob, this) <= ob.radius
+    );
+  }
+  get right() {
+    return this.x + Game.tileSize;
+  }
+  get bottom() {
+    return this.y + Game.tileSize;
+  }
+  get centerX() {
+    return this.x + this.width / 2;
+  }
+  get centerY() {
+    return this.y + this.height / 2;
+  }
+  set centerX(x) {
+    this.x = x - this.width / 2;
+  }
+  set centerY(y) {
+    this.y = y - this.height / 2;
+  }
+  get sprite() {}
+  hide(target) {
+    let closest = this.closestObsticle(this);
+    let hidingSpot = Vector2D.new(0, 1).scale(closest.radius + Game.tileSize);
+    hidingSpot.angle = Vector2D.getAngle(target, closest);
+    this.targetPos = hidingSpot.add(closest).cut;
+    return this.arrive(this.targetPos, 10);
+  }
+  draw() {
+    let vel = Vector2D.new();
+    //this.wallFeelers.map(angle=>{
+    //	vel.clone(this.velocity).normal(this.wallFeelerLength).rotate(angle);
+    //	this.drawLine(this.centerX,this.centerY,this.centerX+vel.x,this.centerY+vel.y,"blue");
+    //});
+    //vel.clone(this.velocity).normal(20);
+    //if(vel.x>0||vel.y>0){
+    //	this.drawLine(this.centerX,this.centerY,this.centerX+vel.x,this.centerY+vel.y,"black")
+    //}
+    //this.aim.normal(20);
+    //this.drawLine(this.centerX,this.centerY,this.centerX+this.aim.x,this.centerY+this.aim.y,"green");
+    this.drawTriangle(
+      this.x,
+      this.y,
+      this.width,
+      this.height,
+      this.velocity.angle,
+      this.color
+    );
+    //if(this.targetPos!=N){this.drawX(...this.targetPos,10,10,"red");}
+    vel.destroy();
+  }
 }
-Actor.ACTION=["seek","flee","wander","followPath","hide","followLeader","pursue","evade","seek","seek"];
-Actor.SEEK=0;
-Actor.FLEE=1;
-Actor.WANDER=2;
-Actor.FOLLOWPATH=3;
-Actor.HIDE=4;
-Actor.FOLLOWLEADER=5;
-Actor.PURSUE=6;
-Actor.EVADE=7;
-Actor.SEEK=8;
-Actor.SEEK=9;
+Actor.ACTION = [
+  "seek",
+  "flee",
+  "wander",
+  "followPath",
+  "hide",
+  "followLeader",
+  "pursue",
+  "evade",
+  "seek",
+  "seek",
+];
+Actor.SEEK = 0;
+Actor.FLEE = 1;
+Actor.WANDER = 2;
+Actor.FOLLOWPATH = 3;
+Actor.HIDE = 4;
+Actor.FOLLOWLEADER = 5;
+Actor.PURSUE = 6;
+Actor.EVADE = 7;
+Actor.SEEK = 8;
+Actor.SEEK = 9;
 
-class Polygon extends Obj{
-	constructor(obsticles){
-		super("obsticles",obsticles);
-		this.basePos();
-		this.points=this.convexHull();
-		this.calculateDimens();
-	}
-	basePos(){
-		this.width=rand(Game.tileSize/2,Game.tileSize*4);
-		this.height=rand(Game.tileSize/2,Game.tileSize*4);
-		this.x=rand(this.width,Screen.width-this.width);
-		this.y=rand(this.height,Screen.height-this.height);
-		let overlaps=f;
-		this.obsticles.map(e=>{if(this.x<e.x+e.width&&this.x+this.width>e.x&&this.y<e.y+e.height&&this.height+this.y>e.y){overlaps=t;}});
-		if(overlaps){this.basePos();}
-	}
-	convexHull(){
-		let points=Array.generate(rand(15,20),e=>[rand(0,this.width)+this.x,rand(0,this.height)+this.y]).sort((a,b)=>a.x==b.x?a.y-b.y:a.x-b.x);
-		let count=0,
-				hull=[];
-		//lowerHull
-		for(let i=0;i<points.length-1;i++){
-        while (count>=2&&Vector2D.crossProduct3(hull[count-2],hull[count-1],points[i])<=0){count--;}
-        hull[count++]=points[i];
-		}
-		hull.pop();
-		count--;
-		//upperHull
-		for(let i=points.length-1,t=count+1;i>0;i--){
-			while(count>=t&&Vector2D.crossProduct3(hull[count-2],hull[count-1],points[i-1])<=0){count--;}
-			hull[count++]=points[i-1];
-		}
-		hull.pop();
-		points.length=0;
-		if(hull[0]==hull[hull.length-1]){hull.pop()}
-		return hull;
-	}
-	calculateDimens(){
-		let cenX=0,
-				cenY=0;
-		this.points.itt(p=>{
-			cenX+=p.x;
-			cenY+=p.y;
-		});
-		this.x=cenX/this.points.length;
-		this.y=cenY/this.points.length;
-		this.radius=Vector2D.getDistance(this,this.points[0]);
-		this.points.itt((p,i)=>{
-			let dist=Vector2D.getDistance(this,p);
-			if(dist>this.radius){
-				this.radius=dist;
-			}
-		},1);
-	}
-	draw(){
-		this.strokePolygon(this.points,Screen.BLACK);
-	}
+class Polygon extends Obj {
+  constructor(obsticles) {
+    super("obsticles", obsticles);
+    this.basePos();
+    this.points = this.convexHull();
+    this.calculateDimens();
+  }
+  basePos() {
+    this.width = rand(Game.tileSize / 2, Game.tileSize * 4);
+    this.height = rand(Game.tileSize / 2, Game.tileSize * 4);
+    this.x = rand(this.width, Screen.width - this.width);
+    this.y = rand(this.height, Screen.height - this.height);
+    let overlaps = F;
+    this.obsticles.map((e) => {
+      if (
+        this.x < e.x + e.width &&
+        this.x + this.width > e.x &&
+        this.y < e.y + e.height &&
+        this.height + this.y > e.y
+      ) {
+        overlaps = T;
+      }
+    });
+    if (overlaps) {
+      this.basePos();
+    }
+  }
+  convexHull() {
+    let points = Array.generate(rand(15, 20), (e) => [
+      rand(0, this.width) + this.x,
+      rand(0, this.height) + this.y,
+    ]).sort((a, b) => (a.x == b.x ? a.y - b.y : a.x - b.x));
+    let count = 0,
+      hull = [];
+    //lowerHull
+    for (let i = 0; i < points.length - 1; i++) {
+      while (
+        count >= 2 &&
+        Vector2D.crossProduct3(hull[count - 2], hull[count - 1], points[i]) <= 0
+      ) {
+        count--;
+      }
+      hull[count++] = points[i];
+    }
+    hull.pop();
+    count--;
+    //upperHull
+    for (let i = points.length - 1, t = count + 1; i > 0; i--) {
+      while (
+        count >= t &&
+        Vector2D.crossProduct3(
+          hull[count - 2],
+          hull[count - 1],
+          points[i - 1]
+        ) <= 0
+      ) {
+        count--;
+      }
+      hull[count++] = points[i - 1];
+    }
+    hull.pop();
+    points.length = 0;
+    if (hull[0] == hull[hull.length - 1]) {
+      hull.pop();
+    }
+    return hull;
+  }
+  calculateDimens() {
+    let cenX = 0,
+      cenY = 0;
+    this.points.itt((p) => {
+      cenX += p.x;
+      cenY += p.y;
+    });
+    this.x = cenX / this.points.length;
+    this.y = cenY / this.points.length;
+    this.radius = Vector2D.getDistance(this, this.points[0]);
+    this.points.itt((p, i) => {
+      let dist = Vector2D.getDistance(this, p);
+      if (dist > this.radius) {
+        this.radius = dist;
+      }
+    }, 1);
+  }
+  draw() {
+    this.strokePolygon(this.points, Screen.BLACK);
+  }
 }
 
-class Map extends Obj{
-	constructor(vars){
-		super("sharedVars",vars);
-		this.makeFollowPath();
-		this.makeObsticles();
-		this.makeTurbulance();
-	}
-	makeFollowPath(){
-		this.path=new Road(Screen.width,Screen.height).track;
-	}
-	makeObsticles(){
-		this.obsticles=[];
-		for(let i=0;i<10;i++){
-			this.obsticles.push(new Polygon(this.obsticles));
-		}
-	}
-	makeTurbulance(){
-		this.turbulance=Array.generate(Game.cols*Game.rows,e=>rand(-2,2));
-	}
-	draw(){
-		//DrawPath
-		for(let i=0;i<this.path.length-1;i++){this.drawLine(this.path[i].x,this.path[i].y,this.path[i+1].x,this.path[i+1].y,"gray");}
-		this.drawLine(this.path[this.path.length-1].x,this.path[this.path.length-1].y,this.path[0].x,this.path[0].y,"gray");
-		this.path.map(e=>this.drawCircle(e.x,e.y,5,"yellow"));
-		
-		//DrawObsticles
-		this.obsticles.map(e=>this.drawCircle(e.x,e.y,e.radius,"orange"));
-		
-		//DrawTurbulance
-		//itt2DArr(Game.cols,Game.rows,(col,row)=>this.drawArrow(col*Game.tileSize+Game.tileSize/2,row*Game.tileSize+Game.tileSize/2,this.turbulance[row*Game.cols+col],Game.tileSize/4,"purple"));
-	}
+class Map extends Obj {
+  constructor(vars) {
+    super("sharedVars", vars);
+    this.makeFollowPath();
+    this.makeObsticles();
+    this.makeTurbulance();
+  }
+  makeFollowPath() {
+    this.path = new Road(Screen.width, Screen.height).track;
+  }
+  makeObsticles() {
+    this.obsticles = [];
+    for (let i = 0; i < 10; i++) {
+      this.obsticles.push(new Polygon(this.obsticles));
+    }
+  }
+  makeTurbulance() {
+    this.turbulance = Array.generate(Game.cols * Game.rows, (e) => rand(-2, 2));
+  }
+  draw() {
+    //DrawPath
+    for (let i = 0; i < this.path.length - 1; i++) {
+      this.drawLine(
+        this.path[i].x,
+        this.path[i].y,
+        this.path[i + 1].x,
+        this.path[i + 1].y,
+        "gray"
+      );
+    }
+    this.drawLine(
+      this.path[this.path.length - 1].x,
+      this.path[this.path.length - 1].y,
+      this.path[0].x,
+      this.path[0].y,
+      "gray"
+    );
+    this.path.map((e) => this.drawCircle(e.x, e.y, 5, "yellow"));
+
+    //DrawObsticles
+    this.obsticles.map((e) => this.drawCircle(e.x, e.y, e.radius, "orange"));
+
+    //DrawTurbulance
+    //itt2DArr(Game.cols,Game.rows,(col,row)=>this.drawArrow(col*Game.tileSize+Game.tileSize/2,row*Game.tileSize+Game.tileSize/2,this.turbulance[row*Game.cols+col],Game.tileSize/4,"purple"));
+  }
 }
 
-class Road extends Obj{
-	constructor(){super();this.generate();}
-	generate(){
-		this.track=this.convexHull();
-		this.spreadPoints(this.track);
-		this.addVariance(this.track);
-		this.spreadPoints(this.track);
-		this.fixAngles(this.track);
-		this.spreadPoints(this.track);
-		this.fixBounds(this.track);
-		this.removeOverlappingLines(this.track);
-	}
-	convexHull(){
-		let points=Array.generate(rand(15,20),e=>[rand(30,Screen.width-30),rand(30,Screen.height-30)]).sort((a,b)=>a.x==b.x?a.y-b.y:a.x-b.x);
-		let count=0,
-				hull=[];
-		//lowerHull
-		for(let i=0;i<points.length-1;i++){
-        while (count>=2&&this.crossProduct(hull[count-2],hull[count-1],points[i])<=0){count--;}
-        hull[count++]=points[i];
-		}
-		hull.pop();
-		count--;
-		//upperHull
-		for(let i=points.length-1,t=count+1;i>0;i--){
-			while(count>=t&&this.crossProduct(hull[count-2],hull[count-1],points[i-1])<=0){count--;}
-			hull[count++]=points[i-1];
-		}
-		hull.pop();
-		if(hull[0]==hull[hull.length-1]){hull.pop()}
-		return hull;
-	}
-	crossProduct(a,b,c){
-		return (b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
-	}
-	spreadPoints(hull,dist=40){
-		let distSq=SQ(dist);
-		for(let i=0;i<hull.length;i++){
-			for(let j=i+1;j<hull.length;j++){
-				if(SQ(HYPOT(...hull[i],...hull[j]))<distSq){
-					let x=hull[j].x-hull[i].x,
-							y=hull[j].y-hull[i].y,
-							len=HYPOT(x,y);
-					x/=len;
-					y/=len;
-					let diff=dist-len;
-					x*=diff;
-					y*=diff;
-					hull[j].x+=x;
-					hull[j].y+=y;
-					hull[i].x-=x;
-					hull[i].y-=y;
-		}
-		hull[j].x=FLOOR(hull[j].x);
-		hull[j].y=FLOOR(hull[j].y);
-		hull[i].x=FLOOR(hull[i].x);
-		hull[i].y=FLOOR(hull[i].y);
-	}	}	}
-	fixBounds(track){
-		track.map(e=>{
-			if(e.x>Screen.width){e.x=Screen.width-5;}
-			else if(e.x<0){e.x=5;}
-			
-			if(e.y>Screen.height){e.y=Screen.height-5;}
-			else if(e.y<0){e.y=5;}
-		});
-	}
-	addVariance(hull,difficulty=1){
-		difficulty=1/difficulty;
-		let len=hull.length,
-				maxDisp=20,
-				newPoint=Vector2D.new(),
-				disp=Vector2D.new();
-		for(let i=0;i<hull.length;i+=3){
-			let dispLength=POW(randD(0,1),difficulty)*maxDisp;
-			disp.set(0,1).rotate(randD(0,1)*360).scale(dispLength);
-			newPoint.clone(hull[i]).midPoint(hull[(i+1)%len]).add(disp);
-			hull.splice(i+1,0,newPoint.copy);
-		}
-		disp.destroy();
-		newPoint.destroy();
-	}
-	fixAngles(points){
-		for(var i = 0; i < points.length; ++i)
-    {
-      var previous = (i-1 < 0) ? points.length-1 : i-1;
-      var next = (i+1) % points.length;
+class Road extends Obj {
+  constructor() {
+    super();
+    this.generate();
+  }
+  generate() {
+    this.track = this.convexHull();
+    this.spreadPoints(this.track);
+    this.addVariance(this.track);
+    this.spreadPoints(this.track);
+    this.fixAngles(this.track);
+    this.spreadPoints(this.track);
+    this.fixBounds(this.track);
+    this.removeOverlappingLines(this.track);
+  }
+  convexHull() {
+    let points = Array.generate(rand(15, 20), (e) => [
+      rand(30, Screen.width - 30),
+      rand(30, Screen.height - 30),
+    ]).sort((a, b) => (a.x == b.x ? a.y - b.y : a.x - b.x));
+    let count = 0,
+      hull = [];
+    //lowerHull
+    for (let i = 0; i < points.length - 1; i++) {
+      while (
+        count >= 2 &&
+        this.crossProduct(hull[count - 2], hull[count - 1], points[i]) <= 0
+      ) {
+        count--;
+      }
+      hull[count++] = points[i];
+    }
+    hull.pop();
+    count--;
+    //upperHull
+    for (let i = points.length - 1, t = count + 1; i > 0; i--) {
+      while (
+        count >= t &&
+        this.crossProduct(hull[count - 2], hull[count - 1], points[i - 1]) <= 0
+      ) {
+        count--;
+      }
+      hull[count++] = points[i - 1];
+    }
+    hull.pop();
+    if (hull[0] == hull[hull.length - 1]) {
+      hull.pop();
+    }
+    return hull;
+  }
+  crossProduct(a, b, c) {
+    return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+  }
+  spreadPoints(hull, dist = 40) {
+    let distSq = SQ(dist);
+    for (let i = 0; i < hull.length; i++) {
+      for (let j = i + 1; j < hull.length; j++) {
+        if (SQ(HYPOT(...hull[i], ...hull[j])) < distSq) {
+          let x = hull[j].x - hull[i].x,
+            y = hull[j].y - hull[i].y,
+            len = HYPOT(x, y);
+          x /= len;
+          y /= len;
+          let diff = dist - len;
+          x *= diff;
+          y *= diff;
+          hull[j].x += x;
+          hull[j].y += y;
+          hull[i].x -= x;
+          hull[i].y -= y;
+        }
+        hull[j].x = FLOOR(hull[j].x);
+        hull[j].y = FLOOR(hull[j].y);
+        hull[i].x = FLOOR(hull[i].x);
+        hull[i].y = FLOOR(hull[i].y);
+      }
+    }
+  }
+  fixBounds(track) {
+    track.map((e) => {
+      if (e.x > Screen.width) {
+        e.x = Screen.width - 5;
+      } else if (e.x < 0) {
+        e.x = 5;
+      }
+
+      if (e.y > Screen.height) {
+        e.y = Screen.height - 5;
+      } else if (e.y < 0) {
+        e.y = 5;
+      }
+    });
+  }
+  addVariance(hull, difficulty = 1) {
+    difficulty = 1 / difficulty;
+    let len = hull.length,
+      maxDisp = 20,
+      newPoint = Vector2D.new(),
+      disp = Vector2D.new();
+    for (let i = 0; i < hull.length; i += 3) {
+      let dispLength = POW(randD(0, 1), difficulty) * maxDisp;
+      disp
+        .set(0, 1)
+        .rotate(randD(0, 1) * 360)
+        .scale(dispLength);
+      newPoint
+        .clone(hull[i])
+        .midPoint(hull[(i + 1) % len])
+        .add(disp);
+      hull.splice(i + 1, 0, newPoint.copy);
+    }
+    disp.destroy();
+    newPoint.destroy();
+  }
+  fixAngles(points) {
+    for (var i = 0; i < points.length; ++i) {
+      var previous = i - 1 < 0 ? points.length - 1 : i - 1;
+      var next = (i + 1) % points.length;
       var px = points[i].x - points[previous].x;
       var py = points[i].y - points[previous].y;
-      var pl = Math.sqrt(px*px + py*py);
-      px = px/pl;
-      py = py/pl;
+      var pl = Math.sqrt(px * px + py * py);
+      px = px / pl;
+      py = py / pl;
 
       var nx = points[i].x - points[next].x;
       var ny = points[i].y - points[next].y;
       nx = -nx;
       ny = -ny;
-      var nl = Math.sqrt(nx*nx + ny*ny);
-      nx = nx/nl;
-      ny = ny/nl;
-      
-      var a = Math.atan2(px * ny - py * nx, px * nx + py * ny);
-   
-      if(Math.abs(a * 180/Math.PI) <= 100) continue;
+      var nl = Math.sqrt(nx * nx + ny * ny);
+      nx = nx / nl;
+      ny = ny / nl;
 
-      var nA = 100 * Math.sign(a) * Math.PI/180;
+      var a = Math.atan2(px * ny - py * nx, px * nx + py * ny);
+
+      if (Math.abs((a * 180) / Math.PI) <= 100) continue;
+
+      var nA = (100 * Math.sign(a) * Math.PI) / 180;
       var diff = nA - a;
       var cos = Math.cos(diff);
       var sin = Math.sin(diff);
@@ -1005,236 +1610,284 @@ class Road extends Obj{
       points[next].y = points[i].y + newY;
     }
     return points;
-	}
-	removeOverlappingLines(hull){
-		for(let i=0;i<hull.length;i++){
-			for(let j=i+2;j<hull.length;j++){
-				if(this.linesIntersect(hull[i],hull[i+1],hull[j],hull[(j+1)%hull.length])){
-					hull[i+1]=Vector2D.new(hull[i]).midPoint(hull[i+1]).destroy().copy;
-				}
-			}
-		}
-	}
-	linesIntersect(p1,p2,p3,p4) {
-		let det=(p2.x-p1.x)*(p4.y-p3.y)-(p4.x-p3.x)*(p2.y-p1.y);
-		if(det===0){return f;}
-		else{
-			let lambda=((p4.y-p3.y)*(p4.x-p1.x)+(p3.x-p4.x)*(p4.y-p1.y))/det,
-			gamma=((p1.y-p2.y)*(p4.x-p1.x)+(p2.x-p1.x)*(p4.y-p1.y))/det;
-			return 0<lambda&&lambda<1&&0<gamma&&gamma<1;
-		}
-	}
+  }
+  removeOverlappingLines(hull) {
+    for (let i = 0; i < hull.length; i++) {
+      for (let j = i + 2; j < hull.length; j++) {
+        if (
+          this.linesIntersect(
+            hull[i],
+            hull[i + 1],
+            hull[j],
+            hull[(j + 1) % hull.length]
+          )
+        ) {
+          hull[i + 1] = Vector2D.new(hull[i])
+            .midPoint(hull[i + 1])
+            .destroy().copy;
+        }
+      }
+    }
+  }
+  linesIntersect(p1, p2, p3, p4) {
+    let det = (p2.x - p1.x) * (p4.y - p3.y) - (p4.x - p3.x) * (p2.y - p1.y);
+    if (det === 0) {
+      return F;
+    } else {
+      let lambda =
+          ((p4.y - p3.y) * (p4.x - p1.x) + (p3.x - p4.x) * (p4.y - p1.y)) / det,
+        gamma =
+          ((p1.y - p2.y) * (p4.x - p1.x) + (p2.x - p1.x) * (p4.y - p1.y)) / det;
+      return 0 < lambda && lambda < 1 && 0 < gamma && gamma < 1;
+    }
+  }
 }
 
-class Vector2D extends Obj{
-	constructor(x,y,magnitude){
-		super("x",x,"y",y,"magnitude",magnitude);
-	}
-	normal(scale=1){
-		let len=this.length;
-		if(len!=0){
-			this.x=scale*this.x/len;
-			this.y=scale*this.y/len;
-		}else{
-			this.x=0;
-			this.y=0;
-		}
-		return this;
-	}
-	get radius(){return this.magnitude;}
-	set radius(rad){this.magnitude=rad;}
-	static new(clone={x:0,y:0,magnitude:0},isArr=f){
-		if(!!isArr){return Vector2D.pool.spawn(...arguments);}
-		return Vector2D.pool.spawn(clone.x,clone.y,clone.magnitude);
-	}
-	destroy(){
-		Vector2D.pool.clear(this);
-		return this;
-	}
-	set(x,y){
-		this.x=x;
-		this.y=y;
-		return this;
-	}
-	add(vec){
-		this.x+=vec.x;
-		this.y+=vec.y;
-		return this;
-	}
-	sub(vec){
-		this.x-=vec.x;
-		this.y-=vec.y;
-		return this;
-	}
-	static combine(vec1,vec2){
-		return {x:vec1.x+vec2.x,y:vec1.y+vec2.y};
-	}
-	static diff(vec1,vec2){
-		return {x:vec1.x-vec2.x,y:vec1.y-vec2.y};
-	}
-	scale(scale=this.magnitude){
-		this.x*=scale;
-		this.y*=scale;
-		return this;
-	}
-	divide(scale){
-		this.x/=scale;
-		this.y/=scale;
-		return this;
-	}
-	apply(func){
-		this.x=func(this.x);
-		this.y=func(this.y);
-		return this;
-	}
-	clone(vec){
-		this.x=vec.x;
-		this.y=vec.y;
-		return this;
-	}
-	rotate(amount){
-		this.angle+=amount;
-		return this;
-	}
-	get angle(){return Math.atan2(this.y,this.x);}
-	set angle(angle){
-		let length=this.length;
-		this.x=Math.cos(angle)*length;
-		this.y=Math.sin(angle)*length;
-		return this;
-	}
-	static getAngle(vec1,vec2){
-		return Math.atan2(vec2.y-vec1.y,vec2.x-vec1.x);
-	}
-	get copy(){
-		return [this.x,this.y];
-	}
-	get cut(){
-		return this.destroy().copy;
-	}
-	crossProduct(vec){
-		return (this.x*vec.y)-(this.y*vec.x);
-	}
-	static crossProduct3(a,b,c){
-		return (b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
-	}
-	clamp8Angle(angle){
-		if(angle>2.275){this.dir=2;}//3==u--2.65
-		else if(angle>2.1){this.dir=1;}//2.3==ur--1.9
-		else if(angle>1.025){this.dir=0;}//1.5==r--1.15
-		else if(angle>0.8){this.dir=7;}//0.8==dr--0.4
-		else if(angle>-0.8){this.dir=6;}//0==d~~-0.4
-		else if(angle>-1.025){this.dir=5;}//-0.8==dl~~-1.15
-		else if(angle>-2.1){this.dir=4;}//-1.5==l~~-1.9
-		else if(angle>-2.275){this.dir=3;}//-2.3==ul~~-2.65
-		else{this.dir=2;}//-3==u
-		
-		return angle;
-	}
-	get length(){
-		return  HYPOT(this.x,this.y);
-	}
-	distance(vec){
-		return HYPOT(vec.x,vec.y,this.x,this.y);}
-	static getDistance(vec1,vec2){
-		return HYPOT(vec1.x,vec1.y,vec2.x,vec2.y);
-	}
-	clamp(min=0,max=this.magnitude){
-		this.x=this.clampVal(this.x,min,max);
-		this.y=this.clampVal(this.y,min,max);
-		return this;
-	}
-	clampVal(value,min,max){
-		return Math.min(Math.max(value,min),max);
-	}
-	midPoint(vec){
-		this.x=(this.x+vec.x)/2;
-		this.y=(this.y+vec.y)/2;
-		return this;
-	}
-	setBase(){}
+class Vector2D extends Obj {
+  constructor(x, y, magnitude) {
+    super("x", x, "y", y, "magnitude", magnitude);
+  }
+  normal(scale = 1) {
+    let len = this.length;
+    if (len != 0) {
+      this.x = (scale * this.x) / len;
+      this.y = (scale * this.y) / len;
+    } else {
+      this.x = 0;
+      this.y = 0;
+    }
+    return this;
+  }
+  get radius() {
+    return this.magnitude;
+  }
+  set radius(rad) {
+    this.magnitude = rad;
+  }
+  static new(clone = { x: 0, y: 0, magnitude: 0 }, isArr = F) {
+    if (!!isArr) {
+      return Vector2D.pool.spawn(...arguments);
+    }
+    return Vector2D.pool.spawn(clone.x, clone.y, clone.magnitude);
+  }
+  destroy() {
+    Vector2D.pool.clear(this);
+    return this;
+  }
+  set(x, y) {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+  add(vec) {
+    this.x += vec.x;
+    this.y += vec.y;
+    return this;
+  }
+  sub(vec) {
+    this.x -= vec.x;
+    this.y -= vec.y;
+    return this;
+  }
+  static combine(vec1, vec2) {
+    return { x: vec1.x + vec2.x, y: vec1.y + vec2.y };
+  }
+  static diff(vec1, vec2) {
+    return { x: vec1.x - vec2.x, y: vec1.y - vec2.y };
+  }
+  scale(scale = this.magnitude) {
+    this.x *= scale;
+    this.y *= scale;
+    return this;
+  }
+  divide(scale) {
+    this.x /= scale;
+    this.y /= scale;
+    return this;
+  }
+  apply(func) {
+    this.x = func(this.x);
+    this.y = func(this.y);
+    return this;
+  }
+  clone(vec) {
+    this.x = vec.x;
+    this.y = vec.y;
+    return this;
+  }
+  rotate(amount) {
+    this.angle += amount;
+    return this;
+  }
+  get angle() {
+    return Math.atan2(this.y, this.x);
+  }
+  set angle(angle) {
+    let length = this.length;
+    this.x = Math.cos(angle) * length;
+    this.y = Math.sin(angle) * length;
+    return this;
+  }
+  static getAngle(vec1, vec2) {
+    return Math.atan2(vec2.y - vec1.y, vec2.x - vec1.x);
+  }
+  get copy() {
+    return [this.x, this.y];
+  }
+  get cut() {
+    return this.destroy().copy;
+  }
+  crossProduct(vec) {
+    return this.x * vec.y - this.y * vec.x;
+  }
+  static crossProduct3(a, b, c) {
+    return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+  }
+  clamp8Angle(angle) {
+    if (angle > 2.275) {
+      this.dir = 2;
+    } //3==u--2.65
+    else if (angle > 2.1) {
+      this.dir = 1;
+    } //2.3==ur--1.9
+    else if (angle > 1.025) {
+      this.dir = 0;
+    } //1.5==r--1.15
+    else if (angle > 0.8) {
+      this.dir = 7;
+    } //0.8==dr--0.4
+    else if (angle > -0.8) {
+      this.dir = 6;
+    } //0==d~~-0.4
+    else if (angle > -1.025) {
+      this.dir = 5;
+    } //-0.8==dl~~-1.15
+    else if (angle > -2.1) {
+      this.dir = 4;
+    } //-1.5==l~~-1.9
+    else if (angle > -2.275) {
+      this.dir = 3;
+    } //-2.3==ul~~-2.65
+    else {
+      this.dir = 2;
+    } //-3==u
+
+    return angle;
+  }
+  get length() {
+    return HYPOT(this.x, this.y);
+  }
+  distance(vec) {
+    return HYPOT(vec.x, vec.y, this.x, this.y);
+  }
+  static getDistance(vec1, vec2) {
+    return HYPOT(vec1.x, vec1.y, vec2.x, vec2.y);
+  }
+  clamp(min = 0, max = this.magnitude) {
+    this.x = this.clampVal(this.x, min, max);
+    this.y = this.clampVal(this.y, min, max);
+    return this;
+  }
+  clampVal(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+  midPoint(vec) {
+    this.x = (this.x + vec.x) / 2;
+    this.y = (this.y + vec.y) / 2;
+    return this;
+  }
+  setBase() {}
 }
 
-class Pool{
-	constructor(objectClass,baseArgs=[],startCount){
-		this.activeGroup=[];//The objects in use
-		this.groupPool=[];//The objects in reserve
-		this.type=objectClass;//What type of objects are kepy
-		this.baseArgs=baseArgs;//The arguments that should go into every new object
-		this.multiAdd(startCount||0);//Add the beginning set of objects to the pool
-	}
-	//Add count many objects to the pool
-	multiAdd(count){
-		for(var index=0;index<count;index++){
-			this.add();
-	}	}
-	//Adds a new object to the pool
-	add(){
-		var obj=new this.type();
-		obj.setBase.apply(obj,this.baseArgs);
-		this.groupPool.push(obj);
-	}
-	//Removes an object from the pool or active group
-	remove(){
-		if(this.groupPool>0){this.groupPool.pop();}
-		else if(this.activeGroup>0){this.activeGroup.pop();}
-	}
-	removeAll(){
-		this.groupPool.length=0;
-		this.activeGroup.length=0;
-	}
-	//Moves all active to the pool
-	clearAll(){
-		this.groupPool.splice(0,0,
-			this.activeGroup.splice(0,this.activeGroup.length));
-	}
-	//Moves an object from the active to the pool
-	clear(object){
-		this.groupPool.splice(0,0,
-			this.activeGroup.splice(this.activeGroup.indexOf(object),1)[0]);
-	}
-	//Moves an object of this.type from the the groupPool to the activeGroup
-	spawn(){
-		if(this.groupPool<=0){this.add();}//If the pool is empty, add another object
-		var object=this.groupPool.pop();//Grab an object from the pool
-		object.set.apply(object,arguments);//Set it with the relative arguments
-		this.activeGroup.push(object);//Move the object to the active group
-		return object;//And return it
-	}
-	//Set the base arguments for all of the objects
-	setBases(){
-		this.baseArgs=arguments;
-		for(var index=0;index<this.activeGroup.length;index++){
-			this.activeGroup[index].setBase.apply(this.activeGroup[index],arguments);
-		}
-		for(var index=0;index<this.groupPool.length;index++){
-			this.groupPool[index].setBase.apply(this.groupPool[index],arguments);
-		}
-	}
-	update(collisionCheck,tick){
-		for(var index=0;index<this.activeGroup.length;index++){
-			if(this.activeGroup[index].update(collisionCheck,tick)){
-				this.clear(this.activeGroup[index]);
-			}
-		}
-	}
-	count(){return this.activeGroup.length;}
-	draw(){
-		for(var index=0;index<this.activeGroup.length;index++){
-			this.activeGroup[index].draw();
-		}
-	}
+class Pool {
+  constructor(objectClass, baseArgs = [], startCount) {
+    this.activeGroup = []; //The objects in use
+    this.groupPool = []; //The objects in reserve
+    this.type = objectClass; //What type of objects are kepy
+    this.baseArgs = baseArgs; //The arguments that should go into every new object
+    this.multiAdd(startCount || 0); //Add the beginning set of objects to the pool
+  }
+  //Add count many objects to the pool
+  multiAdd(count) {
+    for (var index = 0; index < count; index++) {
+      this.add();
+    }
+  }
+  //Adds a new object to the pool
+  add() {
+    var obj = new this.type();
+    obj.setBase.apply(obj, this.baseArgs);
+    this.groupPool.push(obj);
+  }
+  //Removes an object from the pool or active group
+  remove() {
+    if (this.groupPool > 0) {
+      this.groupPool.pop();
+    } else if (this.activeGroup > 0) {
+      this.activeGroup.pop();
+    }
+  }
+  removeAll() {
+    this.groupPool.length = 0;
+    this.activeGroup.length = 0;
+  }
+  //Moves all active to the pool
+  clearAll() {
+    this.groupPool.splice(
+      0,
+      0,
+      this.activeGroup.splice(0, this.activeGroup.length)
+    );
+  }
+  //Moves an object from the active to the pool
+  clear(object) {
+    this.groupPool.splice(
+      0,
+      0,
+      this.activeGroup.splice(this.activeGroup.indexOf(object), 1)[0]
+    );
+  }
+  //Moves an object of this.type from the the groupPool to the activeGroup
+  spawn() {
+    if (this.groupPool <= 0) {
+      this.add();
+    } //If the pool is empty, add another object
+    var object = this.groupPool.pop(); //Grab an object from the pool
+    object.set.apply(object, arguments); //Set it with the relative arguments
+    this.activeGroup.push(object); //Move the object to the active group
+    return object; //And return it
+  }
+  //Set the base arguments for all of the objects
+  setBases() {
+    this.baseArgs = arguments;
+    for (var index = 0; index < this.activeGroup.length; index++) {
+      this.activeGroup[index].setBase.apply(this.activeGroup[index], arguments);
+    }
+    for (var index = 0; index < this.groupPool.length; index++) {
+      this.groupPool[index].setBase.apply(this.groupPool[index], arguments);
+    }
+  }
+  update(collisionCheck, tick) {
+    for (var index = 0; index < this.activeGroup.length; index++) {
+      if (this.activeGroup[index].update(collisionCheck, tick)) {
+        this.clear(this.activeGroup[index]);
+      }
+    }
+  }
+  count() {
+    return this.activeGroup.length;
+  }
+  draw() {
+    for (var index = 0; index < this.activeGroup.length; index++) {
+      this.activeGroup[index].draw();
+    }
+  }
 }
-class PoolObject{
-	constructor(){}
-	setBase(){}
-	set(){}
-	update(actorCollision,tick){}
-	draw(){}
+class PoolObject {
+  constructor() {}
+  setBase() {}
+  set() {}
+  update(actorCollision, tick) {}
+  draw() {}
 }
 </script>
-<style>
-	.objectName{
-		
-	}
-</style>
