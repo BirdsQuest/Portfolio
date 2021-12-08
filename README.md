@@ -44,3 +44,9 @@ However, I was hard coding all of the test data.
 When it came time to attach it to a database, there was too overwhelming and I wound up scrapping the project to refactor on a rainy day.
 I felt, when dealing with a database, it's important to write the code with it in mind.
 So I made a Chrome Extension that saves data locally and acts as a basic database.
+
+
+> Thank you for taking the time to look through my portfolio. If there are any discrepancies or questions, please feel free to ask. Disclaimer: This was done in my free time when I wasn’t doing work for my previous job, on a Chromebook with a half working mobile phone and no budget. It’s lacking a little polish, but I can guarantee if given the chance; I will work to my highest possible level of excellence.
+I look forward to hearing from you.
+
+> -Matt Bird
